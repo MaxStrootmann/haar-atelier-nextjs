@@ -21,10 +21,10 @@ export default async function handler(
         billing_address_collection: "auto",
         shipping_options: [
           {
-            shipping_rate: "shr_1LwIjtHs6qS0xDzPhMIPdvAd"
+            shipping_rate: "shr_1Nid0ABTrHWnWUF3jNMPwByf"
           },
           {
-            shipping_rate: "shr_1LwIkrHs6qS0xDzP3qphYXpq"
+            shipping_rate: "shr_1Nid1KBTrHWnWUF3HsuvFccB"
           }
         ],
         line_items: req.body.items.map((item: CartProduct) => {
@@ -32,7 +32,7 @@ export default async function handler(
 
           return {
             price_data: {
-              currency: "USD",
+              currency: "EUR",
               product_data: {
                 name: item.name,
                 images: [imgUrl]
