@@ -5,7 +5,10 @@ import { useContext } from "react";
 import CartItemsContext from "contexts/cartItemsContext";
 import CartVisibilityContext from "contexts/cartVisibilityContext";
 import { CartProduct } from "lib/interfaces";
-import { MdShoppingCart } from "react-icons/md";
+import { MdShoppingCart, MdManageSearch, MdShoppingBag } from "react-icons/md";
+import { MdOutlineShoppingBag } from "react-icons/md";
+import haalogo from "/public/haalogo.svg"
+import Image from "next/image";
 
 const Header = () => {
   const { cart } = useContext(CartItemsContext);
@@ -19,34 +22,40 @@ const Header = () => {
   return (
     <>
       <Cart />
-      <header className="bg-black sticky top-0 z-20">
+      <header className=" bg-wolken sticky top-0 z-20">
         <div className="w-full mx-auto flex justify-between py-4 max-w-7xl px-6">
           <nav>
             <ul className={styles.mainNav}>
               <li>
                 <Link href="/">
-                  <a>Shop</a>
+                  <a>
+                    <Image
+                  src= {haalogo}
+                  alt= "home logo Haar Atelier Alkmaar"
+                  ></Image>
+                  </a>
                 </Link>
-              </li>
-              <li>
-                <a href="https://github.com/loq24/nextjs-sanity-ecommerce">
-                  Github
-                </a>
               </li>
             </ul>
           </nav>
           <div>
-            <button className="relative z-50 border-0 bg-transparent outline-0">
-              <MdShoppingCart
-                color="white"
+            <button className=" mr-4 relative z-50 border-0 bg-transparent outline-0">
+              <MdOutlineShoppingBag
+                color="black"
                 onClick={toggleCartVisibility}
-                size={30}
+                size={24}
               />
               {cartLength > 0 && (
                 <span className="absolute w-4 h-4 text-black text-xs border border-solid border-gray-500 rounded-full flex flex-row justify-center items-center p-2 -left-1 -bottom-1 bg-white">
                   {cartLength}
                 </span>
               )}
+            </button>
+            <button className="relative z-50 border-0 bg-transparent outline-0">
+              <MdManageSearch
+                color="black"
+                size={34}
+              />
             </button>
           </div>
         </div>

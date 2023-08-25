@@ -51,7 +51,7 @@ const Item: React.FC<ItemProps> = ({ product }) => {
           <span className="text-lg ml-4 text-white">{name}</span>
         </div>
         <div className="w-1/5">
-          <span className="text-lg text-gray-300">
+          <span className="text-lg text-grey-300">
             ${on_sale ? sale_price : price}
           </span>
         </div>
@@ -59,7 +59,7 @@ const Item: React.FC<ItemProps> = ({ product }) => {
       <div className="flex flex-row">
         <button
           onClick={removeWholeProduct}
-          className="border border-gray-500 p-1 border-solid w-9 h-9 flex flex-row justify-center items-center"
+          className="border border-grey-500 p-1 border-solid w-9 h-9 flex flex-row justify-center items-center"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -78,18 +78,18 @@ const Item: React.FC<ItemProps> = ({ product }) => {
         </button>
         <input
           type="text"
-          className="border border-gray-500 p-1 border-solid bg-transparent ml-2 outline-none text-white flex-1 h-9 pl-3"
+          className="border border-grey-500 p-1 border-solid bg-transparent ml-2 outline-none text-white flex-1 h-9 pl-3"
           value={quantity}
           disabled
         />
         <button
-          className="border border-gray-500 p-1 border-solid w-9 h-9 flex flex-row justify-center items-center text-white font-light text-lg"
+          className="border border-grey-500 p-1 border-solid w-9 h-9 flex flex-row justify-center items-center text-white font-light text-lg"
           onClick={removeSingleItem}
         >
           -
         </button>
         <button
-          className="border border-gray-500 p-1 border-solid w-9 h-9 flex flex-row justify-center items-center text-white font-light text-lg"
+          className="border border-grey-500 p-1 border-solid w-9 h-9 flex flex-row justify-center items-center text-white font-light text-lg"
           onClick={addSingleItem}
         >
           +
