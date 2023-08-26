@@ -5,14 +5,16 @@ import { useContext } from "react";
 import CartItemsContext from "contexts/cartItemsContext";
 import CartVisibilityContext from "contexts/cartVisibilityContext";
 import { CartProduct } from "lib/interfaces";
-import { MdShoppingCart, MdManageSearch, MdShoppingBag } from "react-icons/md";
-import { MdOutlineShoppingBag } from "react-icons/md";
+import { MdManageSearch, MdOutlineShoppingBag } from "react-icons/md";
 import haalogo from "/public/haalogo.svg"
 import Image from "next/image";
+import SearchVisibilityContext from "contexts/searchVisibilityContext";
+import Searchbar from "./Searchbar/Searchbar";
 
 const Header = () => {
   const { cart } = useContext(CartItemsContext);
   const { toggleCartVisibility } = useContext(CartVisibilityContext);
+  const { toggleSearchVisibility } = useContext(SearchVisibilityContext);
   const cartLength = cart.reduce(
     (count: number, item: CartProduct) =>
       (count += item.quantity ? item.quantity : 1),
@@ -21,6 +23,7 @@ const Header = () => {
 
   return (
     <>
+    <Searchbar />
       <Cart />
       <header className=" bg-wolken sticky top-0 z-20">
         <div className="w-full mx-auto flex justify-between py-4 max-w-7xl px-6">
@@ -53,6 +56,7 @@ const Header = () => {
             </button>
             <button className="relative z-50 border-0 bg-transparent outline-0">
               <MdManageSearch
+                onClick={toggleSearchVisibility}
                 color="black"
                 size={34}
               />

@@ -11,6 +11,7 @@ import { CookieCart, CartProduct } from "lib/interfaces";
 import Cookies from "js-cookie";
 import client from "lib/sanity/client";
 import { useRouter } from "next/router";
+import SearchVisibilityContext from "contexts/searchVisibilityContext";
 
 const cartItems = Cookies.get("_cart");
 
@@ -25,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [cart, dispatch] = useReducer(cartReducer, []);
   const [cartVisibility, setCartVisibilty] = useState(false);
+  const [searchVisibility, setSearchVisibilty] = useState(false);
 
   const appendTotalItemsField = (products: CartProduct[]) => {
     return products.map((product: CartProduct, i) => {
@@ -37,6 +39,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const toggleCartVisibility = () => {
     setCartVisibilty(!cartVisibility);
+  };
+  
+  const toggleSearchVisibility = () => {
+    setSearchVisibilty(!searchVisibility);
   };
 
   useEffect(() => {
@@ -61,6 +67,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
+    <SearchVisibilityContext.Provider
+    value={{
+    searchVisibility,
+    toggleSearchVisibility
+    }}>
     <CartItemsContext.Provider
       value={{
         cart,
@@ -78,6 +89,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </PageLayout>
       </CartVisibilityContext.Provider>
     </CartItemsContext.Provider>
+    </SearchVisibilityContext.Provider>
   );
 }
 
