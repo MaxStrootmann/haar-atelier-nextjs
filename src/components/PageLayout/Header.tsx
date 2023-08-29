@@ -1,17 +1,28 @@
 import styles from "styles/components/PageLayout/Header.module.scss";
 import Link from "next/link";
 import Cart from "./Cart/Cart";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import CartItemsContext from "contexts/cartItemsContext";
 import CartVisibilityContext from "contexts/cartVisibilityContext";
-import { CartProduct } from "lib/interfaces";
+import { CartProduct, CategorySchema, ProductSchema } from "lib/interfaces";
 import { MdManageSearch, MdOutlineShoppingBag } from "react-icons/md";
 import haalogo from "/public/haalogo.svg"
 import Image from "next/image";
 import SearchVisibilityContext from "contexts/searchVisibilityContext";
 import Searchbar from "./Searchbar/Searchbar";
+import { GetStaticProps } from "next";
+import client from "lib/sanity/client";
+import categoriesQuery from "lib/sanity/queries/categories";
+import onSaleProductsQuery from "lib/sanity/queries/on_sale_products";
 
-const Header = () => {
+interface HeaderProps {
+  children: React.ReactNode;
+  categories: CategorySchema[];
+  products: ProductSchema[];
+}
+
+
+const Header: React.FC<HeaderProps> = ({ categories, products }) => {
   const { cart } = useContext(CartItemsContext);
   const { toggleCartVisibility } = useContext(CartVisibilityContext);
   const { toggleSearchVisibility } = useContext(SearchVisibilityContext);
@@ -23,7 +34,7 @@ const Header = () => {
 
   return (
     <>
-    <Searchbar />
+    <Searchbar categories={categories} products={products} />
       <Cart />
       <header className=" bg-wolken sticky top-0 z-20">
         <div className="w-full mx-auto flex justify-between py-4 max-w-7xl px-6">
@@ -66,6 +77,20 @@ const Header = () => {
       </header>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const categories = await client.fetch(categoriesQuery);
+  const onSaleProducts = await client.fetch(onSaleProductsQuery);
+
+  if (!categories || !onSaleProducts) {
+    throw Error("Sorry, something went wrong.");
+  }
+
+  return {
+    props: { categories, products: onSaleProducts },
+    revalidate: 60
+  };
 };
 
 export default Header;

@@ -2,11 +2,18 @@ import SearchVisibilityContext from "contexts/searchVisibilityContext";
 import { useContext } from "react";
 import classNames from "classnames";
 import MyComboBox from "./MyComboBox";
+import { CategorySchema, ProductSchema } from "lib/interfaces";
 
-export default function Searchbar() {
+interface SearchbarProps {
+  categories: CategorySchema[];
+  products: ProductSchema[];
+}
+const Searchbar: React.FC<SearchbarProps> = ({ categories, products }) => {
+
   const { searchVisibility, toggleSearchVisibility } = useContext(
     SearchVisibilityContext
   );
+
 
   return (
     <>
@@ -24,8 +31,10 @@ export default function Searchbar() {
           hidden: !searchVisibility,
         })}
       >
-        <MyComboBox />
+        <MyComboBox categories={categories} products={products}/>
       </div>
     </>
   );
-}
+};
+
+export default Searchbar;

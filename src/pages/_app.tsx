@@ -1,17 +1,24 @@
 import "styles/globals.scss";
 import type { AppProps } from "next/app";
-import { useEffect, useReducer, useState } from "react";
+import React, { ReactNode, useEffect, useReducer, useState } from "react";
 import PageLayout from "components/PageLayout/PageLayout";
 import CartItemsContext from "contexts/cartItemsContext";
 import CartVisibilityContext from "contexts/cartVisibilityContext";
 import { cartReducer } from "reducers/cart/reducer";
 import Types from "reducers/cart/types";
 import productsBySlugsQuery from "lib/sanity/queries/products_by_slugs";
-import { CookieCart, CartProduct } from "lib/interfaces";
+import { CookieCart, CartProduct, CategorySchema, ProductSchema } from "lib/interfaces";
 import Cookies from "js-cookie";
 import client from "lib/sanity/client";
 import { useRouter } from "next/router";
 import SearchVisibilityContext from "contexts/searchVisibilityContext";
+import { DataProvider } from "contexts/DataContext";
+
+interface MyAppProps {
+  children: React.ReactNode;
+  categories: CategorySchema[];
+  products: ProductSchema[];
+}
 
 const cartItems = Cookies.get("_cart");
 
@@ -22,7 +29,9 @@ const slugs =
     return [...slugs, item.slug];
   }, []);
 
-function MyApp({ Component, pageProps }: AppProps) {
+
+const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyAppProps) => {
+
   const router = useRouter();
   const [cart, dispatch] = useReducer(cartReducer, []);
   const [cartVisibility, setCartVisibilty] = useState(false);
@@ -83,14 +92,17 @@ function MyApp({ Component, pageProps }: AppProps) {
           cartVisibility,
           toggleCartVisibility
         }}
-      >
-        <PageLayout>
+        >
+        <DataProvider>
+        <PageLayout categories={categories} products={products}>
           <Component {...pageProps} />
         </PageLayout>
+        </DataProvider>
       </CartVisibilityContext.Provider>
     </CartItemsContext.Provider>
     </SearchVisibilityContext.Provider>
   );
-}
+};
+
 
 export default MyApp;

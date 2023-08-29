@@ -26,7 +26,8 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.6.0",
     "sass": "^1.55.0",
-    "stripe": "^10.15.0"
+    "stripe": "^10.15.0",
+    "zustand": "^4.4.1"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.2",
