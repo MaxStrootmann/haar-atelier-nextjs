@@ -27,7 +27,7 @@ const Searchbar: React.FC<SearchbarProps> = ({ categories, products }) => {
         )}
       ></div>
       <div
-        className={classNames("z-30", {
+        className={classNames("z-50", {
           hidden: !searchVisibility,
         })}
       >

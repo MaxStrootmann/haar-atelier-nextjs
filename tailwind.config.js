@@ -25,13 +25,19 @@ module.exports = {
         'bg-500': '#faeede',
         'bg-800': '#fbe8d4',
         'accent-500': '#b3966b',
+        'natulique': '#503421',
         'bubble-gum': '#ff77e9',
         'bermuda': '#78dcca',
       },
       backgroundImage: {
 				'wolken': "url('/Achtergrond.jpg')"
 			},
+     fontsize : {
+        xxs: ['0.625rem', '0.75rem']
+      },
       width: {
+        "26": "6.5rem",
+        "18": "4.5rem",
         "custom-31": "31.871429%",
         "custom-66": "66%"
       }

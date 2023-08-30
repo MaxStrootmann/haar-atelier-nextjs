@@ -15,6 +15,8 @@ import client from "lib/sanity/client";
 import categoriesQuery from "lib/sanity/queries/categories";
 import onSaleProductsQuery from "lib/sanity/queries/on_sale_products";
 
+
+
 interface HeaderProps {
   children: React.ReactNode;
   categories: CategorySchema[];
@@ -36,16 +38,18 @@ const Header: React.FC<HeaderProps> = ({ categories, products }) => {
     <>
     <Searchbar categories={categories} products={products} />
       <Cart />
-      <header className=" bg-wolken sticky top-0 z-20">
+      <header className="sticky top-0">
         <div className="w-full mx-auto flex justify-between py-4 max-w-7xl px-6">
           <nav>
             <ul className={styles.mainNav}>
-              <li>
+              <li className=" mt-2 w-36 lg:w-56">
                 <Link href="/">
                   <a>
                     <Image
                   src= {haalogo}
-                  alt= "home logo Haar Atelier Alkmaar"
+                  alt= "Haar Atelier Alkmaar Logo"
+                  width={771}
+                  height={197}
                   ></Image>
                   </a>
                 </Link>
@@ -58,6 +62,7 @@ const Header: React.FC<HeaderProps> = ({ categories, products }) => {
                 color="black"
                 onClick={toggleCartVisibility}
                 size={24}
+                className="lg:w-8 lg:h-8"
               />
               {cartLength > 0 && (
                 <span className="absolute w-4 h-4 text-black text-xs border border-solid border-gray-500 rounded-full flex flex-row justify-center items-center p-2 -left-1 -bottom-1 bg-white">
@@ -70,6 +75,7 @@ const Header: React.FC<HeaderProps> = ({ categories, products }) => {
                 onClick={toggleSearchVisibility}
                 color="black"
                 size={34}
+                className="lg:w-12 lg:h-12"
               />
             </button>
           </div>

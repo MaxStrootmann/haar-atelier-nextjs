@@ -3,7 +3,7 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html className="bg-wolken bg-repeat min-h-screen" lang="en">
         <Head>
           <link
             rel="preconnect"

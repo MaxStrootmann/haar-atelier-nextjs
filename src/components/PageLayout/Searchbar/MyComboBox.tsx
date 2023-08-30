@@ -67,7 +67,7 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({
                   <>
                     <h2 className="font-bold ml-6 my-2">Categorieën</h2>
                     {filteredCategories.map((category) => (
-                      <Link href={`/category/${category.slug}`}>
+                      <Link key={category._id} href={`/category/${category.slug}`}>
                         <a>
                           <Combobox.Option
                             key={category._id}
