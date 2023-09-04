@@ -1,6 +1,6 @@
 import "styles/globals.scss";
 import type { AppProps } from "next/app";
-import React, { ReactNode, useEffect, useReducer, useState } from "react";
+import React, { ReactNode, useContext, useEffect, useReducer, useState } from "react";
 import PageLayout from "components/PageLayout/PageLayout";
 import CartItemsContext from "contexts/cartItemsContext";
 import CartVisibilityContext from "contexts/cartVisibilityContext";
