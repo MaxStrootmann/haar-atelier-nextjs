@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ categories, products }) => {
     <>
     <Searchbar categories={categories} products={products} />
       <Cart />
-      <header className="sticky top-0">
+      <header className="sticky">
         <div className="w-full mx-auto flex justify-between py-4 max-w-7xl px-6">
           <nav>
             <ul className={styles.mainNav}>

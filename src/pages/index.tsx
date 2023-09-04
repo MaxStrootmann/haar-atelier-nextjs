@@ -6,6 +6,7 @@ import { CategorySchema, ProductSchema } from "lib/interfaces/schema";
 import MetaHead from "components/MetaHead";
 import CategoryList from "components/CategoryList/CategoryList";
 import ProductList from "components/ProductList/ProductList";
+import WebshopHero from "components/Hero/WebshopHero";
 
 interface HomeProps {
   categories: CategorySchema[];
@@ -15,12 +16,9 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ categories, products }) => {
   return (
     <>
-      <MetaHead description="An eCommerce app that is built by NextJS, Sanity and Stripe." />
-      <h1 className="main-heading text-center">Shop all you want!</h1>
-      {categories && <CategoryList categories={categories} />}
-
-      <h2 className="main-heading text-center">On Sale!</h2>
-      {products && <ProductList products={products} />}
+      <MetaHead description="Gespecialiseerd in het kleuren van haar. Lived-in balayage, faceframing, highlights, blonde & brunettes. Haircuts voor mannen & vrouwen." />
+      <WebshopHero />
+      <div className="pt-[calc(100svh/2-2rem)] lg:pt-[calc(100svh/1.2-2rem)]"></div>
     </>
   );
 };
