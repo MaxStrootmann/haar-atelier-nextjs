@@ -40,6 +40,9 @@ module.exports = {
         "18": "4.5rem",
         "custom-31": "31.871429%",
         "custom-66": "66%"
+      },
+      transitionDuration: {
+        '2000': '2000ms',
       }
     }
   },

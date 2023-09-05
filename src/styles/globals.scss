@@ -29,3 +29,21 @@ html {
   background-color: #666;
   -webkit-border-radius: 6px;
 }
+.animation-marquee {
+  animation: marquee 200s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 1536px) { /* 2xl in Tailwind */
+  .bg-wolken {
+    background-size: auto 100%; /* adjust this according to your need */
+  }
+}

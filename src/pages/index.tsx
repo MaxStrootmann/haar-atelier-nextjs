@@ -7,6 +7,7 @@ import MetaHead from "components/MetaHead";
 import CategoryList from "components/CategoryList/CategoryList";
 import ProductList from "components/ProductList/ProductList";
 import WebshopHero from "components/Hero/WebshopHero";
+import WebshopMarquee from "components/Hero/WebshopMarquee";
 
 interface HomeProps {
   categories: CategorySchema[];
@@ -17,8 +18,9 @@ const Home: React.FC<HomeProps> = ({ categories, products }) => {
   return (
     <>
       <MetaHead description="Gespecialiseerd in het kleuren van haar. Lived-in balayage, faceframing, highlights, blonde & brunettes. Haircuts voor mannen & vrouwen." />
-      <WebshopHero />
-      <div className="pt-[calc(100svh/2-2rem)] lg:pt-[calc(100svh/1.2-2rem)]"></div>
+      <div className="mb-16">
+        <WebshopHero />
+      </div>
     </>
   );
 };
@@ -33,7 +35,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: { categories, products: onSaleProducts },
-    revalidate: 60
+    revalidate: 60,
   };
 };
 

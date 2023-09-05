@@ -2,8 +2,8 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
 export default function WebshopHero() {
-
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [secondImageIndex, setSecondImageIndex] = useState(7);
 
   const images = [
     { id: 1, src: "/haa_ps_anti.jpg", alt: "Anti hairloss" },
@@ -25,28 +25,46 @@ export default function WebshopHero() {
   ];
 
   useEffect(() => {
-   const interval = setInterval(() => {
-     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-   }, 3000); // Change image every 3 seconds
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setSecondImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 8000); // Change image every 3 seconds
 
-   return () => clearInterval(interval); // Cleanup the interval on component unmount
- }, []);
+    return () => clearInterval(interval); // Cleanup the interval on component unmount
+  }, []);
 
   return (
-    <div className="absolute top-0 w-screen h-[calc(100svh/2)] sm:h-[calc(100svh/2)]">
-      {images.map((image, index) => {
-        return (
-          <Image
-            key={image.id}
-            src={image.src}
-            alt={image.alt}
-            layout="fill"
-            className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ${
-              index === currentImageIndex ? "opacity-100" : "opacity-0"
-            }`}
-          />
-        );
-      })}
+    <div className="-mt-20 lg:-mt-28 flex flex-col mx-auto sm:flex-row 2xl:max-w-screen-2xl">
+      <div className="relative w-screen h-[calc(100vh/2)] md:h-[calc(100vh/1.2)] sm:w:1/2 ">
+        {images.map((image, index) => {
+          return (
+            <Image
+              key={image.id}
+              src={image.src}
+              alt={image.alt}
+              layout="fill"
+              className={`object-cover transition-opacity duration-2000 ${
+                index === currentImageIndex ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          );
+        })}
+      </div>
+      <div className="hidden sm:block relative w-screen h-[calc(100vh/2)] md:h-[calc(100vh/1.2)] sm:w:1/2 ">
+        {images.map((image, index) => {
+          return (
+            <Image
+              key={image.id}
+              src={image.src}
+              alt={image.alt}
+              layout="fill"
+              className={`object-cover transition-opacity duration-2000 ${
+                index === secondImageIndex ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
