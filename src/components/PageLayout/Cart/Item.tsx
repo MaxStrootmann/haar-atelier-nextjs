@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styles from "styles/components/PageLayout/Cart/Item.module.scss";
 import { CartProduct } from "lib/interfaces";
 import Image from "next/image";
@@ -12,7 +12,7 @@ interface ItemProps {
 
 const Item: React.FC<ItemProps> = ({ product }) => {
   const { dispatch } = useContext(CartItemsContext);
-  const { slug, featured_image, name, on_sale, sale_price, price, quantity } =
+  const { slug, featured_image, name, op_voorraad, price, quantity } =
     product;
 
   const removeWholeProduct = () => {
@@ -36,6 +36,8 @@ const Item: React.FC<ItemProps> = ({ product }) => {
     });
   };
 
+  const displayedPrice = product.price.toFixed(2).replace(".", ",");
+
   return (
     <div className={styles.item}>
       <div className="flex flex-row mb-3 justify-between">
@@ -52,7 +54,7 @@ const Item: React.FC<ItemProps> = ({ product }) => {
         </div>
         <div className="w-1/5">
           <span className="text-lg text-grey-300">
-            ${on_sale ? sale_price : price}
+            €{displayedPrice}
           </span>
         </div>
       </div>

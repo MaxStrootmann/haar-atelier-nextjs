@@ -27,17 +27,17 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
   return (
     <>
       <div className="bg-wolken bg-repeat min-h-screen">
-        <Headroom style={{ zIndex: "40" }}>
-          <Header
-            children={children}
-            categories={categories}
-            products={products}
-          />
-        </Headroom>
-        <div className="">
-          {children}
+        <div className="2xl:container">
+          <Headroom style={{ zIndex: "40" }}>
+            <Header
+              children={children}
+              categories={categories}
+              products={products}
+            />
+          </Headroom>
+          <div className="">{children}</div>
+          <Footer />
         </div>
-        <Footer />
       </div>
     </>
   );

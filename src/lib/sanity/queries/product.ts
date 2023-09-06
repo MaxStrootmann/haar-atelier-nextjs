@@ -8,13 +8,11 @@ const productQuery = groq`
     description,
     featured_image,
     price,
-    on_sale,
-    sale_price,
-    "categories": categories[]->{
+    op_voorraad,
+    "subcategories": subcategories[]->{
       title,
       'slug': slug.current
     },
-    sku
   }
 `;
 

@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode, useContext, useState, useEffect } from 'react';
 import client from "lib/sanity/client";
 import categoriesQuery from "lib/sanity/queries/categories";
-import onSaleProductsQuery from "lib/sanity/queries/on_sale_products";
+import popularProductsQuery from 'lib/sanity/queries/popular_products';
 
 interface DataContextProps {
   categories: any[];
@@ -17,7 +17,7 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => {
     const fetchData = async () => {
       const fetchedCategories = await client.fetch(categoriesQuery);
-      const fetchedProducts = await client.fetch(onSaleProductsQuery);
+      const fetchedProducts = await client.fetch(popularProductsQuery);
 
       setCategories(fetchedCategories);
       setProducts(fetchedProducts);

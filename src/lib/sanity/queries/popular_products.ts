@@ -1,17 +1,17 @@
 import groq from "groq";
 
-const onSaleProductsQuery = groq`
-  *[_type == "product" && on_sale == true][0..3]{
+const popularProductsQuery = groq`
+  *[_type == "product"]{
     _id,
     name,
     "slug": slug.current,
     description,
     featured_image,
     price,
-    on_sale,
+    op_voorraad,
     sale_price,
     sku
   }
 `;
 
-export default onSaleProductsQuery;
+export default popularProductsQuery;

@@ -8,8 +8,7 @@ const productsBySlugsQuery = groq`
     description,
     featured_image,
     price,
-    on_sale,
-    sale_price,
+    op_voorraad,
     sku
   }
 `;

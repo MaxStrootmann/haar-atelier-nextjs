@@ -16,7 +16,7 @@ const Cart = () => {
   const subTotal = cart
     .reduce((total, item: CartProduct) => {
       return (total +=
-        (item.on_sale ? item.sale_price : item.price) * (item.quantity ?? 1));
+        (item.price) * (item.quantity ?? 1));
     }, 0)
     .toFixed(2);
 

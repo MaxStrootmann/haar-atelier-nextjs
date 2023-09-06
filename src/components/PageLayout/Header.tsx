@@ -13,7 +13,7 @@ import Searchbar from "./Searchbar/Searchbar";
 import { GetStaticProps } from "next";
 import client from "lib/sanity/client";
 import categoriesQuery from "lib/sanity/queries/categories";
-import onSaleProductsQuery from "lib/sanity/queries/on_sale_products";
+import popularProductsQuery from "lib/sanity/queries/popular_products";
 
 
 
@@ -87,14 +87,14 @@ const Header: React.FC<HeaderProps> = ({ categories, products }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const categories = await client.fetch(categoriesQuery);
-  const onSaleProducts = await client.fetch(onSaleProductsQuery);
+  const popularProducts = await client.fetch(popularProductsQuery);
 
-  if (!categories || !onSaleProducts) {
+  if (!categories || !popularProducts) {
     throw Error("Sorry, something went wrong.");
   }
 
   return {
-    props: { categories, products: onSaleProducts },
+    props: { categories, products: popularProducts },
     revalidate: 60
   };
 };

@@ -40,13 +40,13 @@ export const cartReducer = (state: CartProduct[], action: ACTIONTYPES) => {
               price: parseFloat(
                 (product.price + product.price / quantity).toFixed(2)
               ),
-              quantity: quantity + 1
+              quantity: quantity + (action.payload.quantity || 1)
             };
           }
           return product;
         });
       } else {
-        cart = [...state, { ...action.payload, quantity: 1 }];
+        cart = [...state, { ...action.payload, quantity: action.payload.quantity || 1 }];
       }
 
       updateCookie(cart);

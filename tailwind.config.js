@@ -43,6 +43,10 @@ module.exports = {
       },
       transitionDuration: {
         '2000': '2000ms',
+      },
+      container: {
+        center: true,
+        padding: "0rem"
       }
     }
   },
