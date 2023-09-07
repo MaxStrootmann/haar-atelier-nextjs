@@ -7,7 +7,7 @@ interface ItemListProps {
 
 const ItemList: React.FC<ItemListProps> = ({ products }) => {
   return (
-    <div className="flex flex-col">
+    <div className="">
       {products.map((product) => (
         <Item key={product.slug} product={product} />
       ))}

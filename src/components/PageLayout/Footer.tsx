@@ -11,7 +11,7 @@ const d = new Date();
 const Footer = () => {
   return (
     <>
-      <div className="text-center">
+      <div className="mt-24 text-center">
         <div className="mb-8">
           <a href="https://www.natulique.com/nl/">
             <Image

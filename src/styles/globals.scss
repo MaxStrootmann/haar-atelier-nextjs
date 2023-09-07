@@ -1,34 +1,74 @@
 @use "helpers";
 
 @tailwind base;
+
+@layer base {
+  h1 {
+    @apply text-5xl;
+  }
+  h2 {
+    @apply text-3xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+
+};
+
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+
+
 body {
+  @apply font-sans;
   @apply bg-white;
 }
 
+h1, h2, h3, h4 {
+  @apply font-serif;
+}
+
+.reverse-shadow-md {
+  box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -1px rgba(0, 0, 0, 0.04);
+}
+
+
 html {
+  background-color: white;
   scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 4px;
 }
+
 ::-webkit-scrollbar-button:start:decrement,
 ::-webkit-scrollbar-button:end:increment {
   height: 30px;
   background-color: transparent;
 }
 ::-webkit-scrollbar-track-piece {
-  @apply bg-black;
+  @apply bg-transparent;
 }
 ::-webkit-scrollbar-thumb:vertical {
   height: 50px;
-  background-color: #666;
-  -webkit-border-radius: 6px;
+  @apply bg-grey-300;
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
 .animation-marquee {
   animation: marquee 200s linear infinite;
 }

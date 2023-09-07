@@ -51,7 +51,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
         </div>
       )}
       <div className="flex sm:flex-row flex-col justify-between w-full max-w-2xl mx-auto sm:mt-8 mt-3 mb-24">
-        <div className="overflow-hidden relative sm:w-2/5 w-full sm:mb-0 mb-5 h-80">
+        <div className="overflow-hidden relative sm:w-2/5 w-full sm:mb-0 mb-10 h-80">
           {product?.featured_image && (
             <Image
               src={urlFor(product.featured_image).url()}

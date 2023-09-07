@@ -15,10 +15,23 @@ const Cart = () => {
 
   const subTotal = cart
     .reduce((total, item: CartProduct) => {
-      return (total +=
-        (item.price) * (item.quantity ?? 1));
+      return (total += item.price * (item.quantity ?? 1));
     }, 0)
     .toFixed(2);
+
+  const shippingCalc = cart.reduce((total, item: CartProduct) => {
+    return (total += item.price * (item.quantity ?? 1));
+  }, 0);
+
+  let finalPrice = 0;
+
+  if (shippingCalc >= 75) {
+    finalPrice = shippingCalc;
+  } else {
+    finalPrice = shippingCalc + 6;
+  }
+
+  const finalPriceFormatted = finalPrice.toFixed(2).replace(".", ",");
 
   const handleCheckout = async () => {
     setRedirecting(true);
@@ -28,9 +41,9 @@ const Cart = () => {
     const response = await fetch("/api/stripe", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ items: cart })
+      body: JSON.stringify({ items: cart }),
     });
 
     if (response?.status == 500) return;
@@ -59,52 +72,59 @@ const Cart = () => {
       ></div>
       <div
         className={classNames(
-          "fixed sm:w-96 w-full h-screen right-0 z-30 bg-black top-14 overflow-hidden",
+          "fixed h-screen w-screen sm:w-96 right-0 sm:h-[calc(100vh-4rem)] z-30 bg-white ",
           { hidden: !cartVisibility },
-          { "flex flex-col items-center justify-center": cart.length === 0 }
+          { "": cart.length === 0 }
         )}
       >
         {cart.length > 0 ? (
-          <div className="relative h-full">
-            <div className="relative w-full h-2/3 p-5 overflow-y-auto top-0">
-              <h4 className="text-3xl text-white font-medium mb-8">My Cart</h4>
+          <div className="h-full">
+            <div className="hide-scrollbar overflow-y-auto h-[26rem] mr-4 bg-white">
+              <h2 className="my-4 ml-7 font-bold">Winkelwagen</h2>
               {cart && <ItemList products={cart} />}
             </div>
-            <div className="w-full sticky h-80 bg-black -ml-2.5 border-t border-white p-6 pl-8 bottom-0">
-              <div className="flex flex-wrap flex-row justify-between mb-4">
-                <span className="text-white text-sm">Subtotal</span>
-                <span className="text-white text-sm">${subTotal}</span>
+            <div className="p-4 border-t bg-gray-50 border-grey-300 reverse-shadow-md h-full flex flex-col gap-1">
+              <div className=""></div>
+              <div className="flex justify-between">
+                <span className="">Subtotaal</span>
+                <span className="">€{subTotal}</span>
               </div>
-              <div className="flex flex-wrap flex-row justify-between mb-4">
-                <span className="text-white text-sm">Taxes</span>
-                <span className="text-white text-sm">
-                  Calculated at checkout
+              <div className="flex justify-between">
+                <span className="">Verzending(gratis vanaf €75,-)</span>
+                <span className="">
+                  {shippingCalc >= 75 ? "Gratis" : "€6,00"}
                 </span>
               </div>
-              <div className="flex flex-wrap flex-row justify-between mb-4">
-                <span className="text-white text-sm">Shipping</span>
-                <span className="text-white text-sm">FREE</span>
+              <div className="border border-black my-2"></div>
+              <div className="flex justify-between -mt-2 mb-1">
+                <span className="">Totaalprijs (inclusief btw)</span>
+                <span className="">${finalPriceFormatted}</span>
               </div>
-              <div className="w-full h-px bg-gray-500 mb-4"></div>
-              <div className="flex flex-wrap flex-row justify-between mb-4">
-                <span className="text-white text-sm font-semibold">Total</span>
-                <span className="text-white text-sm font-semibold">
-                  ${subTotal}
-                </span>
-              </div>
+              <div>
               <button
                 disabled={isRedirecting}
-                className=" outline-none bg-white border-0 py-4 w-full text-sm uppercase hover:bg-gray-300 transition duration-500 ease-in-out"
+                className="bg-accent-500 py-2 px-2 my-3 rounded-lg text-white w-full"
                 onClick={handleCheckout}
               >
-                {isRedirecting ? `Please wait...` : `Proceed to Checkout`}
+                {isRedirecting ? `even wachten...` : `Naar bestellen`}
               </button>
+              <button
+                disabled={isRedirecting}
+                className="border border-black py-2 px-2 rounded-lg w-full"
+                onClick={toggleCartVisibility}
+              >
+                Verder winkelen
+              </button>
+              </div>
             </div>
           </div>
         ) : (
-          <h4 className=" text-white text-center font-medium mb-8 text-base">
-            Your cart is empty.
-          </h4>
+          <>
+            <h4 className="">Je hebt geen artikelen in je winkelwagen.</h4>
+            <button onClick={toggleCartVisibility} className="">
+              Verder winkelen
+            </button>
+          </>
         )}
       </div>
     </>

@@ -5,6 +5,7 @@ import { CategorySchema, ProductSchema } from "lib/interfaces";
 import Headroom from "react-headroom";
 import { useContext, useEffect, useState } from "react";
 import SearchVisibilityContext from "contexts/searchVisibilityContext";
+import CartVisibilityContext from "contexts/cartVisibilityContext";
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -15,6 +16,7 @@ interface PageLayoutProps {
 const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
   const { categories, products } = useData();
   const { searchVisibility } = useContext(SearchVisibilityContext);
+  const { cartVisibility } = useContext(CartVisibilityContext);
 
   useEffect(() => {
     if (searchVisibility) {
@@ -28,13 +30,21 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
     <>
       <div className="bg-wolken bg-repeat min-h-screen">
         <div className="2xl:container">
-          <Headroom style={{ zIndex: "40" }}>
+          {!cartVisibility ? (
+            <Headroom style={{ zIndex: "40" }}>
+              <Header
+                children={children}
+                categories={categories}
+                products={products}
+              />
+            </Headroom>
+          ) : (
             <Header
               children={children}
               categories={categories}
               products={products}
             />
-          </Headroom>
+          )}
           <div className="">{children}</div>
           <Footer />
         </div>

@@ -14,6 +14,10 @@ module.exports = {
       "2xl": "1536px"
     },
     extend: {
+      fontFamily: {
+        'sans': ['Poppins', 'sans-serif'],
+        'serif': ['Cormorant SC', 'serif']
+      },
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
