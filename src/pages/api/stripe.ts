@@ -37,7 +37,7 @@ export default async function handler(
                 name: item.name,
                 images: [imgUrl]
               },
-              unit_amount: (item.on_sale ? item.sale_price : item.price) * 100
+              unit_amount: item.price,
             },
             adjustable_quantity: {
               enabled: true,
