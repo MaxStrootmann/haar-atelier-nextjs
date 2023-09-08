@@ -23,6 +23,10 @@ const Product: React.FC<ProductProps> = ({ product }) => {
   const { toggleCartVisibility } = useContext(CartVisibilityContext);
   const { dispatch } = useContext(CartItemsContext);
 
+  if (!product) {
+    return <div>Loading...</div>; // or some error message
+  };
+  
   const addToCart = () => {
     const productWithQuantity = { ...product, quantity };
     dispatch({
@@ -33,7 +37,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
     toggleCartVisibility();
   };
 
-  const displayedPrice = product.price.toFixed(2).replace(".", ",");
+  const displayedPrice = product?.price?.toFixed(2).replace(".", ",");
 
   return (
     <>
@@ -122,9 +126,11 @@ const Product: React.FC<ProductProps> = ({ product }) => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const product = await client.fetch(productQuery, {
-    slug: params?.slug,
+  
+  const product = await client.fetch<ProductSchema>(productQuery, {
+    slug: params?.slug as string,
   });
+  
 
   if (!product) {
     throw Error("Sorry, something went wrong.");
