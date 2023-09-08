@@ -95,7 +95,7 @@ const Footer = () => {
             <AiOutlineInstagram />
             <AiFillLinkedin />
           </div>
-        <div>
+        <div className="mr-7">
           <div className="flex justify-center items-center gap-2 mt-8">
             <BiMap />
           <Link href={"https://www.google.nl/maps/place/Voordam+10,+1811+MA+Alkmaar/@52.6318052,4.7485402,17z/data=!3m1!4b1!4m6!3m5!1s0x47cf57b4ffd45087:0x523807e1bf06d118!8m2!3d52.631802!4d4.7511151!16s%2Fg%2F11bw4r6r45?entry=ttu"}>

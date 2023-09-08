@@ -28,7 +28,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
 
   return (
     <>
-      <div className="bg-wolken bg-repeat min-h-screen">
+      <div className="bg-wolken bg-repeat">
         <div className="2xl:container">
           {!cartVisibility ? (
             <Headroom style={{ zIndex: "40" }}>
