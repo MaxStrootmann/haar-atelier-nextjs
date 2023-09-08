@@ -1,6 +1,6 @@
 import Image from "next/image";
 import * as Icons from "lib/icons";
-import haalogo from "/root/haar-atelier-nextjs/public/haalogo.svg";
+import haalogo from "/public/haalogo.svg";
 import Link from "next/link";
 import { BiLogoFacebook, BiMap, BiPhone } from "react-icons/bi";
 import { IconContext } from "react-icons";
