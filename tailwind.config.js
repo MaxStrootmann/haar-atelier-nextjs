@@ -14,7 +14,7 @@ module.exports = {
       "2xl": "1536px"
     },
     extend: {
-      
+
       fontFamily: {
         'sans': ['Poppins', 'sans-serif'],
         'serif': ['Cormorant SC', 'serif']
@@ -35,9 +35,9 @@ module.exports = {
         'bermuda': '#78dcca',
       },
       backgroundImage: {
-				'wolken': "url('/Achtergrond.jpg')"
-			},
-     fontsize : {
+        'wolken': "url('/Achtergrond.jpg')"
+      },
+      fontsize: {
         xxs: ['0.625rem', '0.75rem']
       },
       width: {
@@ -55,5 +55,14 @@ module.exports = {
       }
     }
   },
-  plugins: []
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.bg-scale-200': {
+          backgroundSize: '200%',
+        },
+      }
+      addUtilities(newUtilities, [])
+    },
+  ]
 };

@@ -27,10 +27,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const displayedPrice = product.price.toFixed(2).replace(".", ",");
 
   return (
-    <div className="w-36 min-w-[9rem] h-72 bg-bg-300 rounded-lg shadow-md flex flex-col lg:scale-125">
+    <div className="bg-bg-300 rounded-lg shadow-md flex flex-col">
       <Link href={`/product/${product.slug}`}>
         <a>
-          <div className="relative w-32 h-32 my-4">
+          <div className="relative w-32 h-32 md:w-44 md:h-44 my-4">
             <Image
               src={urlFor(product.featured_image).url()}
               quality={100}
@@ -42,15 +42,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </a>
       </Link>
       <div className="border-t border-bg-800 mx-4"></div>
-      <div className="flex flex-col justify-between h-full px-2 pb-2">
+      <div className="flex flex-col justify-between h-32 w-36 md:w-full px-2 pb-2">
         <Link href={`/product/${product.slug}`}>
           <a>
-            <h4 className="cursor-pointer capitalize mt-3 font-sans">
+            <h4 className="cursor-pointer capitalize mt-3 font-sans w-28">
               {product.name}
             </h4>
           </a>
         </Link>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between w-full items-center">
           <span className="text-[14px]">€{displayedPrice}</span>
           {product.op_voorraad ? (
             <button

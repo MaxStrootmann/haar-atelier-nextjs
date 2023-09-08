@@ -72,18 +72,18 @@ const Cart = () => {
       ></div>
       <div
         className={classNames(
-          "fixed h-screen w-screen sm:w-96 right-0 sm:h-[calc(100vh-4rem)] z-30 bg-white ",
+          "fixed h-screen w-screen sm:w-96 right-0 sm:h-[calc(100vh-4rem)] z-30 bg-wolken bg-scale-200",
           { hidden: !cartVisibility },
           { "": cart.length === 0 }
         )}
       >
         {cart.length > 0 ? (
           <div className="h-full">
-            <div className="hide-scrollbar overflow-y-auto h-[26rem] mr-4 bg-white">
+            <div className="hide-scrollbar overflow-y-auto h-[26rem] mr-4">
               <h2 className="my-4 ml-7 font-bold">Winkelwagen</h2>
               {cart && <ItemList products={cart} />}
             </div>
-            <div className="p-4 border-t bg-gray-50 border-grey-300 reverse-shadow-md h-full flex flex-col gap-1">
+            <div className="p-4 border-t bg-bg-300 border-grey-300 reverse-shadow-md h-full flex flex-col gap-1">
               <div className=""></div>
               <div className="flex justify-between">
                 <span className="">Subtotaal</span>

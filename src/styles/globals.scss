@@ -85,12 +85,12 @@ html {
   }
 }
 
-
+@media (min-width: 1536px) {
 /* 2xl in Tailwind */
 .bg-wolken {
   background-size: 100%;
   /* adjust this according to your need */
-}
+}}
 
 
 /* globals.css */
