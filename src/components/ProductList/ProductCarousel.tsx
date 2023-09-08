@@ -10,18 +10,50 @@ interface ProductListProps {
 
 const ProductCarousel: React.FC<ProductListProps> = ({ products }) => {
   const carouselRef = React.useRef<HTMLDivElement>(null);
-
+  function smoothScroll(
+    element: HTMLDivElement, 
+    target: number, 
+    duration: number, 
+    easingFunction: (t: number, b: number, c: number, d: number) => number
+  ) {
+    const start = element.scrollLeft;
+    let currentTime = 0;
+  
+    const animateScroll = function () {
+      currentTime += 20; // increment by 20ms
+      const val = easingFunction(currentTime, start, target - start, duration);
+      element.scrollLeft = val;
+      if (currentTime < duration) {
+        requestAnimationFrame(animateScroll);
+      }
+    };
+  
+    animateScroll();
+  }
+  
+  // An example easing function (EaseInOutQuart)
+  function easeInOutQuart(t: number, b: number, c: number, d: number): number {
+    t /= d / 2;
+    if (t < 1) return (c / 2) * t * t * t * t + b;
+    t -= 2;
+    return (-c / 2) * (t * t * t * t - 2) + b;
+  }
+  
   const scrollLeft = () => {
     if (carouselRef.current) {
-      carouselRef.current.scrollLeft -= 300; // scroll amount in px
+      const newScrollPos = carouselRef.current.scrollLeft - 300;
+      smoothScroll(carouselRef.current, newScrollPos, 500, easeInOutQuart);
     }
   };
-
+  
   const scrollRight = () => {
     if (carouselRef.current) {
-      carouselRef.current.scrollLeft += 300; // scroll amount in px
+      const newScrollPos = carouselRef.current.scrollLeft + 300;
+      smoothScroll(carouselRef.current, newScrollPos, 500, easeInOutQuart);
     }
   };
+  
+  
 
   return (
     <div className="">
@@ -33,9 +65,9 @@ const ProductCarousel: React.FC<ProductListProps> = ({ products }) => {
       </div>
       <div className="relative">
         <div className="absolute top-[40%]">
-          <div className="hidden md:flex justify-between w-screen 2xl:max-w-screen-2xl mx-auto px-6">
-            <button onClick={scrollRight} className=""><BsArrowLeftCircle size={32}/></button> {/* Right Scroll Button */}
-            <button onClick={scrollLeft} className=""><BsArrowRightCircle size={32}/></button> {/* Left Scroll Button */}
+          <div className="hidden md:flex justify-between w-[calc(100vw-1.5rem)] 2xl:max-w-screen-2xl mx-auto px-6">
+            <button onClick={scrollLeft} className="z-20"><BsArrowLeftCircle size={32}/></button> {/* Right Scroll Button */}
+            <button onClick={scrollRight} className="z-20"><BsArrowRightCircle size={32}/></button> {/* Left Scroll Button */}
           </div>
         </div>
         <div

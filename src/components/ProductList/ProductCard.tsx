@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const displayedPrice = product.price.toFixed(2).replace(".", ",");
 
   return (
-    <div className="bg-bg-300 rounded-lg shadow-md flex flex-col">
+    <div className="z-10 bg-bg-300 rounded-lg shadow-md flex flex-col">
       <Link href={`/product/${product.slug}`}>
         <a>
           <div className="relative w-32 h-32 md:w-44 md:h-44 my-4">

@@ -93,23 +93,6 @@ html {
 }}
 
 
-/* globals.css */
-:root {
-  --scale-factor: 1;
-}
-
-@media (min-width: 768px) {
-  :root {
-    --scale-factor: calc(1 + (1.5 - 1) * ((100vw - 768px) / (1536 - 768)));
-  }
-}
-
-@media (min-width: 1536px) {
-  :root {
-    --scale-factor: 1.5;
-  }
-}
-
 /* Hide scrollbar for Chrome, Safari and Opera */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
