@@ -14,7 +14,7 @@ const Success = () => {
     };
 
     removeAllCartItems();
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

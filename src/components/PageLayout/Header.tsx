@@ -18,7 +18,6 @@ import popularProductsQuery from "lib/sanity/queries/popular_products";
 
 
 interface HeaderProps {
-  children: React.ReactNode;
   categories: CategorySchema[];
   products: ProductSchema[];
 }

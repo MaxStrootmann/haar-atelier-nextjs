@@ -24,37 +24,37 @@ const Footer = () => {
         </div>
         <div className="flex flex-wrap justify-center items-center p-4">
           <div className=" my-6 text-center w-26 h-18">
-            <Image src={Icons.Icon_Parabenes} width={58} height={58} />
+            <Image src={Icons.Icon_Parabenes} alt="Icon Parabenes"width={58} height={58} />
             <p className="text-natulique text-[0.625rem] whitespace-nowrap">
               Parebenes Free
             </p>
           </div>
           <div className=" my-6 text-center w-26 h-18">
-            <Image src={Icons.Icon_SLS} width={58} height={58} />
+            <Image src={Icons.Icon_SLS} alt="Icon SLS"width={58} height={58} />
             <p className="text-natulique text-[0.625rem] whitespace-nowrap">
               SLS Free
             </p>
           </div>
           <div className=" my-6 text-center w-26 h-18">
-            <Image src={Icons.Icon_Silicones} width={58} height={58} />
+            <Image src={Icons.Icon_Silicones} alt="Icon Silicones"width={58} height={58} />
             <p className="text-natulique text-[0.625rem] whitespace-nowrap">
               Silicones Free*
             </p>
           </div>
           <div className=" my-6 text-center w-26 h-18">
-            <Image src={Icons.Icon_Phenoxyethanol} width={58} height={58} />
+            <Image src={Icons.Icon_Phenoxyethanol} alt="Icon Phenoxyethanol"width={58} height={58} />
             <p className="text-natulique text-[0.625rem] whitespace-nowrap">
               Phenoxyethanol Free
             </p>
           </div>
           <div className=" my-6 text-center w-26 h-18">
-            <Image src={Icons.Icon_Ammonia} width={58} height={58} />
+            <Image src={Icons.Icon_Ammonia} alt="Icon Ammonia" width={58} height={58} />
             <p className="text-natulique text-[0.625rem] whitespace-nowrap">
               Ammonia Free
             </p>
           </div>
           <div className=" my-6 text-center w-26 h-18">
-            <Image src={Icons.Icon_Fragrances} width={58} height={58} />
+            <Image src={Icons.Icon_Fragrances} alt="Icon Fragrances"width={58} height={58} />
             <p className="text-natulique text-[0.625rem] whitespace-nowrap">
               Artificial Fragrance Free
             </p>

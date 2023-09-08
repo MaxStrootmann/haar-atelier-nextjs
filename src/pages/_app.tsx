@@ -73,7 +73,7 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
     };
 
     if (router.asPath !== "/success") fetchCartProducts();
-  }, []);
+  }, [router.asPath]);
 
   return (
     <SearchVisibilityContext.Provider

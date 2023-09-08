@@ -31,7 +31,7 @@ export default function WebshopHero() {
     }, 8000); // Change image every 3 seconds
 
     return () => clearInterval(interval); // Cleanup the interval on component unmount
-  }, []);
+  }, [images.length]);
 
   return (
     <div className="-mt-20 lg:-mt-28 flex flex-col mx-auto sm:flex-row 2xl:max-w-screen-2xl">
