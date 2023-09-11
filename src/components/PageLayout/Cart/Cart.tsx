@@ -110,7 +110,7 @@ const Cart = () => {
               </button>
               <button
                 disabled={isRedirecting}
-                className="border border-black py-2 px-2 rounded-lg w-full"
+                className="border border-white bg-black bg-opacity-30 py-2 px-2 rounded-lg w-full text-white"
                 onClick={toggleCartVisibility}
               >
                 Verder winkelen
@@ -119,12 +119,12 @@ const Cart = () => {
             </div>
           </div>
         ) : (
-          <>
-            <h4 className="">Je hebt geen artikelen in je winkelwagen.</h4>
-            <button onClick={toggleCartVisibility} className="">
+          <div className="flex items-center justify-center h-full w-full flex-col">
+            <h3 className="text-center">Je hebt geen artikelen in je winkelwagen.</h3>
+            <button onClick={toggleCartVisibility} className="border border-black py-2 px-2 mt-4 rounded-lg">
               Verder winkelen
             </button>
-          </>
+          </div>
         )}
       </div>
     </>

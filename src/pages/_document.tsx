@@ -3,7 +3,7 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 class MyDocument extends Document {
   render() {
     return (
-      <Html className=" bg-wolken min-h-screen" lang="en">
+      <Html className=" bg-bg-500 min-h-screen" lang="en">
         <Head>
           <link
             rel="preconnect"
@@ -11,7 +11,7 @@ class MyDocument extends Document {
             crossOrigin="true"
           />
         </Head>
-        <body className="">
+        <body className="bg-wolken">
           <Main />
           <NextScript />
         </body>

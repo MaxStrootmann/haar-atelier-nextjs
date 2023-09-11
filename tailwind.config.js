@@ -17,7 +17,8 @@ module.exports = {
 
       fontFamily: {
         'sans': ['Poppins', 'sans-serif'],
-        'serif': ['Cormorant SC', 'serif']
+        'display': ['Cormorant SC', 'serif'],
+        'serif': ['Adamina', 'serif']
       },
       colors: {
         transparent: 'transparent',
@@ -29,7 +30,7 @@ module.exports = {
         'bg-300': '#fff9f2',
         'bg-500': '#faeede',
         'bg-800': '#fbe8d4',
-        'accent-500': '#b3966b',
+        'accent-500': '#C0975A',
         'natulique': '#503421',
         'bubble-gum': '#ff77e9',
         'bermuda': '#78dcca',

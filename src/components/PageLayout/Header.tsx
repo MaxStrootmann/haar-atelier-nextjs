@@ -41,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({ categories, products }) => {
         <div className="w-full mx-auto flex justify-between py-4 max-w-screen-2xl px-6">
           <nav>
             <ul className={styles.mainNav}>
-              <li className=" mt-2 w-36 lg:w-56">
+              <li className=" mt-2 w-36 md:w-56">
                 <Link href="/">
                   <a>
                     <Image
@@ -61,7 +61,7 @@ const Header: React.FC<HeaderProps> = ({ categories, products }) => {
                 color="black"
                 onClick={toggleCartVisibility}
                 size={24}
-                className="lg:w-8 lg:h-8"
+                className="md:w-8 md:h-8"
               />
               {cartLength > 0 && (
                 <span className="absolute w-4 h-4 text-black text-xs border border-solid border-gray-500 rounded-full flex flex-row justify-center items-center p-2 -left-1 -bottom-1 bg-white">
@@ -74,7 +74,7 @@ const Header: React.FC<HeaderProps> = ({ categories, products }) => {
                 onClick={toggleSearchVisibility}
                 color="black"
                 size={34}
-                className="lg:w-12 lg:h-12"
+                className="md:w-12 md:h-12"
               />
             </button>
           </div>

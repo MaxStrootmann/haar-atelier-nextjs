@@ -28,7 +28,6 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
 
   return (
     <>
-      <div className="bg-wolken bg-repeat">
         <div className="2xl:container">
           {!cartVisibility ? (
             <Headroom style={{ zIndex: "40" }}>
@@ -46,7 +45,6 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
           <div className="">{children}</div>
           <Footer />
         </div>
-      </div>
     </>
   );
 };
