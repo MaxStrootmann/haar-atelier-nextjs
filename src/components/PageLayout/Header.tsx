@@ -7,7 +7,7 @@ import CartVisibilityContext from "contexts/cartVisibilityContext";
 import { CartProduct, CategorySchema, ProductSchema } from "lib/interfaces";
 import { MdManageSearch, MdOutlineShoppingBag } from "react-icons/md";
 import haalogo from "/public/haalogo.svg"
-import Image from "next/image";
+import Image from "next/legacy/image";
 import SearchVisibilityContext from "contexts/searchVisibilityContext";
 import Searchbar from "./Searchbar/Searchbar";
 import { GetStaticProps } from "next";
@@ -33,55 +33,53 @@ const Header: React.FC<HeaderProps> = ({ categories, products }) => {
     0
   );
 
-  return (
-    <>
-    <Searchbar categories={categories} products={products} />
-      <Cart />
-      <header className="sticky">
-        <div className="w-full mx-auto flex justify-between py-4 max-w-screen-2xl px-6">
-          <nav>
-            <ul className={styles.mainNav}>
-              <li className=" mt-2 w-36 md:w-56">
-                <Link href="/">
-                  <a>
-                    <Image
-                  src= {haalogo}
-                  alt= "Haar Atelier Alkmaar Logo"
-                  width={771}
-                  height={197}
-                  ></Image>
-                  </a>
-                </Link>
-              </li>
-            </ul>
-          </nav>
-          <div>
-            <button className=" mr-4 relative z-50 border-0 bg-transparent outline-0">
-              <MdOutlineShoppingBag
-                color="black"
-                onClick={toggleCartVisibility}
-                size={24}
-                className="md:w-8 md:h-8"
-              />
-              {cartLength > 0 && (
-                <span className="absolute w-4 h-4 text-black text-xs border border-solid border-gray-500 rounded-full flex flex-row justify-center items-center p-2 -left-1 -bottom-1 bg-white">
-                  {cartLength}
-                </span>
-              )}
-            </button>
-            <button className="relative z-50 border-0 bg-transparent outline-0">
-              <MdManageSearch
-                onClick={toggleSearchVisibility}
-                color="black"
-                size={34}
-                className="md:w-12 md:h-12"
-              />
-            </button>
-          </div>
+  return <>
+  <Searchbar categories={categories} products={products} />
+    <Cart />
+    <header className="sticky">
+      <div className="w-full mx-auto flex justify-between py-4 max-w-screen-2xl px-6">
+        <nav>
+          <ul className={styles.mainNav}>
+            <li className=" mt-2 w-36 md:w-56">
+              <Link href="/">
+
+                <Image
+              src= {haalogo}
+              alt= "Haar Atelier Alkmaar Logo"
+              width={771}
+              height={197}
+              ></Image>
+
+              </Link>
+            </li>
+          </ul>
+        </nav>
+        <div>
+          <button className=" mr-4 relative z-50 border-0 bg-transparent outline-0">
+            <MdOutlineShoppingBag
+              color="black"
+              onClick={toggleCartVisibility}
+              size={24}
+              className="md:w-8 md:h-8"
+            />
+            {cartLength > 0 && (
+              <span className="absolute w-4 h-4 text-black text-xs border border-solid border-gray-500 rounded-full flex flex-row justify-center items-center p-2 -left-1 -bottom-1 bg-white">
+                {cartLength}
+              </span>
+            )}
+          </button>
+          <button className="relative z-50 border-0 bg-transparent outline-0">
+            <MdManageSearch
+              onClick={toggleSearchVisibility}
+              color="black"
+              size={34}
+              className="md:w-12 md:h-12"
+            />
+          </button>
         </div>
-      </header>
-    </>
-  );
+      </div>
+    </header>
+  </>;
 };
 
 export const getStaticProps: GetStaticProps = async () => {

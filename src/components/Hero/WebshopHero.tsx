@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import React, { useState, useEffect } from "react";
 
 export default function WebshopHero() {
@@ -34,7 +34,7 @@ export default function WebshopHero() {
   }, [images.length]);
 
   return (
-    <div className="-mt-20 lg:-mt-28 flex flex-col mx-auto sm:flex-row 2xl:max-w-screen-2xl">
+    <div className="-mt-20 md:-mt-28 flex flex-col mx-auto sm:flex-row 2xl:max-w-screen-2xl">
       <div className="relative w-screen h-[calc(100vh/2)] md:h-[calc(100vh/1.2)] sm:w:1/2 ">
         {images.map((image, index) => {
           return (

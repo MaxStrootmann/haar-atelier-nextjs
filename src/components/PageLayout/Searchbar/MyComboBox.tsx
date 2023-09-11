@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Combobox } from "@headlessui/react";
 import { CategorySchema, ProductSchema } from "lib/interfaces";
 import { ArrowLeftIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import urlFor from "lib/sanity/urlFor";
 import Link from "next/link";
 
@@ -67,52 +67,52 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({
                   <>
                     <h2 className="font-bold ml-6 my-2">Categorieën</h2>
                     {filteredCategories.map((category) => (
-                      <Link key={category._id} href={`/category/${category.slug}`}>
-                        <a>
-                          <Combobox.Option
-                            key={category._id}
-                            className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-6 pr-4 flex items-center ${
-                                active
-                                  ? "bg-grey-300 text-black"
-                                  : "text-grey-500"
-                              }`
-                            }
-                            value={category}
-                          >
-                            {({ selected, active }) => (
-                              <>
-                                <div className="flex-shrink-0 relative w-12 h-12">
-                                  {" "}
-                                  {/* Adjust width and height as needed */}
-                                  <Image
-                                    src={urlFor(category.featured_image).url()}
-                                    alt={category.title}
-                                    quality={100}
-                                    layout="fill"
-                                    objectFit="cover" // This ensures the image covers the div without distorting its aspect ratio
-                                  />
-                                </div>
-                                <span
-                                  className={`block truncate ml-2 ${
-                                    selected ? "font-medium" : "font-normal"
-                                  }`}
-                                >
-                                  {category.title}
-                                </span>
+                      (<Link key={category._id} href={`/category/${category.slug}`}>
 
-                                {selected ? (
-                                  <span
-                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                      active ? "text-white" : "text-teal-600"
-                                    }`}
-                                  ></span>
-                                ) : null}
-                              </>
-                            )}
-                          </Combobox.Option>
-                        </a>
-                      </Link>
+                        <Combobox.Option
+                          key={category._id}
+                          className={({ active }) =>
+                            `relative cursor-default select-none py-2 pl-6 pr-4 flex items-center ${
+                              active
+                                ? "bg-grey-300 text-black"
+                                : "text-grey-500"
+                            }`
+                          }
+                          value={category}
+                        >
+                          {({ selected, active }) => (
+                            <>
+                              <div className="flex-shrink-0 relative w-12 h-12">
+                                {" "}
+                                {/* Adjust width and height as needed */}
+                                <Image
+                                  src={urlFor(category.featured_image).url()}
+                                  alt={category.title}
+                                  quality={100}
+                                  layout="fill"
+                                  objectFit="cover" // This ensures the image covers the div without distorting its aspect ratio
+                                />
+                              </div>
+                              <span
+                                className={`block truncate ml-2 ${
+                                  selected ? "font-medium" : "font-normal"
+                                }`}
+                              >
+                                {category.title}
+                              </span>
+
+                              {selected ? (
+                                <span
+                                  className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                    active ? "text-white" : "text-teal-600"
+                                  }`}
+                                ></span>
+                              ) : null}
+                            </>
+                          )}
+                        </Combobox.Option>
+
+                      </Link>)
                     ))}
                   </>
                 )}

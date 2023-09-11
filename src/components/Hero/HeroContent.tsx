@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import M_raam from "/public/M_raam.jpg";
 import Link from "next/link";
 
@@ -52,11 +52,11 @@ const HeroContent = () => {
                 "https://widget2.meetaimy.com/widgetWeb?salonId=MTIzNjkzMA%3D%3D&salonEmail=aW5mb0BtYXJsb2Vzb3RqZXMtaGFhcmF0ZWxpZXIubmw%3D"
               }
             >
-              <a>
-                <div className="bg-accent-500 rounded-lg px-4 py-2 text-white w-full text-center md:text-xl font-sans md:w-max">
-                  Afspraak maken
-                </div>
-              </a>
+
+              <div className="bg-accent-500 rounded-lg px-4 py-2 text-white w-full text-center md:text-xl font-sans md:w-max">
+                Afspraak maken
+              </div>
+
             </Link>
           </div>
         </div>
@@ -100,11 +100,11 @@ const HeroContent = () => {
           </p>
         <div className="mt-4">
           <Link href={"/shop"}>
-            <a>
-              <div className="border border-white bg-black bg-opacity-30 rounded-lg px-4 py-2 text-white w-full text-center md:text-xl font-sans md:w-max">
-                Naar de shop
-              </div>
-            </a>
+
+            <div className="border border-white bg-black bg-opacity-30 rounded-lg px-4 py-2 text-white w-full text-center md:text-xl font-sans md:w-max">
+              Naar de shop
+            </div>
+
           </Link>
         </div>
         </div>

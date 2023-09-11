@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { ProductSchema } from "lib/interfaces";
 import urlFor from "lib/sanity/urlFor";
 import { useContext } from "react";
@@ -29,26 +29,26 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="z-10 bg-bg-300 rounded-lg shadow-md flex flex-col">
       <Link href={`/product/${product.slug}`}>
-        <a>
-          <div className="relative w-32 h-32 md:w-44 md:h-44 my-4">
-            <Image
-              src={urlFor(product.featured_image).url()}
-              quality={100}
-              layout="fill"
-              className=""
-              alt={product.name}
-            />
-          </div>
-        </a>
+
+        <div className="relative w-32 h-32 md:w-44 md:h-44 my-4">
+          <Image
+            src={urlFor(product.featured_image).url()}
+            quality={100}
+            layout="fill"
+            className=""
+            alt={product.name}
+          />
+        </div>
+
       </Link>
       <div className="border-t border-bg-800 mx-4"></div>
       <div className="flex flex-col justify-between h-32 w-36 md:w-full px-2 pb-2">
         <Link href={`/product/${product.slug}`}>
-          <a>
-            <h4 className="cursor-pointer capitalize mt-3 font-sans w-28">
-              {product.name}
-            </h4>
-          </a>
+
+          <h4 className="cursor-pointer capitalize mt-3 font-sans w-28">
+            {product.name}
+          </h4>
+
         </Link>
         <div className="flex justify-between w-full items-center">
           <span className="text-[14px]">€{displayedPrice}</span>

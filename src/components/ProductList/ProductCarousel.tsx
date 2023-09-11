@@ -59,8 +59,8 @@ const ProductCarousel: React.FC<ProductListProps> = ({ products }) => {
     <div className="">
       <div className="flex justify-between 2xl:max-w-screen-2xl mx-auto px-6 items-end">
         <h2 className="text-2xl md:text-3xl">Onze favorieten</h2>
-        <Link href={"/producten"}>
-          <a className="underline text-sm md:text-base">Bekijk meer</a>
+        <Link href={"/producten"} className="underline text-sm md:text-base">
+          Bekijk meer
         </Link>
       </div>
       <div className="relative">
