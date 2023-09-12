@@ -5,27 +5,14 @@ import Image from "next/legacy/image";
 import salon from "/public/Salon.jpg";
 import salon_large from "/public/Salon_large.jpg";
 import HaaLogo from "lib/HaaLogo";
-import { motion, useScroll } from "framer-motion";
-import { useRef } from "react";
+
 
 const HomeHero = () => {
-  const ref = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["0 1", "1.33 1"],
-  });
-
-  return <>
+  return ( 
+  <>
     <div className="relative -mt-28 flex justify-center">
-      <motion.div
-        ref={ref}
-        style={{
-          opacity: scrollYProgress,
-        }}
-        transition={{ ease: "easeOut", duration: 1 }}
-        className="absolute flex flex-col items-center z-50 top-48 md:top-72 w-[90%] md:w-2/3"
-      >
+      <div className="absolute flex flex-col items-center z-50 top-48 md:top-72 w-[90%] md:w-2/3">
         <HaaLogo fill="white" />
 
         <div className="mt-12 md:mt-16 space-y-4">
@@ -52,7 +39,7 @@ const HomeHero = () => {
             </Link>
           </div>
         </div>
-      </motion.div>
+      </div>
       <div className="relative hidden h-full md:block">
         <div className="absolute z-20 top-1/2 h-1/2 w-full bg-gradient-to-t from-bg-300"></div>
         <Image
@@ -74,7 +61,8 @@ const HomeHero = () => {
       </div>
     </div>
     <MetaHead description="Gespecialiseerd in het kleuren van haar. Lived-in balayage, faceframing, highlights, blonde & brunettes. Haircuts voor mannen & vrouwen." />
-  </>;
+  </>
+  );
 };
 
 export default HomeHero;
