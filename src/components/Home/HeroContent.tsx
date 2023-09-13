@@ -95,7 +95,7 @@ const HeroContent = () => {
         </div>
         <div className="space-y-16 font-serif px-8 pt-16 md:pt-60">
           <div className="space-y-4">
-            <h2 className="uppercase text-4xl">Haar Atelier Alkmaar</h2>
+            <h2 className="uppercase text-4xl mb-6 md:text-5xl md:mb-[0.5em]">Haar Atelier Alkmaar</h2>
             <p>
               Haar Atelier Alkmaar is ontstaan vanuit mijn visie, passie en
               leefstijl voor eerlijke, natuurlijke en echt duurzame producten.
@@ -133,7 +133,7 @@ const HeroContent = () => {
             </div>
           </div>
           <div className="space-y-4">
-            <h2 ref={tube} className="uppercase text-4xl">Natulique</h2>
+            <h2 ref={tube} className="uppercase text-4xl mb-6 md:text-5xl md:mb-[0.5em]">Natulique</h2>
             <p>
               Ik werk in mijn salon bewust met de natuurlijke producten van
               Natulique. Het verhaal achter Natulique, het ontstaan, de
@@ -154,7 +154,7 @@ const HeroContent = () => {
             </p>
           </div>
           <div className="space-y-4">
-            <h2 ref={producten} className="uppercase text-4xl">De Shop</h2>
+            <h2 ref={producten} className="uppercase text-4xl mb-6 md:text-5xl md:mb-[0.5em]">De Shop</h2>
             <p>
               De Natulique producten die ik professioneel in mijn salon gebruik
               zijn voor thuisgebruik ook heel geschikt.
@@ -177,7 +177,7 @@ const HeroContent = () => {
             </div>
           </div>
           <div className="space-y-4">
-            <h2 ref={deur} className="uppercase text-4xl">Over Marloes</h2>
+            <h2 ref={deur} className="uppercase text-4xl mb-6 md:text-5xl md:mb-[0.5em]">Over Marloes</h2>
             <p>
               In 2021 ben ik mijn hart gevolgd, en heb ik Haar Atelier
               opgericht. Mijn passie voor het kappersvak, en mijn geloof in echt

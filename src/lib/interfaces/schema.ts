@@ -32,3 +32,10 @@ export interface Image {
     _type: string;
   };
 }
+
+export interface ReviewSchema {
+  _id: string;
+  name: string;
+  inhoud: [PortableTextBlock];
+  foto: Image;
+}

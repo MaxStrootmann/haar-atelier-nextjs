@@ -3,7 +3,7 @@ import client from "lib/sanity/client";
 import categoriesQuery from "lib/sanity/queries/categories";
 import { CategorySchema, ProductSchema } from "lib/interfaces/schema";
 import MetaHead from "components/MetaHead";
-import WebshopHero from "components/Hero/WebshopHero";
+import WebshopHero from "components/WebshopHome/WebshopHero";
 import ProductCarousel from "components/ProductList/ProductCarousel";
 import popularProductsQuery from "lib/sanity/queries/popular_products";
 

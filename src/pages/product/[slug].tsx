@@ -70,7 +70,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
         <h1 className="text-4xl text-left font-bold mb-8">{product?.name}</h1>
         <h2 className="mb-6"></h2>
         {product?.description && (
-          <div className="text-gray-600 text-sm mb-5">
+          <div className="text-sm mb-5">
             <div className="space-y-4">
               {product.description.map((block: any) => (
                 <p key={block._key}>
