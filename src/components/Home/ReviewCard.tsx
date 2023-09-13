@@ -8,8 +8,8 @@ interface ReviewCardProps {
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   return (
-   <div className="flex gap-8 w-[cals] items-center p-32">
-    <div className="relative w-1/2">
+   <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center justify-center px-8 pb-16 pt-8 md:px-32 md:py-16">
+    <div className="relative w-3/4 mb-3 md:w-1/2">
       <Image
       src={urlFor(review.foto).url()}
       alt={review.name}
@@ -17,10 +17,10 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
       height={500}
       layout="intrinsic" />
     </div>
-    <div className="space-y-4 w-1/2">
+    <div className="space-y-4 w-[70%] md:w-1/2 text-sm md:text-base">
     {review?.inhoud && (
           <div className="font-serif">
-            <div className="space-y-4">
+            <div className="space-y-4 text-center">
               {review.inhoud.map((block: any) => (
                 <p key={block._key}>
                   {block.children.map((span: any) => {
@@ -34,7 +34,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
             </div>
           </div>
         )}
-      <p className="font-bold text-sm">{review.name}</p>
+      <p className="font-bold text-center text-xs md:text-sm">{review.name}</p>
     </div>
    </div>
   )

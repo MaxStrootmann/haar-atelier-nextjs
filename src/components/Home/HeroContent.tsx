@@ -17,9 +17,8 @@ const HeroContent = () => {
   
   return (
     <>
-    <div></div>
         <div className="hidden md:block sticky top-0 h-[calc(100vh/5)] bg-gradient-to-b from-bg-300 "></div>
-      <div className="md:grid md:grid-cols-2 lg:mx-16 xl:mx-28 2xl:mx-64">
+      <div className="md:grid md:grid-cols-2 pb-16 lg:px-16 xl:px-28 2xl:px-64">
 
         <div ref={raam} className="bg-gradient-to-b from-bg-300 via-bg-300 via-90% z-20 md:bg-none md:order-2 sticky top-0 md:h-screen pt-2 pb-12 px-16 md:p-8 3xl:py-[calc((100vh-1000px)/2)]">
           
