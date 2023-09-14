@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import SearchVisibilityContext from "contexts/searchVisibilityContext";
 import { DataProvider } from "contexts/DataContext";
 import Script from "next/script";
+import { APP_ID } from "./api/getFbAccessToken";
 
 interface MyAppProps {
   children: React.ReactNode;
@@ -79,7 +80,7 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
   useEffect(() => {
     window.fbAsyncInit = function() {
       window.FB.init({
-        appId            : '1348054419144924',
+        appId            : APP_ID,
         autoLogAppEvents : true,
         xfbml            : true,
         version          : 'v18.0'

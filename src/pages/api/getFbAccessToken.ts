@@ -1,16 +1,10 @@
+import { NextApiRequest, NextApiResponse } from "next";
+import { type } from "os";
+
 const FACEBOOK_GRAPH_URL = 'https://graph.facebook.com/v18.0';
 export const APP_ID = '1348054419144924';
 const APP_SECRET = '32097b7053c1b11c06b2e12ca2eff962';
 
-export default async function handler({req}: any, {res}: any) {
- const appAccessToken = await getAppAccessToken();
-
- const scopes = await debugToken(appAccessToken, req.query.token)
-
- console.log(scopes);
-
- res.json({ scopes });
-}
 
 const getAppAccessToken = async () => {
  const response = await fetch(
@@ -19,6 +13,7 @@ const getAppAccessToken = async () => {
  const data : { access_token: string }= await response.json();
 
  if (!response.ok) {
+  console.log("error getting acces token:", response.status, data)
   throw new Error("acces token failed");
  }
 
@@ -37,3 +32,16 @@ const debugToken = async (appAccessToken: string, token: string) => {
 
  return data.data.scopes;
 }
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+ if (typeof req.query.token === 'string') {
+ const appAccessToken = await getAppAccessToken();
+
+ const scopes = await debugToken(appAccessToken, req.query.token)
+
+ console.log(scopes);
+
+ res.json({ scopes });
+} else {
+ res.status(400).json({ error: 'Invalid token' });
+}}

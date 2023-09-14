@@ -16,15 +16,19 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ categories, reviews }) => {
   const fbLogin = () => {
+    if (window.FB) {
     window.FB.login((response) => {
       console.log(response.authResponse.accessToken);
       fetch(`https://haar-atelier-nextjs.vercel.app/api/getFbAccessToken?token=${response.authResponse.accessToken}`
-      ).then((res) => console.log("got a response",res));
+      ).then((response) => console.log("got a response",response));
     },
     {
       scope: 'public_profile',
     }
-    );
+    );} else {
+      console.error("FB sdk not initialized")
+    }
+    
   };
 
 
