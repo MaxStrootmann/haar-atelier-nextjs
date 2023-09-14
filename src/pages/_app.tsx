@@ -109,6 +109,7 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
         <DataProvider>
         <PageLayout categories={categories} products={products}>
           <Component {...pageProps} />
+          <Script async defer crossOrigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js" />
         </PageLayout>
         </DataProvider>
       </CartVisibilityContext.Provider>
