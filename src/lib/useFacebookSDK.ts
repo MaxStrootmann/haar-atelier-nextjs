@@ -1,11 +1,12 @@
+import { APP_ID } from "pages/api/getFbAccessToken";
 import { useEffect } from "react";
 
 export const useFacebookSDK = () => {
  useEffect(() => {
    // Initialize the Facebook SDK
    window.fbAsyncInit = function() {
-     FB.init({
-       appId: '1348054419144924',
+     window.FB.init({
+       appId: APP_ID,
        xfbml: true,
        version: 'v18.0',
      });

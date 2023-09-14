@@ -5,9 +5,7 @@ import HeroContent from "components/Home/HeroContent";
 import { GetStaticProps } from "next";
 import client from "lib/sanity/client";
 import reviewsQuery from "lib/sanity/queries/reviews";
-import { useEffect } from "react";
 import ReviewCarousel from "components/Home/ReviewCarousel";
-import axios from "axios";
 import { useFacebookSDK } from "lib/useFacebookSDK";
 
 interface HomeProps {
@@ -16,7 +14,9 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ categories, reviews }) => {
+  
   useFacebookSDK();
+
   const fbLogin = () => {
     if (window.FB) {
     window.FB.login((response) => {
@@ -25,7 +25,7 @@ const Home: React.FC<HomeProps> = ({ categories, reviews }) => {
       ).then((response) => console.log("got a response",response));
     },
     {
-      scope: 'public_profile',
+      scope: 'instagram_graph_user_profile,instagram_graph_user_media',
     }
     );} else {
       console.error("FB sdk not initialized")
