@@ -13,6 +13,7 @@ import client from "lib/sanity/client";
 import { useRouter } from "next/router";
 import SearchVisibilityContext from "contexts/searchVisibilityContext";
 import { DataProvider } from "contexts/DataContext";
+import Script from "next/script";
 
 interface MyAppProps {
   children: React.ReactNode;
@@ -75,6 +76,17 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
     if (router.asPath !== "/success") fetchCartProducts();
   }, [router.asPath]);
 
+  useEffect(() => {
+    window.fbAsyncInit = function() {
+      window.FB.init({
+        appId            : '1348054419144924',
+        autoLogAppEvents : true,
+        xfbml            : true,
+        version          : 'v18.0'
+      });
+    };
+  }, []);
+
   return (
     <SearchVisibilityContext.Provider
     value={{
@@ -96,6 +108,7 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
         <DataProvider>
         <PageLayout categories={categories} products={products}>
           <Component {...pageProps} />
+          <Script async defer crossOrigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js" />
         </PageLayout>
         </DataProvider>
       </CartVisibilityContext.Provider>

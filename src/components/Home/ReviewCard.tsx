@@ -15,7 +15,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
       alt={review.name}
       width={500}
       height={500}
-      layout="intrinsic" />
+       />
     </div>
     <div className="space-y-4 w-[70%] md:w-1/2 text-sm md:text-base">
     {review?.inhoud && (

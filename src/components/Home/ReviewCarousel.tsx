@@ -1,21 +1,34 @@
-import { Carousel, IconButton } from "@material-tailwind/react";
+import {
+  Carousel,
+  IconButton,
+  IconButtonProps,
+} from "@material-tailwind/react";
 import ReviewCard from "./ReviewCard";
 import { ReviewSchema } from "lib/interfaces";
 
 interface ReviewCarouselProps {
   reviews: ReviewSchema[];
 }
- 
+
+type ExtendedIconButtonProps = IconButtonProps &
+  React.ButtonHTMLAttributes<HTMLButtonElement>;
+
 const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
   return (
     <div className="text-center py-8  lg:px-16 xl:px-28 2xl:px-64">
       <h2 className="text-4xl md:text-6xl">Reviews</h2>
       <Carousel
+        onResizeCapture={() => {}}
+        onResize={() => {}}
+        nonce=""
         className="rounded-xl"
         prevArrow={({ handlePrev }) => (
           <IconButton
+            onResizeCapture={() => {}}
+            onResize={() => {}}
+            nonce=""
             variant="outlined"
-            color="black"
+            color="white"
             size="md"
             onClick={handlePrev}
             className="!absolute top-[65%] md:top-2/4 left-4 md:left-8 rounded-full"
@@ -38,8 +51,11 @@ const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
         )}
         nextArrow={({ handleNext }) => (
           <IconButton
+            onResizeCapture={() => {}}
+            onResize={() => {}}
+            nonce=""
             variant="outlined"
-            color="black"
+            color="white"
             size="md"
             onClick={handleNext}
             className="!absolute top-[65%] md:top-2/4 !right-4 md:!right-8 rounded-full"
@@ -75,11 +91,11 @@ const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
         )}
       >
         {reviews.map((review) => (
-              <ReviewCard review={review} key={review._id} />
-            ))}
+          <ReviewCard review={review} key={review._id} />
+        ))}
       </Carousel>
     </div>
   );
-}
+};
 
 export default ReviewCarousel;

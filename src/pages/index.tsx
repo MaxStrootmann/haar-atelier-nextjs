@@ -7,6 +7,7 @@ import client from "lib/sanity/client";
 import reviewsQuery from "lib/sanity/queries/reviews";
 import { useEffect } from "react";
 import ReviewCarousel from "components/Home/ReviewCarousel";
+import axios from "axios";
 
 interface HomeProps {
   categories: CategorySchema[];
@@ -14,18 +15,30 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ categories, reviews }) => {
-  useEffect(() => {
-  console.log(reviews)
-}, []);
+  const fbLogin = () => {
+    window.FB.login((response) => {
+      console.log(response);
+      console.log(response.authResponse.accessToken);
+      
+    },
+    {
+      scope: 'public_profile',
+    }
+    );
+  };
+
+
   return (
     <>
       <HomeHero />
       <HeroContent />
       <ReviewCarousel reviews= { reviews }/>
       <MetaHead description="Gespecialiseerd in het kleuren van haar. Lived-in balayage, faceframing, highlights, blonde & brunettes. Haircuts voor mannen & vrouwen." />
+      <button className="p-8 bg-blue-500" onClick={fbLogin}>Log in fb</button>
     </>
   );
 };
+
 
 export const getStaticProps: GetStaticProps = async () => {
   const reviews = await client.fetch(reviewsQuery);
