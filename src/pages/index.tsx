@@ -8,6 +8,7 @@ import reviewsQuery from "lib/sanity/queries/reviews";
 import { useEffect } from "react";
 import ReviewCarousel from "components/Home/ReviewCarousel";
 import axios from "axios";
+import { useFacebookSDK } from "lib/useFacebookSDK";
 
 interface HomeProps {
   categories: CategorySchema[];
@@ -15,6 +16,7 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ categories, reviews }) => {
+  useFacebookSDK();
   const fbLogin = () => {
     if (window.FB) {
     window.FB.login((response) => {
