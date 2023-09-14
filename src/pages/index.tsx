@@ -17,9 +17,9 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ categories, reviews }) => {
   const fbLogin = () => {
     window.FB.login((response) => {
-      console.log(response);
       console.log(response.authResponse.accessToken);
-      
+      fetch(`http://localhost:3000/api/getFbAccessToken?token=${response.authResponse.accessToken}`
+      ).then((res) => console.log("got a response",res));
     },
     {
       scope: 'public_profile',
