@@ -1,0 +1,58 @@
+[
+  {
+    "_type": "product",
+    "name": "Volume Hairwash",
+    "slug": {
+      "_type": "slug",
+      "current": "888"
+    },
+    "description": [
+      {
+        "_type": "block",
+        "children": [
+          {
+            "_type": "span",
+            "text": "Reinigende shampoo die het haar sterk, krachtig en vol maakt. Geschikt voor fijn of chemisch beschadigt haar.\r\n\\nDe actieve ingrediënten helpen bij de opname van voedingsstoffen om het haar te versterken.\r\n\\nPerfect voor mensen die meer volume wensen of snel vet haar hebben.\r\n\\n\r\n\\n<em>Met gecertificeerde biologische beschermende rozemarijn en verzachtend haverextract.</em>\r\n\\n\r\n\\n250 ml"
+          }
+        ]
+      }
+    ],
+    "subcategorie": [],
+    "featured_image": {
+      "_type": "image",
+      "url": "https://haaratelier-alkmaar.nl/wp-content/uploads/2022/05/NATULIQUE-VOLUME-HAIRWASH-250ML-RGB-CENTER-0421.png",
+      "_ref": "image-6fafaa6901a6d58e270708ff7aa089b5cd08f4e3-1500x1500-png"
+    },
+    "price": 22,
+    "currency": "EUR",
+    "op_voorraad": true
+  },
+  {
+    "_type": "product",
+    "name": "Volume Conditioner",
+    "slug": {
+      "_type": "slug",
+      "current": "960"
+    },
+    "description": [
+      {
+        "_type": "block",
+        "children": [
+          {
+            "_type": "span",
+            "text": "Verzorgende conditioner die het haar sterk, krachtig en vol maakt. Helpt dunner wordend haar te herstellenen. Geschikt voor fijn of chemisch beschadigt haar. De ontgiftende ingrediënten stimuleren de hoofdhuid en zorgen voor gezond en glanzend haar.\r\n\\nPerfect voor mensen die meer volume wensen of snel vet haar hebben.\r\n\\n\r\n\\n<em>Met gecertificeerde biologische herstellende aloë vera en hydraterende açai bes.</em>\r\n\\n\r\n\\n250 ml"
+          }
+        ]
+      }
+    ],
+    "subcategorie": [],
+    "featured_image": {
+      "_type": "image",
+      "url": "https://haaratelier-alkmaar.nl/wp-content/uploads/2022/07/NATULIQUE-VOLUME-CONDITIONER-250ML-RGB-CENTER-0421.png",
+      "_ref": "image-7d92c3416111d4c7d4c78b4a4618eec78ee93aa9-1500x1500-png"
+    },
+    "price": 22,
+    "currency": "EUR",
+    "op_voorraad": true
+  }
+]

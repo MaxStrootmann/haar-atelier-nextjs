@@ -13,35 +13,43 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ categories, reviews }) => {
-
   const fbLogin = () => {
     if (window.FB) {
-    window.FB.login((response) => {
-      console.log(response.authResponse.accessToken);
-      fetch(`https://haar-atelier-nextjs.vercel.app/api/getFbAccessToken?token=${response.authResponse.accessToken}`
-      ).then((response) => console.log("got a response",response));
-    },
-    {
-      scope: 'public_profile',
+      window.FB.login(
+        (response) => {
+          console.log(response.authResponse.accessToken);
+          fetch(
+            `https://haar-atelier-nextjs.vercel.app/api/getFbAccessToken?token=${response.authResponse.accessToken}`
+          ).then((response) => console.log("got a response", response));
+        },
+        {
+          scope: "public_profile",
+        }
+      );
+    } else {
+      console.error("FB sdk not initialized");
     }
-    );} else {
-      console.error("FB sdk not initialized")
-    }
-    
   };
 
+  // Inside your index.js or index.tsx
+  async function fetchFormattedJSON() {
+    const response = await fetch("/api/formatJSON");
+    const data = await response.json();
+    console.log(data);
+  }
 
   return (
     <>
       <HomeHero />
       <HeroContent />
-      <ReviewCarousel reviews= { reviews }/>
+      <ReviewCarousel reviews={reviews} />
       <MetaHead description="Gespecialiseerd in het kleuren van haar. Lived-in balayage, faceframing, highlights, blonde & brunettes. Haircuts voor mannen & vrouwen." />
-      <button className="p-8 bg-blue-500" onClick={fbLogin}>Log in fb</button>
+      <button className="p-8 bg-blue-500" onClick={fetchFormattedJSON}>
+        Log in fb
+      </button>
     </>
   );
 };
-
 
 export const getStaticProps: GetStaticProps = async () => {
   const reviews = await client.fetch(reviewsQuery);
@@ -57,4 +65,3 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 export default Home;
-
