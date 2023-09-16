@@ -18,11 +18,7 @@ export interface ProductSchema {
 }
 
 export interface CategorySchema {
-  _id: string;
-  title: string;
-  description: string;
-  slug: string;
-  featured_image: Image;
+  category: string;
 }
 
 export interface Image {

@@ -4,6 +4,8 @@ const popularProductsQuery = groq`
   *[_type == "product"]{
     _id,
     name,
+    brand,
+    category,
     "slug": slug.current,
     description,
     featured_image,

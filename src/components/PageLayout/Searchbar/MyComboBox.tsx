@@ -24,7 +24,7 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({
     query === ""
       ? categories
       : categories.filter((category) =>
-          category.title
+          category.name
             .toLowerCase()
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
@@ -82,23 +82,12 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({
                         >
                           {({ selected, active }) => (
                             <>
-                              <div className="flex-shrink-0 relative w-12 h-12">
-                                {" "}
-                                {/* Adjust width and height as needed */}
-                                <Image
-                                  src={urlFor(category.featured_image).url()}
-                                  alt={category.title}
-                                  quality={100}
-                                  layout="fill"
-                                  objectFit="cover" // This ensures the image covers the div without distorting its aspect ratio
-                                />
-                              </div>
                               <span
                                 className={`block truncate ml-2 ${
                                   selected ? "font-medium" : "font-normal"
                                 }`}
                               >
-                                {category.title}
+                                {category.name}
                               </span>
 
                               {selected ? (
