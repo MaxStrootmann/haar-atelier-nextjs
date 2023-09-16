@@ -14,17 +14,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log("Handler function initiated");
   // Define your inner functions here
 
-  const downloadImage = async (url) => {
+  const downloadImage = async (url: string) => {
     const response = await axios.get(url, { responseType: 'arraybuffer' });
     return Buffer.from(response.data, 'binary');
   };
 
-  const uploadToSanity = async (buffer) => {
+  const uploadToSanity = async (buffer: Buffer) => {
     const asset = await client.assets.upload('image', buffer);
     return asset._id;
   };
 
-  const uploadProductsToSanity = async (formattedJSON) => {
+  const uploadProductsToSanity = async (formattedJSON: any[]) => {
     const transaction = client.transaction();
     formattedJSON.forEach((product) => {
       transaction.createOrReplace(product);
@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await transaction.commit();
   };
 
-  const guessCategory = async (description, name) => {
+  const guessCategory = async (description: string, name: string) => {
     if (description.includes('Shampoo') 
     || description.includes('shampoo')) {
       return 'Shampoo & Conditioners';
@@ -80,7 +80,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   
 
-  const formatJSON = async (originalJSON) => {
+  const formatJSON = async (originalJSON: any[]) => {
     return Promise.all(originalJSON.map(async (item, index) => {
       const buffer = await downloadImage(item['Main Variant Image']);
       const assetRef = await uploadToSanity(buffer);
@@ -93,13 +93,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       name: item['Product Name'],
       currency: 'EUR',
       price: item['Variant Price'],
+      popularity: 0,
       brand: 'Natulique',
       slug: {
         current: `${currentSlug}`,
         _type: 'slug',
       },
       category: `${category}`,
-      op_voorraad: true, 
+      op_voorraad: true,
       description: formatDescription(item['Product Description']),
       featured_image: {
         _type: 'image',
@@ -119,7 +120,7 @@ console.log("CSV file read");
 Papa.parse(csvFile, {
   header: true,
   dynamicTyping: true,
-  complete: async function (results) {
+  complete: async function (results: any) {
     try {
       console.log("Parsing complete", results);
       const originalJSON = results.data;

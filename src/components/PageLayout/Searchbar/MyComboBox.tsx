@@ -24,7 +24,7 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({
     query === ""
       ? categories
       : categories.filter((category) =>
-          category.name
+          category.category
             .toLowerCase()
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
@@ -66,11 +66,11 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({
                 ) : (
                   <>
                     <h2 className="font-bold ml-6 my-2">Categorieën</h2>
-                    {filteredCategories.map((category) => (
-                      (<Link key={category._id} href={`/category/${category.slug}`}>
+                    {filteredCategories.map((category, index) => (
+                      (<Link key={`category${index}`} href={`/category/${category}`}>
 
                         <Combobox.Option
-                          key={category._id}
+                          key={`category${index}`}
                           className={({ active }) =>
                             `relative cursor-default select-none py-2 pl-6 pr-4 flex items-center ${
                               active
@@ -87,7 +87,7 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({
                                   selected ? "font-medium" : "font-normal"
                                 }`}
                               >
-                                {category.name}
+                                {category.category}
                               </span>
 
                               {selected ? (

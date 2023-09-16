@@ -1,4 +1,5 @@
 import CategoriesDropdown from "components/CategoriesPage/CategoriesDropdown";
+import ProductCard from "components/ProductList/ProductCard";
 import { Logo_Natulique } from "lib/icons";
 import { CategorySchema, ProductSchema } from "lib/interfaces";
 import client from "lib/sanity/client";
@@ -16,7 +17,7 @@ interface CategoriesPageProps {
 const CategoriesPage: React.FC<CategoriesPageProps> = ({categories, products}) => {
 
   useEffect(() => {
-    console.log(categories);
+    console.log(products);
   }, []);
 
   return (
@@ -39,6 +40,13 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({categories, products}) =
         <div><h2 className="text-sm font-sans pl-">Categorieën:</h2><CategoriesDropdown categories={categories}/></div>
         <div><h2 className="text-sm font-sans pl-">Sorteren op:</h2><CategoriesDropdown categories={categories}/></div>
       </div>
+      <div
+          className="flex overflow-x-auto py-4 gap-4 ml-4"
+        >
+          {products.map((product) => (
+            <ProductCard product={product} key={product._id} />
+          ))}
+        </div>
     </div>
   );
 };

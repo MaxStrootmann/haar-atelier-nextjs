@@ -55,12 +55,12 @@ const Header: React.FC<HeaderProps> = ({ categories, products }) => {
           </ul>
         </nav>
         <div>
-          <button className=" mr-4 relative z-50 border-0 bg-transparent outline-0">
+          <button className="relative pr-2 z-50 border-0 bg-transparent outline-0">
             <MdOutlineShoppingBag
               color="black"
               onClick={toggleCartVisibility}
               size={24}
-              className="md:w-8 md:h-8"
+              className=""
             />
             {cartLength > 0 && (
               <span className="absolute w-4 h-4 text-black text-xs border border-solid border-gray-500 rounded-full flex flex-row justify-center items-center p-2 -left-1 -bottom-1 bg-white">
@@ -73,7 +73,7 @@ const Header: React.FC<HeaderProps> = ({ categories, products }) => {
               onClick={toggleSearchVisibility}
               color="black"
               size={34}
-              className="md:w-12 md:h-12"
+              className=""
             />
           </button>
         </div>

@@ -1,7 +1,7 @@
 import groq from "groq";
 
 const categoriesQuery = groq`
-  *[_type == "product" ] {
+  *[_type == "product"] {
     category,
   }
 `;

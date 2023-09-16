@@ -10,8 +10,6 @@ interface ReviewCarouselProps {
   reviews: ReviewSchema[];
 }
 
-type ExtendedIconButtonProps = IconButtonProps &
-  React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
   return (
@@ -28,8 +26,7 @@ const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
             onResize={() => {}}
             nonce=""
             variant="outlined"
-            color="white"
-            size="md"
+            size="sm"
             onClick={handlePrev}
             className="!absolute top-[65%] md:top-2/4 left-4 md:left-8 rounded-full"
           >
@@ -55,8 +52,7 @@ const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
             onResize={() => {}}
             nonce=""
             variant="outlined"
-            color="white"
-            size="md"
+            size="sm"
             onClick={handleNext}
             className="!absolute top-[65%] md:top-2/4 !right-4 md:!right-8 rounded-full"
           >

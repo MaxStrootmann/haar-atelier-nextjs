@@ -7,6 +7,7 @@ import client from "lib/sanity/client";
 import reviewsQuery from "lib/sanity/queries/reviews";
 import ReviewCarousel from "components/Home/ReviewCarousel";
 
+
 interface HomeProps {
   categories: CategorySchema[];
   reviews: ReviewSchema[];
@@ -40,13 +41,14 @@ const Home: React.FC<HomeProps> = ({ categories, reviews }) => {
 
   return (
     <>
+      <MetaHead description="Gespecialiseerd in het kleuren van haar. Lived-in balayage, faceframing, highlights, blonde & brunettes. Haircuts voor mannen & vrouwen." />
       <HomeHero />
       <HeroContent />
       <ReviewCarousel reviews={reviews} />
-      <MetaHead description="Gespecialiseerd in het kleuren van haar. Lived-in balayage, faceframing, highlights, blonde & brunettes. Haircuts voor mannen & vrouwen." />
-      <button className="p-8 bg-blue-500" onClick={fetchFormattedJSON}>
-        Log in fb
-      </button>
+      
+      {/* <button className="underline" onClick={fetchFormattedJSON}>
+        upload
+      </button> */}
     </>
   );
 };
