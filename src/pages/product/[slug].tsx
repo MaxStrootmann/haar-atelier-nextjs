@@ -94,7 +94,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
             </div>
           )}
 
-          {product.op_voorraad ? (
+          {product.in_stock ? (
             <>
               <div className="flex justify-between items-center w-full border border-black rounded-lg text-xl mb-4 px-3 py-1">
                 <button

@@ -28,7 +28,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
 
   return (
     <>
-        <div className="2xl:container">
+        <div className="">
           {!cartVisibility ? (
             <Headroom style={{ zIndex: "40" }}>
               <Header

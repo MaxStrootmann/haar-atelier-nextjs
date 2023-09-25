@@ -45,14 +45,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <div className="flex flex-col justify-between h-32 w-36 md:w-full px-2 pb-2">
         <Link href={`/product/${product.slug}`}>
 
-          <h4 className="cursor-pointer capitalize mt-3 font-sans w-28">
+          <h4 className="cursor-pointer capitalize mt-3 font-sans truncate-wrap line-clamp-3 w-28">
             {product.name}
           </h4>
 
         </Link>
         <div className="flex justify-between w-full items-center">
           <span className="text-[14px]">€{displayedPrice}</span>
-          {product.op_voorraad ? (
+          {product.in_stock ? (
             <button
               onClick={addToCart}
               className="bg-accent-500 py-2 px-2 rounded-lg text-white text-xs"

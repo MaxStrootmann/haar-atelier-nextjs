@@ -8,7 +8,7 @@ interface ProductListProps {
   products: ProductSchema[];
 }
 
-const ProductCarousel: React.FC<ProductListProps> = ({ products }) => {
+const PopularProductCarousel: React.FC<ProductListProps> = ({ products }) => {
   const carouselRef = React.useRef<HTMLDivElement>(null);
   function smoothScroll(
     element: HTMLDivElement, 
@@ -41,14 +41,14 @@ const ProductCarousel: React.FC<ProductListProps> = ({ products }) => {
   
   const scrollLeft = () => {
     if (carouselRef.current) {
-      const newScrollPos = carouselRef.current.scrollLeft - 300;
+      const newScrollPos = carouselRef.current.scrollLeft - 600;
       smoothScroll(carouselRef.current, newScrollPos, 500, easeInOutQuart);
     }
   };
   
   const scrollRight = () => {
     if (carouselRef.current) {
-      const newScrollPos = carouselRef.current.scrollLeft + 300;
+      const newScrollPos = carouselRef.current.scrollLeft + 600;
       smoothScroll(carouselRef.current, newScrollPos, 500, easeInOutQuart);
     }
   };
@@ -63,11 +63,11 @@ const ProductCarousel: React.FC<ProductListProps> = ({ products }) => {
           Bekijk meer
         </Link>
       </div>
-      <div className="relative">
+      <div className="relative 2xl:max-w-screen-2xl mx-auto">
         <div className="absolute top-[40%]">
           <div className="hidden md:flex justify-between w-[calc(100vw-1.5rem)] 2xl:max-w-screen-2xl mx-auto px-6">
-            <button onClick={scrollLeft} className="z-20"><BsArrowLeftCircle size={32}/></button> {/* Right Scroll Button */}
-            <button onClick={scrollRight} className="z-20"><BsArrowRightCircle size={32}/></button> {/* Left Scroll Button */}
+            <button onClick={scrollLeft} className="z-20 bg-bg-300 rounded-full"><BsArrowLeftCircle size={32}/></button>
+            <button onClick={scrollRight} className="z-20 bg-bg-300 rounded-full"><BsArrowRightCircle size={32}/></button>
           </div>
         </div>
         <div
@@ -83,4 +83,4 @@ const ProductCarousel: React.FC<ProductListProps> = ({ products }) => {
   );
 };
 
-export default ProductCarousel;
+export default PopularProductCarousel;

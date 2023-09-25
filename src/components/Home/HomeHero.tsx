@@ -38,19 +38,6 @@ const HomeHero = () => {
 
             </Link>
           </div>
-          <div>
-            <Link
-              href={
-                "/categories"
-              }
-            >
-
-              <div className="bg-accent-500 rounded-lg px-4 py-2 text-white w-full text-center md:text-xl md">
-                Naar categories
-              </div>
-
-            </Link>
-          </div>
         </div>
       </div>
       <div className="relative hidden h-full md:block">

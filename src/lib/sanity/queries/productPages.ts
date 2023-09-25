@@ -1,7 +1,7 @@
 import groq from "groq";
 
-const popularProductsQuery = groq`
-  *[_type == "product" && popularity > 0] | order(popularity desc) [0...20]{
+const productPagesQuery = groq`
+  *[_type == "product"] | order(popularity desc) [0...10]{
     _id,
     name,
     brand,
@@ -15,4 +15,4 @@ const popularProductsQuery = groq`
   }
 `;
 
-export default popularProductsQuery;
+export default productPagesQuery;

@@ -1,24 +1,15 @@
-import CategoriesDropdown from "components/CategoriesPage/CategoriesDropdown";
-import ProductCard from "components/ProductList/ProductCard";
 import { Logo_Natulique } from "lib/icons";
 import { CategorySchema, ProductSchema } from "lib/interfaces";
-import client from "lib/sanity/client";
-import categoriesQuery from "lib/sanity/queries/categories";
-import popularProductsQuery from "lib/sanity/queries/popular_products";
-import { GetStaticProps } from "next";
 import Image from "next/image";
-import { useEffect } from "react";
+import CategoriesDropdown from "./CategoriesDropdown";
+import ProductCard from "./ProductCard";
 
 interface CategoriesPageProps {
-  categories: CategorySchema[];
   products: ProductSchema[];
+  categories: CategorySchema[];
 }
 
-const CategoriesPage: React.FC<CategoriesPageProps> = ({categories, products}) => {
-
-  useEffect(() => {
-    console.log(products);
-  }, []);
+const ProductsByCategory: React.FC<CategoriesPageProps> = ({ products, categories }) => {
 
   return (
     <div className="px-8 pb-48 pt-10 space-y-8">
@@ -51,18 +42,4 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({categories, products}) =
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const categories = await client.fetch(categoriesQuery);
-  const popularProducts = await client.fetch(popularProductsQuery);
-
-  if (!categories || !popularProducts) {
-    throw Error("Sorry, something went wrong.");
-  }
-
-  return {
-    props: { categories, products: popularProducts },
-    revalidate: 60,
-  };
-};
-
-export default CategoriesPage;
+export default ProductsByCategory;

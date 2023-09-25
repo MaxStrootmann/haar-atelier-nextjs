@@ -88,7 +88,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const currentSlug = "natulique-" + slugify(item['Product Name'].toLowerCase());
 
     return {
-      _id: `product-${index}`,
+      _id: uuidv4(),
       _type: 'product',
       name: item['Product Name'],
       currency: 'EUR',
@@ -100,7 +100,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         _type: 'slug',
       },
       category: `${category}`,
-      op_voorraad: true,
+      in_stock: true,
       description: formatDescription(item['Product Description']),
       featured_image: {
         _type: 'image',
@@ -122,10 +122,10 @@ Papa.parse(csvFile, {
   dynamicTyping: true,
   complete: async function (results: any) {
     try {
-      console.log("Parsing complete", results);
+      // console.log("Parsing complete", results);
       const originalJSON = results.data;
       const formattedJSON = await formatJSON(originalJSON);
-      console.dir(formattedJSON, { depth: null });
+      // console.dir(formattedJSON, { depth: null });
       await uploadProductsToSanity(formattedJSON);
       console.log("Sending response");
       res.status(200).json(formattedJSON);

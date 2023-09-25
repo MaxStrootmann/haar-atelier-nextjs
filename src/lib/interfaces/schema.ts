@@ -7,8 +7,9 @@ export interface ProductSchema {
   description: [PortableTextBlock];
   featured_image: Image;
   price: number;
-  op_voorraad: boolean;
+  in_stock: boolean;
   quantity?: number;
+  popularity: number;
   subcategories: [
     {
       title: string;
