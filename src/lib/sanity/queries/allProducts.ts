@@ -1,7 +1,7 @@
 import groq from "groq";
 
 const allProductsQuery = groq`
-  *[_type == "product"]{
+  *[_type == "product" $category] | order($SORT_BY $SORT_DIRECTION) [0...$LIMIT] {
     _id,
     name,
     brand,

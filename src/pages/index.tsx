@@ -6,7 +6,7 @@ import { GetStaticProps } from "next";
 import client from "lib/sanity/client";
 import reviewsQuery from "lib/sanity/queries/reviews";
 import ReviewCarousel from "components/Home/ReviewCarousel";
-
+import { v4 as uuidv4 } from "uuid";
 
 interface HomeProps {
   categories: CategorySchema[];
@@ -39,15 +39,37 @@ const Home: React.FC<HomeProps> = ({ categories, reviews }) => {
     console.log(data);
   }
 
+  async function updateIds() {
+    try {
+      const response = await fetch('/api/updateProductIds', {
+        method: 'POST'
+      });
+      
+      const data = await response.json();
+  
+      if (response.ok) {
+        console.log(data.message);
+      } else {
+        console.error('Failed to update product IDs:', data.message);
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+    }
+  }
+  
+
   return (
     <>
       <MetaHead description="Gespecialiseerd in het kleuren van haar. Lived-in balayage, faceframing, highlights, blonde & brunettes. Haircuts voor mannen & vrouwen." />
       <HomeHero />
       <HeroContent />
       <ReviewCarousel reviews={reviews} />
-      
+
       {/* <button className="underline" onClick={fetchFormattedJSON}>
         upload
+      </button> */}
+      {/* <button className="underline" onClick={updateIds}>
+        updateIds
       </button> */}
     </>
   );
