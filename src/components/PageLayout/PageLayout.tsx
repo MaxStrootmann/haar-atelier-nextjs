@@ -18,28 +18,19 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
   const { searchVisibility } = useContext(SearchVisibilityContext);
   const { cartVisibility } = useContext(CartVisibilityContext);
 
-  useEffect(() => {
-    if (searchVisibility) {
-      document.body.classList.add("overflow-hidden");
-    } else {
-      document.body.classList.remove("overflow-hidden");
-    }
-  }, [searchVisibility]);
+  
+
 
   return (
     <>
         <div className="">
-          {!cartVisibility ? (
-            <Headroom style={{ zIndex: "40" }}>
-              <Header
-                products={products}
-              />
-            </Headroom>
-          ) : (
-            <Header
-              products={products}
-            />
-          )}
+        {(cartVisibility || searchVisibility) ? (
+          <Header products={products} />
+        ) : (
+          <Headroom>
+            <Header products={products} />
+          </Headroom>
+        )}
           <div className="">{children}</div>
           <Footer />
         </div>

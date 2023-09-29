@@ -9,9 +9,13 @@ import SearchVisibilityContext from "contexts/searchVisibilityContext";
 
 interface MyComboBoxProps {
   products: ProductSchema[];
+  categories?: any[];
 }
 
-const MyComboBox: React.FC<MyComboBoxProps> = ({ products = [] }) => {
+const MyComboBox: React.FC<MyComboBoxProps> = ({
+  products = [],
+  categories = [],
+}) => {
   const [selected, setSelected] = useState<ProductSchema>(products[0] || null);
 
   const [query, setQuery] = useState("");
@@ -21,14 +25,16 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({ products = [] }) => {
   );
 
   const menuItems = [
-    { _id: "1", name: "Home"},
-    { _id: "2", name: "Shop"},
-    { _id: "3", name: "Tarieven"},
-    { _id: "4", name: "Contact"},]
+    { _id: "1", name: "Home" },
+    { _id: "2", name: "Shop" },
+    { _id: "3", name: "Reviews" },
+    { _id: "4", name: "Tarieven" },
+    { _id: "5", name: "Contact" },
+  ];
 
   const filteredProducts =
     query === ""
-      ? products
+      ? []
       : products.filter((product) =>
           product.name
             .toLowerCase()
@@ -37,7 +43,7 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({ products = [] }) => {
         );
 
   return (
-    <div className="z-30 w-[calc(100%-2rem)] fixed m-4">
+    <div className="z-30 w-[calc(100%-2rem)] fixed m-4 md:w-96 md:right-0">
       <div className="relative">
         <Combobox value={selected} onChange={setSelected}>
           {({}) => (
@@ -45,7 +51,7 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({ products = [] }) => {
               <div className="relative w-full rounded-2xl cursor-default overflow-hidden bg-white text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
                 <Combobox.Input
                   className=" bg-grey-300 w-[calc(100%-2rem)] rounded-xl m-4 border-none py-4 pl-8 text-base leading-5 text-gray-900 focus:ring-0"
-                  placeholder="Waar ben je naar opzoek"
+                  placeholder="Welk product zoek je?"
                   onChange={(event) => setQuery(event.target.value)}
                 />
                 <Combobox.Button className="absolute inset-y-0 right-4 flex items-center pr-2">
@@ -66,8 +72,9 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({ products = [] }) => {
               </div>
               <Combobox.Options
                 static
-                className="absolute mt-2 w-full overflow-auto rounded-xl bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                className="absolute overflow-y-auto mt-2 w-full rounded-xl bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               >
+                {!query && <h2 className="font-bold ml-6 my-2">Menu</h2>}
                 {!query &&
                   menuItems.map((item) => (
                     <Link
@@ -105,13 +112,25 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({ products = [] }) => {
                       </Combobox.Option>
                     </Link>
                   ))}
+                {!query && (
+                    <div className="mx-auto w-[calc(100%-3rem)] md:w-80">
+                      <Link
+                        href={
+                          "https://widget2.meetaimy.com/widgetWeb?salonId=MTIzNjkzMA%3D%3D&salonEmail=aW5mb0BtYXJsb2Vzb3RqZXMtaGFhcmF0ZWxpZXIubmw%3D"
+                        }
+                      >
+                        <div className="bg-accent-500 rounded-lg px-4 py-2 text-white text-center my-4">
+                          Afspraak maken
+                        </div>
+                      </Link>
+                    </div>
+                )}
                 {filteredProducts.length === 0 && query !== "" ? (
                   <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
                     Geen resultaat.
                   </div>
                 ) : (
                   <>
-                    <h2 className="font-bold ml-6 my-2">Categorieën</h2>
                     {filteredProducts.map((product) => (
                       <Link
                         key={`${product._id}`}

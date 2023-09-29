@@ -17,7 +17,7 @@ const Searchbar: React.FC<SearchbarProps> = ({ products }) => {
       <div
         onClick={toggleSearchVisibility}
         className={classNames(
-          "fixed w-screen h-screen opacity-30 bg-black z-20",
+          "fixed w-screen h-screen opacity-30 bg-black z-30",
           {
             hidden: !searchVisibility,
           }

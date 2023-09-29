@@ -1,7 +1,7 @@
 import styles from "styles/components/PageLayout/Header.module.scss";
 import Link from "next/link";
 import Cart from "./Cart/Cart";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import CartItemsContext from "contexts/cartItemsContext";
 import CartVisibilityContext from "contexts/cartVisibilityContext";
 import { CartProduct, CategorySchema, ProductSchema } from "lib/interfaces";
@@ -24,15 +24,24 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ products }) => {
   const { cart } = useContext(CartItemsContext);
-  const { toggleCartVisibility } = useContext(CartVisibilityContext);
-  const { toggleSearchVisibility } = useContext(SearchVisibilityContext);
+  const { cartVisibility, toggleCartVisibility } = useContext(CartVisibilityContext);
+  const { searchVisibility, toggleSearchVisibility } = useContext(SearchVisibilityContext);
   const cartLength = cart.reduce(
     (count: number, item: CartProduct) =>
       (count += item.quantity ? item.quantity : 1),
     0
   );
 
-  return <>
+  useEffect(() => {
+    if (searchVisibility || cartVisibility) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, [searchVisibility, cartVisibility]);
+
+  return (
+  <div className="z-50">
   <Searchbar products={products} />
     <Cart />
     <header className="sticky">
@@ -78,7 +87,8 @@ const Header: React.FC<HeaderProps> = ({ products }) => {
         </div>
       </div>
     </header>
-  </>;
+  </div>
+  );
 };
 
 export const getStaticProps: GetStaticProps = async () => {

@@ -5,6 +5,7 @@ import groq from "groq";
 import client from "lib/sanity/client";
 import { ProductSchema } from "lib/interfaces";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 interface Props {
   searchParams: {
@@ -34,7 +35,8 @@ export default function Category({ searchParams, categories }: Props) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (searchParams: Props) => {
+export const getServerSideProps: GetServerSideProps = async () => {
+  const searchParams = useSearchParams()
   const { price = "", popularity = "desc", category = "" } = searchParams;
   const categoryFilter = category ? `&& category == ${category}` : "";
   const priceOrder = price ? `| order(price ${price})` : "";

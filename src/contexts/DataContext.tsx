@@ -6,8 +6,6 @@ import React, {
   useEffect,
 } from "react";
 import client from "lib/sanity/client";
-import categoriesQuery from "lib/sanity/queries/categories";
-import popularProductsQuery from "lib/sanity/queries/popular_products";
 import groq from "groq";
 
 interface DataContextProps {
@@ -32,7 +30,9 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
           "slug": slug.current,
           }`;
       const fetchedProducts = await client.fetch(query);
-      const fetchedCategories = await client.fetch(categoriesQuery);
+      const fetchedCategories = await client.fetch(
+        groq`array::unique(*[_type == "product"].category)`
+      );
 
       setCategories(fetchedCategories);
       setProducts(fetchedProducts);

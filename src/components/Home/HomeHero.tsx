@@ -12,7 +12,7 @@ const HomeHero = () => {
   return ( 
   <>
     <div className="relative -mt-28 flex justify-center">
-      <div className="absolute flex flex-col items-center z-30 top-48 md:top-72 w-[90%] md:w-2/3">
+      <div className="absolute flex flex-col items-center z-10 top-48 md:top-72 w-[90%] md:w-2/3">
         <HaaLogo fill="white" />
 
         <div className="mt-12 md:mt-16 space-y-4">

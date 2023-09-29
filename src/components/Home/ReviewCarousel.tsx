@@ -28,7 +28,7 @@ const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
             variant="outlined"
             size="sm"
             onClick={handlePrev}
-            className="!absolute top-[65%] md:top-2/4 left-4 md:left-8 rounded-full"
+            className="!absolute top-[50%] md:top-2/4 left-4 md:left-8 rounded-full"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@ const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
             variant="outlined"
             size="sm"
             onClick={handleNext}
-            className="!absolute top-[65%] md:top-2/4 !right-4 md:!right-8 rounded-full"
+            className="!absolute top-[50%] md:top-2/4 !right-4 md:!right-8 rounded-full"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

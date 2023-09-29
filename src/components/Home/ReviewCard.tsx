@@ -9,12 +9,12 @@ interface ReviewCardProps {
 const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   return (
    <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center justify-center px-8 pb-16 pt-8 md:px-32 md:py-16">
-    <div className="relative w-3/4 mb-3 md:w-1/2">
+    <div className="relative w-3/4 h-64 md:h-[24rem] mb-3 md:w-1/2">
       <Image
       src={urlFor(review.foto).url()}
       alt={review.name}
-      width={500}
-      height={500}
+      fill={true}
+      objectFit="cover" 
        />
     </div>
     <div className="space-y-4 w-[70%] md:w-1/2 text-sm md:text-base">

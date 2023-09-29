@@ -7,6 +7,7 @@ import client from "lib/sanity/client";
 import reviewsQuery from "lib/sanity/queries/reviews";
 import ReviewCarousel from "components/Home/ReviewCarousel";
 import { v4 as uuidv4 } from "uuid";
+import urlFor from "lib/sanity/urlFor";
 
 interface HomeProps {
   categories: CategorySchema[];
@@ -84,7 +85,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: { reviews },
-    revalidate: 100,
+    revalidate: 60*60*24,
   };
 };
 

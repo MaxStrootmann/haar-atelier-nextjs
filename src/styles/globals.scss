@@ -40,6 +40,10 @@ h4 {
   @apply font-display;
 }
 
+header {
+  z-index: 20 !important; 
+}
+
 .reverse-shadow-md {
   box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -1px rgba(0, 0, 0, 0.04);
 }
