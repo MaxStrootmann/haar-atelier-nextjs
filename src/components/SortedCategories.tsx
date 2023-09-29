@@ -5,12 +5,14 @@ import { ProductSchema } from "lib/interfaces";
 import client from "lib/sanity/client";
 import groq from "groq";
 
+
 interface Props {
   categories: any[]
   products: ProductSchema[]
 }
 
 export default function SortedCategories({ categories, products }: Props) {
+
  const [displayedProducts, setDisplayedProducts] = useState<ProductSchema[]>(products);
 
  const handleScroll = async () => {
@@ -29,9 +31,9 @@ useEffect(() => {
     window.removeEventListener("scroll", handleScroll);
   };
 }, [displayedProducts]);
+
  const router = useRouter();
  
-
  const handleChange = (selectedCategory: any) => {
   const urlCategory = selectedCategory.replace(/\s+/g, '-')
   router.replace(`?category=${urlCategory}`);
