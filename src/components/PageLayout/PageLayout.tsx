@@ -32,13 +32,11 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
           {!cartVisibility ? (
             <Headroom style={{ zIndex: "40" }}>
               <Header
-                categories={categories}
                 products={products}
               />
             </Headroom>
           ) : (
             <Header
-              categories={categories}
               products={products}
             />
           )}

@@ -38,6 +38,7 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
   const [cart, dispatch] = useReducer(cartReducer, []);
   const [cartVisibility, setCartVisibilty] = useState(false);
   const [searchVisibility, setSearchVisibilty] = useState(false);
+  const [backClicked, setBackClicked] = useState(false);
 
   const appendTotalItemsField = (products: CartProduct[]) => {
     return products.map((product: CartProduct, i) => {
@@ -88,6 +89,18 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
     };
   }, []);
 
+  useEffect(() => {
+    const handleBackClick = () => {
+      setSearchVisibilty(false);
+    };
+  
+    window.addEventListener('popstate', handleBackClick);
+  
+    return () => {
+      window.removeEventListener('popstate', handleBackClick);
+    };
+  }, []);
+
   return (
     <SearchVisibilityContext.Provider
     value={{
@@ -108,7 +121,7 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
         >
         <DataProvider>
         <PageLayout categories={categories} products={products}>
-          <Component {...pageProps} />
+          <Component backClicked={backClicked} {...pageProps} />
           <Script async defer crossOrigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js" />
         </PageLayout>
         </DataProvider>

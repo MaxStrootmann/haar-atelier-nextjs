@@ -13,7 +13,7 @@ interface ItemProps {
 
 const Item: React.FC<ItemProps> = ({ product }) => {
   const { dispatch } = useContext(CartItemsContext);
-  const { slug, featured_image, name, op_voorraad, price, quantity } = product;
+  const { slug, featured_image, name, in_stock, price, quantity } = product;
 
   const removeWholeProduct = () => {
     dispatch({

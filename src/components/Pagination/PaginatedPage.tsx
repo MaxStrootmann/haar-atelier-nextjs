@@ -1,13 +1,14 @@
 import React from 'react'
 import Pagination from './Pagination'
 import { ProductSchema } from 'lib/interfaces'
+import CategoriesDropdown from 'components/Shop/CategoriesDropdown'
 
 type PageProps = {
   products: ProductSchema[]
   currentPage: number
   totalProducts: number
   perPage: number
-  lastId: string
+  categories: any[]
 }
 
 const ProductCard = ({ name, price, description }: any) => (
@@ -27,18 +28,17 @@ const PaginationPage = ({
   totalProducts,
   perPage,
   products,
-  lastId
+  categories
 }: PageProps): JSX.Element => {
- console.log("lastId in PaginatedPage:", lastId)
   return (
     <div>
       <h1>Page {currentPage}</h1>
+      <CategoriesDropdown categories={categories} />
       <Pagination
         totalItems={totalProducts}
         currentPage={currentPage}
         itemsPerPage={perPage}
         renderPageLink={(page, lastId) => `/category/${page}?lastId=${lastId}`}
-        lastId={lastId}
       />
       <div className="grid grid-cols-3 gap-8">
         {products.map((product) => (

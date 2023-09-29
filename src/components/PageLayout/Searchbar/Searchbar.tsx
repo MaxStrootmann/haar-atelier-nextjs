@@ -5,10 +5,9 @@ import MyComboBox from "./MyComboBox";
 import { CategorySchema, ProductSchema } from "lib/interfaces";
 
 interface SearchbarProps {
-  categories: CategorySchema[];
   products: ProductSchema[];
 }
-const Searchbar: React.FC<SearchbarProps> = ({ categories, products }) => {
+const Searchbar: React.FC<SearchbarProps> = ({ products }) => {
   const { searchVisibility, toggleSearchVisibility } = useContext(
     SearchVisibilityContext
   );
@@ -29,7 +28,7 @@ const Searchbar: React.FC<SearchbarProps> = ({ categories, products }) => {
           hidden: !searchVisibility,
         })}
       >
-        <MyComboBox categories={categories} products={products} />
+        <MyComboBox products={products} />
       </div>
     </>
   );

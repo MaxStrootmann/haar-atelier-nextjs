@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import { CategorySchema } from 'lib/interfaces'
+import { useRouter } from 'next/navigation';
 
 // const people = [
 //   { name: 'Wade Cooper' },
@@ -13,15 +13,21 @@ import { CategorySchema } from 'lib/interfaces'
 // ]
 
 interface CategoriesDropdownProps {
-  categories: CategorySchema[];
+  categories: any[];
 }
 
 const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({categories}) => {
   const [selected, setSelected] = useState(categories[0])
+  const router = useRouter()
+  const handleChange = (selectedCategory: any) => {
+    setSelected(selectedCategory);
+    router.replace(`?category=${selectedCategory.category}`);
+  };
+  
 
   return (
     <div className="">
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={selected} onChange={(value) => handleChange(value)}>
         <div className="relative mt-1">
           <Listbox.Button 
           className="relative text-sm shadow-sm bg-bg-300 w-full cursor-default rounded-lg py-2 pl-2 pr-7 text-left ring-1 ring-black ring-opacity-5 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">

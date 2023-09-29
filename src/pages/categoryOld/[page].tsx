@@ -10,12 +10,12 @@ type PageProps = {
   products: ProductSchema[]
   currentPage: number
   totalProducts: number
-  lastId: string
+  categories: any[]
 }
 
 export const PER_PAGE = 10
 
-function PaginatedPage({ products, currentPage, totalProducts, lastId }: PageProps) {
+function PaginatedPage({ products, currentPage, totalProducts, categories }: PageProps) {
   return (
     <div>
       <Head>
@@ -31,7 +31,7 @@ function PaginatedPage({ products, currentPage, totalProducts, lastId }: PagePro
         currentPage={currentPage}
         totalProducts={totalProducts}
         perPage={PER_PAGE}
-        lastId={lastId}
+        categories={categories}
       />
     </div>
   )

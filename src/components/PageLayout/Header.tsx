@@ -18,12 +18,11 @@ import popularProductsQuery from "lib/sanity/queries/popular_products";
 
 
 interface HeaderProps {
-  categories: CategorySchema[];
   products: ProductSchema[];
 }
 
 
-const Header: React.FC<HeaderProps> = ({ categories, products }) => {
+const Header: React.FC<HeaderProps> = ({ products }) => {
   const { cart } = useContext(CartItemsContext);
   const { toggleCartVisibility } = useContext(CartVisibilityContext);
   const { toggleSearchVisibility } = useContext(SearchVisibilityContext);
@@ -34,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({ categories, products }) => {
   );
 
   return <>
-  <Searchbar categories={categories} products={products} />
+  <Searchbar products={products} />
     <Cart />
     <header className="sticky">
       <div className="w-full mx-auto flex justify-between py-4 max-w-screen-2xl px-6">

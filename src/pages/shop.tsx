@@ -4,10 +4,7 @@ import { CategorySchema, ProductSchema } from "lib/interfaces/schema";
 import MetaHead from "components/MetaHead";
 import WebshopHero from "components/Shop/WebshopHero";
 import popularProductsQuery from "lib/sanity/queries/popular_products";
-import allProductsQuery from "lib/sanity/queries/allProducts";
-import categoriesQuery from "lib/sanity/queries/categories";
 import PopularProductCarousel from "components/Shop/PopularProductCarousel";
-import ProductsByCategory from "components/Shop/ProductsByCategory";
 
 interface ShopProps {
   products: ProductSchema[];
@@ -15,7 +12,7 @@ interface ShopProps {
   categories: CategorySchema[];
 }
 
-const Shop: React.FC<ShopProps> = ({ products, popularProducts, categories }) => {
+const Shop: React.FC<ShopProps> = ({ popularProducts }) => {
   return (
     <>
       <MetaHead description="Producten van Natulique, Naturign en Lykkegaard nu te bestellen via de webshop van Haar Atelier Alkmaar" />
@@ -23,24 +20,27 @@ const Shop: React.FC<ShopProps> = ({ products, popularProducts, categories }) =>
         <WebshopHero />
       </div>
       <PopularProductCarousel products={popularProducts} />
-      <ProductsByCategory products={products} categories={categories} />
     </>
   );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const products = await client.fetch(allProductsQuery);
-  const popularProducts = await client.fetch(popularProductsQuery);
-  const categories = await client.fetch(categoriesQuery);
+  try {
+    const popularProducts = await client.fetch(popularProductsQuery);
 
-  if (!popularProducts || !products || !categories) {
-    throw Error("Sorry, something went wrong.");
+    if (!popularProducts) {
+      throw Error("Data is null or undefined.");
+    }
+
+    return {
+      props: { popularProducts },
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw new Error("Failed to fetch data from Sanity.");
   }
-
-  return {
-    props: { products, popularProducts, categories },
-    revalidate: 60,
-  };
 };
+
 
 export default Shop;

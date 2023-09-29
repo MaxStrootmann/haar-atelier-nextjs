@@ -1,56 +1,39 @@
-import { GetStaticProps } from 'next'
-import { PER_PAGE } from './[page]'
-import PaginationPage from 'components/Pagination/PaginatedPage'
-import groq from 'groq'
-import client from 'lib/sanity/client'
+import SortedCategories from "components/SortedCategories";
+import groq from "groq";
+import { ProductSchema } from "lib/interfaces";
+import client from "lib/sanity/client";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { useSearchParams } from "next/navigation";
 
-function Category({ products, totalProducts, currentPage, lastId }: any) {
-  console.log("lastId in index:", lastId)
+interface Props {
+  categories: any[];
+  products: ProductSchema[];
+  selectedCategory?: string | null;
+}
+
+export default function Test( {categories, products, selectedCategory}: Props) {
+  console.log("params:", selectedCategory)
   return (
     <div>
-      <PaginationPage
-        products={products}
-        currentPage={currentPage}
-        totalProducts={totalProducts}
-        perPage={PER_PAGE}
-        lastId={lastId}
-      />
+      <SortedCategories products={products} categories={categories}/>
     </div>
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const query = groq`
-  *[_type == "product"] | order(popularity desc) [0...$limit] {
-    _id,
-    name,
-    featured_image,
-    price,
-    in_stock,
-  }`;
-  const total = groq`count(*[_type == "product"])`;
-  const products = await client.fetch(query, { limit: PER_PAGE })
-  const totalProducts = await client.fetch(total);
-  let lastId = '';
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+}: GetServerSidePropsContext) => {
+  const selectedCategory = params?.category || null;
+  const categories = await client.fetch(groq`array::unique(*[_type == "product"].category)`
+  );
+  const products = await client.fetch(groq`*[_type == "product"][0...10]`);
 
-  if (!products.length) {
-    return {
-      notFound: true,
-    }
-  } else if (products.length > 0) {
-    lastId = products[products.length - 1]._id;
-  } else {
-    lastId = ''; //reaches the end
-  }
   return {
     props: {
+      categories,
       products,
-      totalProducts,
-      currentPage: 1,
-      lastId
-    },
+      selectedCategory
+    }
   }
+
 }
-
-
-export default Category
