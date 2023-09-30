@@ -30,7 +30,7 @@ useEffect(() => {
   return () => {
     window.removeEventListener("scroll", handleScroll);
   };
-}, [displayedProducts]);
+}, [displayedProducts, handleScroll]);
 
  const router = useRouter();
  

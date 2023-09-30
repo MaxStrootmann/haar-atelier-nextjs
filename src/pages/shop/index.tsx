@@ -58,7 +58,7 @@ export default function CategoriesPage({
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [displayedProducts]);
+  }, [displayedProducts, handleScroll]);
 
   useEffect(() => {
     async function fetchNewData() {
