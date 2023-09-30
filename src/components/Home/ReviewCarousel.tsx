@@ -73,7 +73,7 @@ const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
           </IconButton>
         )}
         navigation={({ setActiveIndex, activeIndex, length }) => (
-          <div className="absolute bottom-4 left-2/4 z-50 flex items-end -translate-x-2/4 gap-2">
+          <div className="absolute bottom-4 left-2/4 flex items-end -translate-x-2/4 gap-2">
             {new Array(length).fill("").map((_, i) => (
               <span
                 key={i}

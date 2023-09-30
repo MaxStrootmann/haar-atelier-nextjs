@@ -12,7 +12,7 @@ const HomeHero = () => {
   return ( 
   <>
     <div className="relative -mt-28 flex justify-center">
-      <div className="absolute flex flex-col items-center z-20 top-48 md:top-72 w-[90%] md:w-2/3">
+      <div className="absolute flex flex-col items-center top-48 md:top-72 w-[90%] md:w-2/3 z-20">
         <HaaLogo fill="white" />
 
         <div className="mt-12 md:mt-16 space-y-4">
@@ -38,32 +38,10 @@ const HomeHero = () => {
 
             </Link>
           </div>
-          <div>
-            <Link
-              href={"/category"}
-            >
-
-              <div className="bg-accent-500 rounded-lg px-4 py-2 text-white w-full text-center md:text-xl md">
-                categorypage
-              </div>
-
-            </Link>
-          </div>
-          <div>
-            <Link
-              href={"/tarieven"}
-            >
-
-              <div className="bg-accent-500 rounded-lg px-4 py-2 text-white w-full text-center md:text-xl md">
-                tarieven
-              </div>
-
-            </Link>
-          </div>
         </div>
       </div>
-      <div className="relative hidden h-full md:block">
-        <div className="absolute z-10 top-1/2 h-1/2 w-full bg-gradient-to-t from-bg-300"></div>
+      <div className="hidden h-full md:block">
+        <div className="absolute top-1/2 h-1/2 w-full bg-gradient-to-t from-bg-300 z-10"></div>
         <Image
           src={salon}
           alt="De salon"
@@ -73,8 +51,8 @@ const HomeHero = () => {
           className=""
         />
       </div>
-      <div className="relative md:hidden h-full">
-      <div className="absolute top-1/2 h-1/2 w-full bg-gradient-to-t from-bg-300 from-15%"></div>
+      <div className="md:hidden h-full">
+      <div className="absolute top-1/2 h-1/2 w-full bg-gradient-to-t from-bg-300 from-15% z-10"></div>
         <Image
           src={salon_large}
           alt="De salon"

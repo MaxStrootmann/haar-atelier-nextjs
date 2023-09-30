@@ -64,7 +64,9 @@ const Home: React.FC<HomeProps> = ({ categories, reviews }) => {
       <MetaHead description="Gespecialiseerd in het kleuren van haar. Lived-in balayage, faceframing, highlights, blonde & brunettes. Haircuts voor mannen & vrouwen." />
       <HomeHero />
       <HeroContent />
-      <ReviewCarousel reviews={reviews} />
+      <div id="reviews">
+        <ReviewCarousel reviews={reviews} />
+      </div>
 
       {/* <button className="underline" onClick={fetchFormattedJSON}>
         upload

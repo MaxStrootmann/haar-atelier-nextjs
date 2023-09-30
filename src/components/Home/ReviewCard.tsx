@@ -18,10 +18,10 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
        />
     </div>
-    <div className="space-y-4 w-[70%] md:w-1/2 text-sm md:text-base">
+    <div className="space-y-4 w-[80%] md:w-1/2 text-sm md:text-base">
     {review?.inhoud && (
           <div className="font-serif">
-            <div className="space-y-4 text-center">
+            <div className="space-y-4 text-center h-40 px-2 overflow-y-auto sm:h-full">
               {review.inhoud.map((block: any) => (
                 <p key={block._key}>
                   {block.children.map((span: any) => {

@@ -3,6 +3,7 @@ import { CategorySchema, ProductSchema } from "lib/interfaces";
 import Image from "next/legacy/image";
 import CategoriesDropdown from "./CategoriesDropdown";
 import ProductCard from "./ProductCard";
+import SortDropdown from "./SortDropdown";
 
 interface CategoriesPageProps {
   products: ProductSchema[];
@@ -29,7 +30,7 @@ const ProductsByCategory: React.FC<CategoriesPageProps> = ({ products, categorie
       </p>
       <div className="flex justify-between pt-4">
         <div><h2 className="text-sm font-sans pl-">Categorieën:</h2><CategoriesDropdown categories={categories}/></div>
-        <div><h2 className="text-sm font-sans pl-">Sorteren op:</h2><CategoriesDropdown categories={categories}/></div>
+        <div><h2 className="text-sm font-sans pl-">Sorteren op:</h2><SortDropdown /></div>
       </div>
       <div
           className="flex overflow-x-auto py-4 gap-4 ml-4"

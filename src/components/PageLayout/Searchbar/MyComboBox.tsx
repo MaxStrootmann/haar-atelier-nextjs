@@ -25,7 +25,7 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({
   );
 
   const menuItems = [
-    { _id: "1", name: "Home" },
+    { _id: "1", name: "" },
     { _id: "2", name: "Shop" },
     { _id: "3", name: "Reviews" },
     { _id: "4", name: "Tarieven" },
@@ -43,7 +43,7 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({
         );
 
   return (
-    <div className="z-30 w-[calc(100%-2rem)] fixed m-4 md:w-96 md:right-0">
+    <div className="w-[calc(100%-2rem)] fixed m-4 md:w-96 md:right-0 z-30">
       <div className="relative">
         <Combobox value={selected} onChange={setSelected}>
           {({}) => (
@@ -79,10 +79,11 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({
                   menuItems.map((item) => (
                     <Link
                       key={`${item._id}`}
-                      href={`/${item.name.toLowerCase()}`}
+                      href={item.name.toLowerCase() === "reviews" ? "/#reviews" : `/${item.name.toLowerCase()}`}
                     >
                       <Combobox.Option
                         key={`${item._id}`}
+                        onClick={toggleSearchVisibility}
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-6 pr-4 flex items-center ${
                             active ? "bg-grey-300 text-black" : "text-grey-500"
@@ -97,7 +98,7 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({
                                 selected ? "font-medium" : "font-normal"
                               }`}
                             >
-                              {item.name}
+                              {item.name === "" ? "Home" : item.name}
                             </span>
 
                             {selected ? (

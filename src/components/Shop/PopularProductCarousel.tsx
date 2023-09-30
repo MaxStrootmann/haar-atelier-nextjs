@@ -3,6 +3,7 @@ import ProductCard from "./ProductCard";
 import Link from "next/link";
 import React from "react";
 import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
+import CarouselCard from "./CarouselCard";
 
 interface ProductListProps {
   products: ProductSchema[];
@@ -53,29 +54,28 @@ const PopularProductCarousel: React.FC<ProductListProps> = ({ products }) => {
     }
   };
   
-  
 
   return (
     <div className="">
-      <div className="flex justify-between 2xl:max-w-screen-2xl mx-auto px-6 items-end">
+      <div className="flex justify-between lg:max-w-screen-lg  mx-auto px-6 items-end">
         <h2 className="text-2xl md:text-3xl">Onze favorieten</h2>
         <Link href={"/producten"} className="underline text-sm md:text-base">
           Bekijk meer
         </Link>
       </div>
-      <div className="relative 2xl:max-w-screen-2xl mx-auto">
+      <div className="relative lg:max-w-screen-lg  mx-auto">
         <div className="absolute top-[40%]">
           <div className="hidden md:flex justify-between w-[calc(100vw-1.5rem)] 2xl:max-w-screen-2xl mx-auto px-6">
-            <button onClick={scrollLeft} className="z-20 bg-bg-300 rounded-full"><BsArrowLeftCircle size={32}/></button>
-            <button onClick={scrollRight} className="z-20 bg-bg-300 rounded-full"><BsArrowRightCircle size={32}/></button>
+            <button onClick={scrollLeft} className="bg-bg-300 rounded-full z-10"><BsArrowLeftCircle size={32}/></button>
+            <button onClick={scrollRight} className="bg-bg-300 rounded-full z-10"><BsArrowRightCircle size={32}/></button>
           </div>
         </div>
         <div
           ref={carouselRef}
-          className="flex overflow-x-auto py-4 gap-4 ml-4"
+          className="flex overflow-x-auto py-4 gap-4 pl-4"
         >
           {products.map((product) => (
-            <ProductCard product={product} key={product._id} />
+            <CarouselCard product={product} key={product._id} />
           ))}
         </div>
       </div>

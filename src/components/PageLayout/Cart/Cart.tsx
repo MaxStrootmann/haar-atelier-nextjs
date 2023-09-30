@@ -66,13 +66,13 @@ const Cart = () => {
       <div
         onClick={toggleCartVisibility}
         className={classNames(
-          "fixed w-screen h-screen opacity-30 bg-black z-20",
+          "fixed w-screen h-screen opacity-30 bg-black z-30",
           { hidden: !cartVisibility }
         )}
       ></div>
       <div
         className={classNames(
-          "fixed h-screen w-screen sm:w-96 right-0 sm:h-[calc(100vh-4rem)] z-30 bg-wolken bg-scale-200",
+          "fixed h-screen w-screen sm:w-96 right-0 sm:h-[calc(100vh-4rem)] bg-wolken bg-scale-200 z-40",
           { hidden: !cartVisibility },
           { "": cart.length === 0 }
         )}

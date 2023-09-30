@@ -11,7 +11,7 @@ interface ProductCardProps {
   product: ProductSchema;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const CarouselCard: React.FC<ProductCardProps> = ({ product }) => {
   const { toggleCartVisibility } = useContext(CartVisibilityContext);
   const { dispatch } = useContext(CartItemsContext);
 
@@ -42,7 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
       </Link>
       <div className="border-t border-bg-800 mx-4"></div>
-      <div className="flex flex-col justify-between h-32 md:w-full px-2 pb-2">
+      <div className="flex flex-col justify-between h-32 w-36 md:w-full px-2 pb-2">
         <Link href={`/product/${product.slug}`}>
 
           <h4 className="cursor-pointer capitalize mt-3 font-sans truncate-wrap line-clamp-3 w-28">
@@ -68,4 +68,4 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   );
 };
 
-export default ProductCard;
+export default CarouselCard;
