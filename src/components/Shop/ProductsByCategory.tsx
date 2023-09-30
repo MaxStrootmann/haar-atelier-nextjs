@@ -1,6 +1,6 @@
 import { Logo_Natulique } from "lib/icons";
 import { CategorySchema, ProductSchema } from "lib/interfaces";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import CategoriesDropdown from "./CategoriesDropdown";
 import ProductCard from "./ProductCard";
 

@@ -78,16 +78,16 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
     if (router.asPath !== "/success") fetchCartProducts();
   }, [router.asPath]);
 
-  useEffect(() => {
-    window.fbAsyncInit = function() {
-      window.FB.init({
-        appId            : APP_ID,
-        autoLogAppEvents : true,
-        xfbml            : true,
-        version          : 'v18.0'
-      });
-    };
-  }, []);
+  // useEffect(() => {
+  //   window.fbAsyncInit = function() {
+  //     window.FB.init({
+  //       appId            : APP_ID,
+  //       autoLogAppEvents : true,
+  //       xfbml            : true,
+  //       version          : 'v18.0'
+  //     });
+  //   };
+  // }, []);
 
   useEffect(() => {
     const handleBackClick = () => {

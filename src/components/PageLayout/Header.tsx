@@ -41,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({ products }) => {
   }, [searchVisibility, cartVisibility]);
 
   return (
-  <div className="z-50">
+  <div className="">
   <Searchbar products={products} />
     <Cart />
     <header className="sticky">

@@ -31,6 +31,7 @@ const HeroContent = () => {
               alt="Marloes voor het atelier"
               fill={true}
               style={{ objectPosition: "center", objectFit: "cover" }}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className={`rounded-t-full ${raamIsVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 ease-in-out`}
             />
             <Image
@@ -39,6 +40,7 @@ const HeroContent = () => {
               alt="wasstoelen"
               fill={true}
               style={{ objectPosition: "center", objectFit: "cover" }}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className={`rounded-t-full md:hidden ${wasstoelenIsVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 ease-in-out`}
             />
             <Image
@@ -47,6 +49,7 @@ const HeroContent = () => {
               alt="Tube"
               fill={true}
               style={{ objectPosition: "center", objectFit: "cover" }}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className={`rounded-t-full md:hidden ${tubeIsVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 ease-in-out`}
             />
             <Image
@@ -55,6 +58,7 @@ const HeroContent = () => {
               alt="Producten"
               fill={true}
               style={{ objectPosition: "center", objectFit: "cover" }}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className={`rounded-t-full ${productenIsVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 ease-in-out`}
             />
             <Image
@@ -63,6 +67,7 @@ const HeroContent = () => {
               alt="Marloes voor de deur"
               fill={true}
               style={{ objectPosition: "center", objectFit: "cover" }}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className={`rounded-t-full ${deurIsVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 ease-in-out`}
             />
             <Image
@@ -71,6 +76,7 @@ const HeroContent = () => {
               alt="Voorraad"
               fill={true}
               style={{ objectPosition: "center", objectFit: "cover" }}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className={`rounded-t-full ${voorraadIsVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 ease-in-out`}
             />
             <Image
@@ -79,6 +85,7 @@ const HeroContent = () => {
               alt="Marloes op the stoel"
               fill={true}
               style={{ objectPosition: "center", objectFit: "cover" }}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className={`rounded-t-full ${stoelIsVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 ease-in-out`}
             />
             <Image
@@ -87,6 +94,7 @@ const HeroContent = () => {
               alt="Fohnen"
               fill={true}
               style={{ objectPosition: "center", objectFit: "cover" }}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className={`rounded-t-full ${fohnenIsVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 ease-in-out`}
             />
           </div>

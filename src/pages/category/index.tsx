@@ -11,12 +11,14 @@ interface Props {
   categories: any[];
   products: ProductSchema[];
   categoryFilter: string;
+  sortOption: string;
 }
 
 export default function CategoriesPage({
   categories,
   products,
   categoryFilter,
+  sortOption
 }: Props) {
   const [displayedProducts, setDisplayedProducts] =
   useState<ProductSchema[]>(products);
@@ -28,7 +30,7 @@ export default function CategoriesPage({
     ) {
       // Fetch next set of products
       const newProducts = await client.fetch(
-        groq`*[_type == "product" ${categoryFilter}][${
+        groq`*[_type == "product" ${categoryFilter}]${sortOption} [${
           displayedProducts.length
         }...${displayedProducts.length + 10}]`
       );
@@ -45,14 +47,15 @@ export default function CategoriesPage({
 
   useEffect(() => {
     async function fetchNewData() {
+     console.log("useEffect query:", `*[_type == "product" ${categoryFilter}]${sortOption} [0...10]`)
       const newProducts = await client.fetch(
-        groq`*[_type == "product" ${categoryFilter}] [0...10]`
+        groq`*[_type == "product" ${categoryFilter}]${sortOption} [0...10]`
       );
       setDisplayedProducts(newProducts);
     }
   
     fetchNewData();
-  }, [categoryFilter]);
+  }, [categoryFilter, sortOption]);
 
   return (
     <div>
@@ -74,23 +77,38 @@ export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
 
-  console.log("context.query:", context.query.category)
   let category = typeof context.query.category === 'string' ? decodeURIComponent(context.query.category).replace(/-/g, ' ').replace(/and/g, "&").trim() : undefined;
-  console.log("category:", category)
-  const categoryFilter = category ? `&& category == "${category}"` : "";
-  console.log("categoryFilter:", categoryFilter)
+  const categoryFilter = category && category !== "Alle categorieën" ? `&& category == "${category}"` : "";
+  const sortFormat = () => {
+   if(context.query.sort === 'Prijs-laag-hoog') {
+    return 'price asc'
+   } else if (context.query.sort === 'Prijs-hoog-laag') {
+    return 'price desc'
+   } else if (context.query.sort === 'Populariteit') {
+    return 'popularity desc'
+   } else {
+    return 'popularity desc'
+   }
+  };
+  let sort = sortFormat();
+  const sortOption = sort ? ` | order(${sort})` : "";
+  console.log("query:", `*[_type == "product" ${categoryFilter}]${sortOption} [0...10]`)
+  
+  const products = await client.fetch(
+    groq`*[_type == "product" ${categoryFilter}]${sortOption} [0...10]`
+  );
   const categories = await client.fetch(
     groq`array::unique(*[_type == "product"].category)`
   );
-  const products = await client.fetch(
-    groq`*[_type == "product" ${categoryFilter}] [0...10]`
-  );
+
+  categories.push("Alle categorieën")
 
   return {
     props: {
       categories,
       products,
       categoryFilter,
+      sortOption
     },
   };
 };

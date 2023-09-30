@@ -41,7 +41,7 @@ h4 {
 }
 
 header {
-  z-index: 20 !important; 
+  z-index: 999 !important; 
 }
 
 .reverse-shadow-md {
@@ -59,7 +59,7 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: transparent;
+  @apply bg-wolken;
 }
 
 ::-webkit-scrollbar-thumb {

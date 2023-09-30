@@ -14,7 +14,8 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
       src={urlFor(review.foto).url()}
       alt={review.name}
       fill={true}
-      objectFit="cover" 
+      style={{ objectPosition: "center", objectFit: "cover" }}
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
        />
     </div>
     <div className="space-y-4 w-[70%] md:w-1/2 text-sm md:text-base">
