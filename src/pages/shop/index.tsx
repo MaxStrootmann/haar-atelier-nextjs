@@ -30,35 +30,37 @@ export default function CategoriesPage({
   const [displayedProducts, setDisplayedProducts] =
     useState<ProductSchema[]>(products);
 
-  const handleScroll = async () => {
-    if (
-      window.innerHeight + window.scrollY >=
-      document.body.offsetHeight - 1500
-    ) {
-      // Fetch next set of products
-      const newProducts = await client.fetch(
-        groq`*[_type == "product" ${categoryFilter}]${sortOption} [${
-          displayedProducts.length
-        }...${displayedProducts.length + 10}]{
-          _id,
-          name,
-          "slug": slug.current,
-          featured_image,
-          price,
-          in_stock,
-          popularity
-        }`
-      );
-      setDisplayedProducts([...displayedProducts, ...newProducts]);
-    }
-  };
+  
 
   useEffect(() => {
+    const handleScroll = async () => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.body.offsetHeight - 1500
+      ) {
+        // Fetch next set of products
+        const newProducts = await client.fetch(
+          groq`*[_type == "product" ${categoryFilter}]${sortOption} [${
+            displayedProducts.length
+          }...${displayedProducts.length + 10}]{
+            _id,
+            name,
+            "slug": slug.current,
+            featured_image,
+            price,
+            in_stock,
+            popularity
+          }`
+        );
+        setDisplayedProducts([...displayedProducts, ...newProducts]);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [displayedProducts, handleScroll]);
+  }, [displayedProducts]);
 
   useEffect(() => {
     async function fetchNewData() {
