@@ -10,49 +10,49 @@ interface ProductListProps {
 }
 
 const PopularProductCarousel: React.FC<ProductListProps> = ({ products }) => {
-  const carouselRef = React.useRef<HTMLDivElement>(null);
-  function smoothScroll(
-    element: HTMLDivElement, 
-    target: number, 
-    duration: number, 
-    easingFunction: (t: number, b: number, c: number, d: number) => number
-  ) {
-    const start = element.scrollLeft;
-    let currentTime = 0;
+  // const carouselRef = React.useRef<HTMLDivElement>(null);
+  // function smoothScroll(
+  //   element: HTMLDivElement, 
+  //   target: number, 
+  //   duration: number, 
+  //   easingFunction: (t: number, b: number, c: number, d: number) => number
+  // ) {
+  //   const start = element.scrollLeft;
+  //   let currentTime = 0;
   
-    const animateScroll = function () {
-      currentTime += 20; // increment by 20ms
-      const val = easingFunction(currentTime, start, target - start, duration);
-      element.scrollLeft = val;
-      if (currentTime < duration) {
-        requestAnimationFrame(animateScroll);
-      }
-    };
+  //   const animateScroll = function () {
+  //     currentTime += 20; // increment by 20ms
+  //     const val = easingFunction(currentTime, start, target - start, duration);
+  //     element.scrollLeft = val;
+  //     if (currentTime < duration) {
+  //       requestAnimationFrame(animateScroll);
+  //     }
+  //   };
   
-    animateScroll();
-  }
+  //   animateScroll();
+  // }
   
-  // An example easing function (EaseInOutQuart)
-  function easeInOutQuart(t: number, b: number, c: number, d: number): number {
-    t /= d / 2;
-    if (t < 1) return (c / 2) * t * t * t * t + b;
-    t -= 2;
-    return (-c / 2) * (t * t * t * t - 2) + b;
-  }
+  // // An example easing function (EaseInOutQuart)
+  // function easeInOutQuart(t: number, b: number, c: number, d: number): number {
+  //   t /= d / 2;
+  //   if (t < 1) return (c / 2) * t * t * t * t + b;
+  //   t -= 2;
+  //   return (-c / 2) * (t * t * t * t - 2) + b;
+  // }
   
-  const scrollLeft = () => {
-    if (carouselRef.current) {
-      const newScrollPos = carouselRef.current.scrollLeft - 600;
-      smoothScroll(carouselRef.current, newScrollPos, 500, easeInOutQuart);
-    }
-  };
+  // const scrollLeft = () => {
+  //   if (carouselRef.current) {
+  //     const newScrollPos = carouselRef.current.scrollLeft - 600;
+  //     smoothScroll(carouselRef.current, newScrollPos, 500, easeInOutQuart);
+  //   }
+  // };
   
-  const scrollRight = () => {
-    if (carouselRef.current) {
-      const newScrollPos = carouselRef.current.scrollLeft + 600;
-      smoothScroll(carouselRef.current, newScrollPos, 500, easeInOutQuart);
-    }
-  };
+  // const scrollRight = () => {
+  //   if (carouselRef.current) {
+  //     const newScrollPos = carouselRef.current.scrollLeft + 600;
+  //     smoothScroll(carouselRef.current, newScrollPos, 500, easeInOutQuart);
+  //   }
+  // };
   
 
   return (
@@ -64,14 +64,14 @@ const PopularProductCarousel: React.FC<ProductListProps> = ({ products }) => {
         </Link>
       </div>
       <div className="relative lg:max-w-screen-lg  mx-auto">
-        <div className="absolute top-[40%]">
+        {/* <div className="absolute top-[40%]">
           <div className="hidden md:flex justify-between w-[calc(100vw-1.5rem)] 2xl:max-w-screen-2xl mx-auto px-6">
-            <button onClick={scrollLeft} className="bg-bg-300 rounded-full z-10"><BsArrowLeftCircle size={32}/></button>
-            <button onClick={scrollRight} className="bg-bg-300 rounded-full z-10"><BsArrowRightCircle size={32}/></button>
+            <button onClick={scrollLeft} className="bg-bg-300 rounded-full"><BsArrowLeftCircle size={32}/></button>
+            <button onClick={scrollRight} className="bg-bg-300 rounded-full"><BsArrowRightCircle size={32}/></button>
           </div>
-        </div>
+        </div> */}
         <div
-          ref={carouselRef}
+          // ref={carouselRef}
           className="flex overflow-x-auto py-4 gap-4 pl-4"
         >
           {products.map((product) => (

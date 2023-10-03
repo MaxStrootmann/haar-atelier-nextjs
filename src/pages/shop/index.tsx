@@ -139,7 +139,7 @@ export const getServerSideProps: GetServerSideProps = async (
           .trim()
       : undefined;
   const categoryFilter =
-    category && category !== "Alle categorieën"
+    category && category !== "Alle producten"
       ? `&& category == "${category}"`
       : "";
   const sortFormat = () => {
@@ -172,7 +172,7 @@ export const getServerSideProps: GetServerSideProps = async (
   );
   const popularProducts = await client.fetch(popularProductsQuery);
 
-  categories.push("Alle categorieën");
+  categories.push("Alle producten");
 
   return {
     props: {

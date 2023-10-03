@@ -22,7 +22,7 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({categories}) => 
   return (
     <div className="">
       <Listbox value={selected} onChange={setSelected}>
-        <div className="relative mt-1 z-10">
+        <div className="relative mt-1">
           <Listbox.Button 
           className="relative text-sm shadow-sm bg-bg-300 w-full cursor-default rounded-lg py-2 pl-2 pr-7 text-left ring-1 ring-black ring-opacity-5 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
             <span className="block truncate">{selected}</span>
@@ -39,7 +39,7 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({categories}) => 
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute rounded-xl mt-1 max-h-60 w-full overflow-auto bg-bg-300 py-1 text-sm shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute rounded-xl mt-1 max-h-60 w-max overflow-auto bg-bg-300 py-1 text-sm shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {categories.map((category, index) => (
                 <Link
                 scroll={false}

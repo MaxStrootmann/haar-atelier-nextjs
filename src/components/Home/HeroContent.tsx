@@ -14,34 +14,39 @@ const HeroContent = () => {
   const { ref: stoel, inView: stoelIsVisible } = useInView();
   const { ref: fohnen, inView: fohnenIsVisible } = useInView();
 
-  
   return (
     <>
-        <div className="hidden md:block sticky top-0 h-[calc(100vh/5)] bg-gradient-to-b from-bg-300 "></div>
+      <div className="hidden md:block sticky top-0 h-[calc(100vh/5)] bg-gradient-to-b from-bg-300 -z-10"></div>
+      <div className="bg-bg-300 p-8"></div>
       <div className="md:grid md:grid-cols-2 pb-16 lg:px-16 xl:px-28 2xl:px-64">
-
-        <div ref={raam} className="bg-gradient-to-b from-bg-300 via-bg-300 via-90% md:bg-none md:order-2 sticky top-0 md:h-screen pt-2 pb-12 px-16 md:p-8 3xl:py-[calc((100vh-1000px)/2)]">
-          
-          
-          <div className="relative h-[calc(100vh/2.3)] md:h-full max-h-[1000px]">
-            
-          <Image
+        <div className="absolute h-1/2 w-full bg-gradient-to-b from-bg-300 z-10"></div>
+        <div
+          ref={raam}
+          className="bg-gradient-to-b from-bg-300 via-bg-300 via-90% md:bg-none md:order-2 sticky top-0 md:h-screen pb-12 md:p-8 3xl:py-[calc((100vh-1000px)/2)]"
+        >
+          <div className="relative h-[calc(100vh/1.7)] md:h-full max-h-[1000px] overflow-hidden">
+            <div className="absolute bottom-0 h-1/3 w-full bg-gradient-to-t from-bg-300 z-10"></div>
+            <Image
               id="Marloes voor het atelier"
               src={images[0].src}
               alt="Marloes voor het atelier"
               fill={true}
-              style={{ objectPosition: "center", objectFit: "cover" }}
+              style={{ objectPosition: "top", objectFit: "cover" }}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className={`rounded-t-full ${raamIsVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 ease-in-out`}
+              className={`md:rounded-t-full ${
+                raamIsVisible ? "opacity-100" : "opacity-0"
+              } transition-opacity duration-1000 ease-in-out`}
             />
             <Image
               id="Wasstoelen"
               src={contentImages[1].src}
               alt="wasstoelen"
               fill={true}
-              style={{ objectPosition: "center", objectFit: "cover" }}
+              style={{ objectPosition: "bottom", objectFit: "cover" }}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className={`rounded-t-full md:hidden ${wasstoelenIsVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 ease-in-out`}
+              className={`md:rounded-t-full md:hidden ${
+                wasstoelenIsVisible ? "opacity-100" : "opacity-0"
+              } transition-opacity duration-1000 ease-in-out`}
             />
             <Image
               id="Tube"
@@ -50,25 +55,31 @@ const HeroContent = () => {
               fill={true}
               style={{ objectPosition: "center", objectFit: "cover" }}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className={`rounded-t-full md:hidden ${tubeIsVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 ease-in-out`}
+              className={`md:rounded-t-full md:hidden ${
+                tubeIsVisible ? "opacity-100" : "opacity-0"
+              } transition-opacity duration-1000 ease-in-out`}
             />
             <Image
               id="Producten"
               src={contentImages[3].src}
               alt="Producten"
               fill={true}
-              style={{ objectPosition: "center", objectFit: "cover" }}
+              style={{ objectPosition: "bottom", objectFit: "cover" }}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className={`rounded-t-full ${productenIsVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 ease-in-out`}
+              className={`md:rounded-t-full ${
+                productenIsVisible ? "opacity-100" : "opacity-0"
+              } transition-opacity duration-1000 ease-in-out`}
             />
             <Image
               id="Marloes voor de deur"
               src={contentImages[4].src}
               alt="Marloes voor de deur"
               fill={true}
-              style={{ objectPosition: "center", objectFit: "cover" }}
+              style={{ objectPosition: "bottom", objectFit: "cover" }}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className={`rounded-t-full ${deurIsVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 ease-in-out`}
+              className={`md:rounded-t-full ${
+                deurIsVisible ? "opacity-100" : "opacity-0"
+              } transition-opacity duration-1000 ease-in-out`}
             />
             <Image
               id="Voorraad"
@@ -77,7 +88,9 @@ const HeroContent = () => {
               fill={true}
               style={{ objectPosition: "center", objectFit: "cover" }}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className={`rounded-t-full ${voorraadIsVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 ease-in-out`}
+              className={`md:rounded-t-full ${
+                voorraadIsVisible ? "opacity-100" : "opacity-0"
+              } transition-opacity duration-1000 ease-in-out`}
             />
             <Image
               id="Marloes op the stoel"
@@ -86,23 +99,28 @@ const HeroContent = () => {
               fill={true}
               style={{ objectPosition: "center", objectFit: "cover" }}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className={`rounded-t-full ${stoelIsVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 ease-in-out`}
+              className={`md:rounded-t-full ${
+                stoelIsVisible ? "opacity-100" : "opacity-0"
+              } transition-opacity duration-1000 ease-in-out`}
             />
             <Image
               id="Fohnen"
               src={contentImages[7].src}
               alt="Fohnen"
               fill={true}
-              style={{ objectPosition: "center", objectFit: "cover" }}
+              style={{ objectPosition: "top", objectFit: "cover" }}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className={`rounded-t-full ${fohnenIsVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 ease-in-out`}
+              className={`md:rounded-t-full ${
+                fohnenIsVisible ? "opacity-100" : "opacity-0"
+              } transition-opacity duration-1000 ease-in-out`}
             />
           </div>
-          
         </div>
-        <div className="space-y-16 font-serif px-8 pt-16 md:pt-60">
+        <div className="space-y-16 font-serif px-8 pt-16 md:pt-60 -z-20">
           <div className="space-y-4">
-            <h2 className="uppercase text-4xl mb-6 md:text-5xl md:mb-[0.5em]">Haar Atelier Alkmaar</h2>
+            <h2 className="uppercase text-4xl mb-6 md:text-5xl md:mb-[0.5em]">
+              Haar Atelier Alkmaar
+            </h2>
             <p>
               Haar Atelier Alkmaar is ontstaan vanuit mijn visie, passie en
               leefstijl voor eerlijke, natuurlijke en echt duurzame producten.
@@ -140,7 +158,12 @@ const HeroContent = () => {
             </div>
           </div>
           <div className="space-y-4">
-            <h2 ref={tube} className="uppercase text-4xl mb-6 md:text-5xl md:mb-[0.5em]">Natulique</h2>
+            <h2
+              ref={tube}
+              className="uppercase text-4xl mb-6 md:text-5xl md:mb-[0.5em]"
+            >
+              Natulique
+            </h2>
             <p>
               Ik werk in mijn salon bewust met de natuurlijke producten van
               Natulique. Het verhaal achter Natulique, het ontstaan, de
@@ -161,7 +184,12 @@ const HeroContent = () => {
             </p>
           </div>
           <div className="space-y-4">
-            <h2 ref={producten} className="uppercase text-4xl mb-6 md:text-5xl md:mb-[0.5em]">De Shop</h2>
+            <h2
+              ref={producten}
+              className="uppercase text-4xl mb-6 md:text-5xl md:mb-[0.5em]"
+            >
+              De Shop
+            </h2>
             <p>
               De Natulique producten die ik professioneel in mijn salon gebruik
               zijn voor thuisgebruik ook heel geschikt.
@@ -184,7 +212,12 @@ const HeroContent = () => {
             </div>
           </div>
           <div className="space-y-4">
-            <h2 ref={deur} className="uppercase text-4xl mb-6 md:text-5xl md:mb-[0.5em]">Over Marloes</h2>
+            <h2
+              ref={deur}
+              className="uppercase text-4xl mb-6 md:text-5xl md:mb-[0.5em]"
+            >
+              Over Marloes
+            </h2>
             <p>
               In 2021 ben ik mijn hart gevolgd, en heb ik Haar Atelier
               opgericht. Mijn passie voor het kappersvak, en mijn geloof in echt

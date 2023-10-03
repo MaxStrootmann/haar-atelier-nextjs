@@ -12,7 +12,7 @@ const HomeHero = () => {
   return ( 
   <>
     <div className="relative -mt-28 flex justify-center">
-      <div className="absolute flex flex-col items-center top-48 md:top-72 w-[90%] md:w-2/3 z-20">
+      <div className="absolute flex flex-col items-center top-48 md:top-72 w-[90%] md:w-2/3">
         <HaaLogo fill="white" />
 
         <div className="mt-12 md:mt-16 space-y-4">
@@ -40,24 +40,25 @@ const HomeHero = () => {
           </div>
         </div>
       </div>
-      <div className="hidden h-full md:block">
-        <div className="absolute top-1/2 h-1/2 w-full bg-gradient-to-t from-bg-300 z-10"></div>
+      <div className="hidden h-full md:block -z-10">
+        <div className="absolute top-1/2 h-1/2 w-full bg-gradient-to-t from-bg-300"></div>
         <Image
           src={salon}
           alt="De salon"
           quality={100}
           priority={true}
           layout="intrinsic"
-          className=""
+          className="-z-10"
         />
       </div>
-      <div className="md:hidden h-full">
-      <div className="absolute top-1/2 h-1/2 w-full bg-gradient-to-t from-bg-300 from-15% z-10"></div>
+      <div className="md:hidden h-full -z-10">
+      <div className="absolute bottom-0 h-[40%] w-full bg-gradient-to-t from-bg-300"></div>
         <Image
           src={salon_large}
           alt="De salon"
           quality={100}
           layout="intrinsic"
+          className="-z-10"
         />
       </div>
     </div>

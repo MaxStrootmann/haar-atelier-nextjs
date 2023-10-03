@@ -39,7 +39,8 @@ module.exports = withMT({
         'bermuda': '#78dcca',
       },
       backgroundImage: {
-        'wolken': "url('/Achtergrond.jpg')"
+        'wolken': "url('/Achtergrond.jpg')",
+        'radial-gradient': 'radial-gradient(ellipse farthest-side, transparent, blue)',
       },
       fontsize: {
         xxs: ['0.625rem', '0.75rem']
