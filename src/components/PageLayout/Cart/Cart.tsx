@@ -72,7 +72,7 @@ const Cart = () => {
       ></div>
       <div
         className={classNames(
-          "fixed h-screen w-screen sm:w-96 right-0 sm:h-[calc(100vh-4rem)] bg-wolken bg-scale-200 z-40",
+          "fixed h-screen w-screen sm:w-96 right-0 bg-wolken bg-scale-200 z-40",
           { hidden: !cartVisibility },
           { "": cart.length === 0 }
         )}
@@ -94,6 +94,9 @@ const Cart = () => {
                 <span className="">
                   {shippingCalc >= 75 ? "Gratis" : "€6,00"}
                 </span>
+              </div>
+              <div className="-mt-2">
+                <em className="text-sm">Verzending binnen 48 uur</em>
               </div>
               <div className="border border-black my-2"></div>
               <div className="flex justify-between -mt-2 mb-1">
@@ -119,7 +122,7 @@ const Cart = () => {
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-center h-full w-full flex-col">
+          <div className="flex items-center justify-center h-screen w-full flex-col">
             <h3 className="text-center">Je hebt geen artikelen in je winkelwagen.</h3>
             <button onClick={toggleCartVisibility} className="border border-black py-2 px-2 mt-4 rounded-lg">
               Verder winkelen

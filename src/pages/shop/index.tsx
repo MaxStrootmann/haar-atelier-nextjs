@@ -1,3 +1,4 @@
+import MetaHead from "components/MetaHead";
 import CategoriesDropdown from "components/Shop/CategoriesDropdown";
 import PopularProductCarousel from "components/Shop/PopularProductCarousel";
 import ProductCard from "components/Shop/ProductCard";
@@ -88,6 +89,8 @@ export default function CategoriesPage({
   console.log("productslug:", products[0].slug);
 
   return (
+    <>
+    <MetaHead description="Shop NATULIQUE, Zorgvuldig geselecteerde plantaardige ingrediënten, die niet schadelijk zijn voor jou of het milieu." />
     <div className="space-y-4 sm:space-y-8">
       <WebshopHero />
       <div className="sm:hidden">
@@ -102,6 +105,7 @@ export default function CategoriesPage({
             height={36 * 3}
           />
         </div>
+        <h1 className="hidden">Haar Atelier Alkmaar, webshop.</h1>
         <p className="text-center font-serif max-w-xl mx-auto">
           Zorgvuldig geselecteerde plantaardige ingrediënten, die niet
           schadelijk zijn voor jou of het milieu. Vrij van microplastics,
@@ -125,6 +129,7 @@ export default function CategoriesPage({
         </div>
       </div>
     </div>
+    </>
   );
 }
 

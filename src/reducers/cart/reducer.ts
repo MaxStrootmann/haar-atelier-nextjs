@@ -100,7 +100,7 @@ export const cartReducer = (state: CartProduct[], action: ACTIONTYPES) => {
       updateCookie([]);
       return [];
 
-    default:
+    default: 
       throw new Error();
   }
 };

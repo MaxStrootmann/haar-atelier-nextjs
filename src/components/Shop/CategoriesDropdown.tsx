@@ -39,7 +39,7 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({categories}) => 
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute z-10 rounded-xl mt-1 max-h-60 w-max overflow-auto bg-bg-300 py-1 text-sm shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute z-10 rounded-xl mt-1 max-h-60 w-full md:w-max overflow-auto bg-bg-300 py-1 text-sm shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {categories.map((category, index) => (
                 <Link
                 scroll={false}

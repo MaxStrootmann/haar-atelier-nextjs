@@ -60,6 +60,7 @@ export default async function handler(
               currency: "EUR",
               product_data: {
                 name: "Verzendkosten (gratis vanaf €75)",
+                description: "Verzending binnen 48 uur",
               },
               unit_amount: shippingCost
             },

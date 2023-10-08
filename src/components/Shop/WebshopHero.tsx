@@ -28,7 +28,7 @@ export default function WebshopHero() {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
       setSecondImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 8000); // Change image every 3 seconds
+    }, 6000); // Change image every 3 seconds
 
     return () => clearInterval(interval); // Cleanup the interval on component unmount
   }, [images.length]);

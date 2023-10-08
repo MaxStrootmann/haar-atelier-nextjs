@@ -44,8 +44,8 @@ const Header: React.FC<HeaderProps> = ({ products }) => {
   <div className="">
   <Searchbar products={products} />
     <Cart />
-    <header className="sticky md:bg-bg-300 md:bg-opacity-40">
-      <div className="w-full mx-auto flex justify-between items-center py-4 max-w-screen-2xl px-6">
+    <header className="sticky bg-bg-300 bg-opacity-50">
+      <div className="w-full mx-auto flex justify-between items-center py-2 lg:py-4 max-w-screen-2xl px-6">
         <nav>
           <ul className={styles.mainNav}>
             <li className=" mt-2 w-36 md:w-56">
@@ -56,6 +56,7 @@ const Header: React.FC<HeaderProps> = ({ products }) => {
               alt= "Haar Atelier Alkmaar Logo"
               width={771}
               height={197}
+              loading="eager"
               ></Image>
 
               </Link>
@@ -63,7 +64,10 @@ const Header: React.FC<HeaderProps> = ({ products }) => {
           </ul>
         </nav>
         <div className="">
-          <button className="relative pr-2 border-0 bg-transparent outline-0">
+          <button 
+          id="cart-button"
+          aria-label="Open winkelwagen"
+          className="relative pr-2 border-0 bg-transparent outline-0">
             <MdOutlineShoppingBag
               color="black"
               onClick={toggleCartVisibility}
@@ -76,7 +80,10 @@ const Header: React.FC<HeaderProps> = ({ products }) => {
               </span>
             )}
           </button>
-          <button className="relative border-0 bg-transparent outline-0">
+          <button 
+          id="search-button"
+          aria-label="Open menu"
+          className="relative border-0 bg-transparent outline-0">
             <MdManageSearch
               onClick={toggleSearchVisibility}
               color="black"
