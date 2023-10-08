@@ -8,20 +8,21 @@ interface ReviewCardProps {
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   return (
-   <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center justify-center px-8 pb-16 pt-8 md:px-32 md:py-16">
-    <div className="relative w-3/4 h-64 md:h-[24rem] mb-3 md:w-1/2">
+   <div className="flex flex-col md:flex-row md:gap-8 items-center justify-center px-8 pb-12 pt-8 md:px-32 md:py-16">
+    <div className="relative w-3/4 h-64 md:h-[24rem] md:w-1/2">
       <Image
       src={urlFor(review.foto).url()}
       alt={review.name}
       fill={true}
+      loading="eager"
       style={{ objectPosition: "center", objectFit: "cover" }}
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
+      sizes="(min-width: 1540px) calc(50vw - 400px), (min-width: 1280px) calc(50vw - 256px), (min-width: 1040px) calc(50vw - 208px), (min-width: 780px) calc(50vw - 144px), calc(75vw - 48px)" 
        />
     </div>
-    <div className="space-y-4 w-[80%] md:w-1/2 text-sm md:text-base">
+    <div className="space-y-4 w-[80%] md:w-1/2 text-sm md:text-base scroll-mask">
     {review?.inhoud && (
           <div className="font-serif">
-            <div className="space-y-4 text-center h-40 px-2 overflow-y-auto sm:h-full">
+            <div className="space-y-3 py-8 text-center h-56 px-2 overflow-y-auto custom-scrollbar sm:h-full ">
               {review.inhoud.map((block: any) => (
                 <p key={block._key}>
                   {block.children.map((span: any) => {
@@ -32,10 +33,10 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
                   })}
                 </p>
               ))}
+            <p className="font-bold text-center text-xs md:text-sm">{review.name}</p>
             </div>
           </div>
         )}
-      <p className="font-bold text-center text-xs md:text-sm">{review.name}</p>
     </div>
    </div>
   )

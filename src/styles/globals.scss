@@ -106,3 +106,29 @@ html {
   /* Firefox */
 }
 
+.hero-image-wrapper > img {
+  mask-image: linear-gradient(black 70%, transparent 100%);
+}
+
+.content-image-wrapper > img {
+  z-index: -10;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+.custom-scrollbar {
+  scrollbar-width: none;
+}
+
+
+@media (max-width: 640px) {
+  .scroll-mask {
+    mask-image: linear-gradient(transparent, black 20%,black 80%, transparent 100%);
+  }
+}
+
+
+
+

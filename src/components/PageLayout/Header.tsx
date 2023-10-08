@@ -7,7 +7,7 @@ import CartVisibilityContext from "contexts/cartVisibilityContext";
 import { CartProduct, CategorySchema, ProductSchema } from "lib/interfaces";
 import { MdManageSearch, MdOutlineShoppingBag } from "react-icons/md";
 import haalogo from "/public/haalogo.svg"
-import Image from "next/legacy/image";
+import Image from "next/image";
 import SearchVisibilityContext from "contexts/searchVisibilityContext";
 import Searchbar from "./Searchbar/Searchbar";
 import { GetStaticProps } from "next";
@@ -44,8 +44,8 @@ const Header: React.FC<HeaderProps> = ({ products }) => {
   <div className="">
   <Searchbar products={products} />
     <Cart />
-    <header className="sticky">
-      <div className="w-full mx-auto flex justify-between py-4 max-w-screen-2xl px-6">
+    <header className="sticky md:bg-bg-300 md:bg-opacity-40">
+      <div className="w-full mx-auto flex justify-between items-center py-4 max-w-screen-2xl px-6">
         <nav>
           <ul className={styles.mainNav}>
             <li className=" mt-2 w-36 md:w-56">
@@ -67,11 +67,11 @@ const Header: React.FC<HeaderProps> = ({ products }) => {
             <MdOutlineShoppingBag
               color="black"
               onClick={toggleCartVisibility}
-              size={24}
+              size={26}
               className=""
             />
             {cartLength > 0 && (
-              <span className="absolute w-4 h-4 text-black text-xs border border-solid border-gray-500 rounded-full flex flex-row justify-center items-center p-2 -left-1 -bottom-1 bg-bg-300 ">
+              <span onClick={toggleCartVisibility} className="absolute w-4 h-4 text-black text-xs font-bold rounded-full flex flex-row justify-center items-center p-1 -left-1 -bottom-1 bg-bg-300 ">
                 {cartLength}
               </span>
             )}

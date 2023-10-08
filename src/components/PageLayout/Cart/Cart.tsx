@@ -80,7 +80,7 @@ const Cart = () => {
         {cart.length > 0 ? (
           <div className="h-full">
             <div className="hide-scrollbar overflow-y-auto h-[26rem] mr-4">
-              <h2 className="my-4 ml-7 font-bold">Winkelwagen</h2>
+              <h2 className="my-4 ml-7 text-4xl">Winkelwagen</h2>
               {cart && <ItemList products={cart} />}
             </div>
             <div className="p-4 border-t bg-bg-300 border-grey-300 reverse-shadow-md h-full flex flex-col gap-1">
@@ -98,7 +98,7 @@ const Cart = () => {
               <div className="border border-black my-2"></div>
               <div className="flex justify-between -mt-2 mb-1">
                 <span className="">Totaalprijs (inclusief btw)</span>
-                <span className="">${finalPriceFormatted}</span>
+                <span className="">€{finalPriceFormatted}</span>
               </div>
               <div>
               <button

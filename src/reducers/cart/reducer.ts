@@ -38,9 +38,9 @@ export const cartReducer = (state: CartProduct[], action: ACTIONTYPES) => {
             return {
               ...product,
               price: parseFloat(
-                (product.price + product.price / quantity).toFixed(2)
+                product.price.toFixed(2)
               ),
-              quantity: quantity + (action.payload.quantity || 1)
+              quantity: quantity + 1
             };
           }
           return product;
@@ -63,7 +63,7 @@ export const cartReducer = (state: CartProduct[], action: ACTIONTYPES) => {
               {
                 ...item,
                 price: parseFloat(
-                  (item.price - item.price / item.quantity).toFixed(2)
+                  item.price.toFixed(2)
                 ),
                 quantity: item.quantity - 1
               }

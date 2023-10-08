@@ -14,25 +14,24 @@ const HeroContent = () => {
   const { ref: stoel, inView: stoelIsVisible } = useInView();
   const { ref: fohnen, inView: fohnenIsVisible } = useInView();
 
-  return (
+  return (  
     <>
       <div className="hidden md:block sticky top-0 h-[calc(100vh/5)] bg-gradient-to-b from-bg-300 -z-10"></div>
-      <div className="bg-bg-300 p-8"></div>
+      <div className="md:hidden bg-gradient-to-t from-bg-300 p-8"></div>
       <div className="md:grid md:grid-cols-2 pb-16 lg:px-16 xl:px-28 2xl:px-64">
-        <div className="absolute h-1/2 w-full bg-gradient-to-b from-bg-300 z-10"></div>
         <div
-          ref={raam}
+          ref={raam}    
           className="bg-gradient-to-b from-bg-300 via-bg-300 via-90% md:bg-none md:order-2 sticky top-0 md:h-screen pb-12 md:p-8 3xl:py-[calc((100vh-1000px)/2)]"
         >
-          <div className="relative h-[calc(100vh/1.7)] md:h-full max-h-[1000px] overflow-hidden">
-            <div className="absolute bottom-0 h-1/3 w-full bg-gradient-to-t from-bg-300 z-10"></div>
+          <div className="relative h-[calc(100vh/1.8)] md:h-full max-h-[1000px] overflow-hidden content-image-wrapper">
+            <div className="absolute md:hidden bottom-0 h-1/3 w-full bg-gradient-to-t from-bg-300"></div>
             <Image
               id="Marloes voor het atelier"
               src={images[0].src}
               alt="Marloes voor het atelier"
               fill={true}
-              style={{ objectPosition: "top", objectFit: "cover" }}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              style={{ objectPosition: "center 10%", objectFit: "cover" }}
+              sizes="(min-width: 1540px) calc(50vw - 320px), (min-width: 1280px) calc(50vw - 176px), (min-width: 1040px) calc(50vw - 128px), (min-width: 780px) calc(50vw - 64px), 100vw"
               className={`md:rounded-t-full ${
                 raamIsVisible ? "opacity-100" : "opacity-0"
               } transition-opacity duration-1000 ease-in-out`}
@@ -43,7 +42,7 @@ const HeroContent = () => {
               alt="wasstoelen"
               fill={true}
               style={{ objectPosition: "bottom", objectFit: "cover" }}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(min-width: 1540px) calc(50vw - 320px), (min-width: 1280px) calc(50vw - 176px), (min-width: 1040px) calc(50vw - 128px), (min-width: 780px) calc(50vw - 64px), 100vw"
               className={`md:rounded-t-full md:hidden ${
                 wasstoelenIsVisible ? "opacity-100" : "opacity-0"
               } transition-opacity duration-1000 ease-in-out`}
@@ -54,7 +53,7 @@ const HeroContent = () => {
               alt="Tube"
               fill={true}
               style={{ objectPosition: "center", objectFit: "cover" }}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(min-width: 1540px) calc(50vw - 320px), (min-width: 1280px) calc(50vw - 176px), (min-width: 1040px) calc(50vw - 128px), (min-width: 780px) calc(50vw - 64px), 100vw"
               className={`md:rounded-t-full md:hidden ${
                 tubeIsVisible ? "opacity-100" : "opacity-0"
               } transition-opacity duration-1000 ease-in-out`}
@@ -64,8 +63,8 @@ const HeroContent = () => {
               src={contentImages[3].src}
               alt="Producten"
               fill={true}
-              style={{ objectPosition: "bottom", objectFit: "cover" }}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              style={{ objectPosition: "center", objectFit: "cover" }}
+              sizes="(min-width: 1540px) calc(50vw - 320px), (min-width: 1280px) calc(50vw - 176px), (min-width: 1040px) calc(50vw - 128px), (min-width: 780px) calc(50vw - 64px), 100vw"
               className={`md:rounded-t-full ${
                 productenIsVisible ? "opacity-100" : "opacity-0"
               } transition-opacity duration-1000 ease-in-out`}
@@ -75,8 +74,8 @@ const HeroContent = () => {
               src={contentImages[4].src}
               alt="Marloes voor de deur"
               fill={true}
-              style={{ objectPosition: "bottom", objectFit: "cover" }}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              style={{ objectPosition: "center 75%", objectFit: "cover" }}
+              sizes="(min-width: 1540px) calc(50vw - 320px), (min-width: 1280px) calc(50vw - 176px), (min-width: 1040px) calc(50vw - 128px), (min-width: 780px) calc(50vw - 64px), 100vw"
               className={`md:rounded-t-full ${
                 deurIsVisible ? "opacity-100" : "opacity-0"
               } transition-opacity duration-1000 ease-in-out`}
@@ -87,7 +86,7 @@ const HeroContent = () => {
               alt="Voorraad"
               fill={true}
               style={{ objectPosition: "center", objectFit: "cover" }}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(min-width: 1540px) calc(50vw - 320px), (min-width: 1280px) calc(50vw - 176px), (min-width: 1040px) calc(50vw - 128px), (min-width: 780px) calc(50vw - 64px), 100vw"
               className={`md:rounded-t-full ${
                 voorraadIsVisible ? "opacity-100" : "opacity-0"
               } transition-opacity duration-1000 ease-in-out`}
@@ -98,7 +97,7 @@ const HeroContent = () => {
               alt="Marloes op the stoel"
               fill={true}
               style={{ objectPosition: "center", objectFit: "cover" }}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(min-width: 1540px) calc(50vw - 320px), (min-width: 1280px) calc(50vw - 176px), (min-width: 1040px) calc(50vw - 128px), (min-width: 780px) calc(50vw - 64px), 100vw"
               className={`md:rounded-t-full ${
                 stoelIsVisible ? "opacity-100" : "opacity-0"
               } transition-opacity duration-1000 ease-in-out`}
@@ -109,14 +108,15 @@ const HeroContent = () => {
               alt="Fohnen"
               fill={true}
               style={{ objectPosition: "top", objectFit: "cover" }}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(min-width: 1540px) calc(50vw - 320px), (min-width: 1280px) calc(50vw - 176px), (min-width: 1040px) calc(50vw - 128px), (min-width: 780px) calc(50vw - 64px), 100vw"
               className={`md:rounded-t-full ${
                 fohnenIsVisible ? "opacity-100" : "opacity-0"
               } transition-opacity duration-1000 ease-in-out`}
             />
           </div>
         </div>
-        <div className="space-y-16 font-serif px-8 pt-16 md:pt-60 -z-20">
+        <div className="absolute -mt-[calc(100vh/1.6)] md:hidden h-2/3 w-full lg:right-0 bg-gradient-to-b from-bg-300 from-2%"></div>
+        <div className="space-y-24 font-serif px-8 pt-8 md:pt-60 -z-20">
           <div className="space-y-4">
             <h2 className="uppercase text-4xl mb-6 md:text-5xl md:mb-[0.5em]">
               Haar Atelier Alkmaar
@@ -151,7 +151,7 @@ const HeroContent = () => {
                   "https://widget2.meetaimy.com/widgetWeb?salonId=MTIzNjkzMA%3D%3D&salonEmail=aW5mb0BtYXJsb2Vzb3RqZXMtaGFhcmF0ZWxpZXIubmw%3D"
                 }
               >
-                <div className="bg-accent-500 rounded-lg px-4 py-2 text-white w-full text-center md:text-xl font-sans md:w-max">
+                <div className="bg-accent-500 rounded-lg px-4 py-2 text-white w-full text-center font-sans md:w-max">
                   Afspraak maken
                 </div>
               </Link>
@@ -205,7 +205,7 @@ const HeroContent = () => {
             </p>
             <div className="mt-4">
               <Link href={"/shop"}>
-                <div className="border border-white bg-black bg-opacity-30 rounded-lg px-4 py-2 text-white w-full text-center md:text-xl font-sans md:w-max">
+                <div className="border border-white bg-black bg-opacity-30 rounded-lg px-4 py-2 text-white w-full text-center font-sans md:w-max">
                   Naar de shop
                 </div>
               </Link>

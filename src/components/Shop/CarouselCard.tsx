@@ -27,7 +27,7 @@ const CarouselCard: React.FC<ProductCardProps> = ({ product }) => {
   const displayedPrice = product.price.toFixed(2).replace(".", ",");
 
   return (
-    <div className="bg-bg-300 rounded-lg shadow-md flex flex-col -z-10">
+    <div className="bg-bg-300 rounded-lg shadow-md flex flex-col">
       <Link href={`/product/${product.slug}`}>
 
         <div className="relative w-32 h-32 md:w-44 md:h-44 my-4 mx-auto">

@@ -1,7 +1,7 @@
 import { CategorySchema, ProductSchema } from "lib/interfaces/schema";
 import MetaHead from "components/MetaHead";
 import Link from "next/link";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import salon from "/public/Salon.jpg";
 import salon_large from "/public/Salon_large.jpg";
 import HaaLogo from "lib/HaaLogo";
@@ -47,18 +47,18 @@ const HomeHero = () => {
           alt="De salon"
           quality={100}
           priority={true}
-          layout="intrinsic"
           className="-z-10"
+          sizes="(min-width: 2120px) 2000px, calc(92.42vw + 59px)"
         />
       </div>
-      <div className="md:hidden h-full -z-10">
-      <div className="absolute bottom-0 h-[40%] w-full bg-gradient-to-t from-bg-300"></div>
+      <div className="md:hidden h-full -z-10 hero-image-wrapper">
+      {/* <div className="absolute bottom-0 h-[40%] w-full bg-gradient-to-t from-bg-300 image-wrapper"></div> */}
         <Image
           src={salon_large}
           alt="De salon"
           quality={100}
-          layout="intrinsic"
           className="-z-10"
+          sizes="(min-width: 2120px) 2000px, calc(92.42vw + 59px)"
         />
       </div>
     </div>

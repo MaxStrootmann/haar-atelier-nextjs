@@ -43,6 +43,7 @@ export default function WebshopHero() {
               src={image.src}
               alt={image.alt}
               layout="fill"
+              sizes="(min-width: 1640px) 768px, (min-width: 640px) calc(45.71vw + 27px), 100vw"
               className={`object-cover transition-opacity duration-2000 ${
                 index === currentImageIndex ? "opacity-100" : "opacity-0"
               }`}
@@ -58,6 +59,7 @@ export default function WebshopHero() {
               src={image.src}
               alt={image.alt}
               layout="fill"
+              sizes="(min-width: 1640px) 768px, (min-width: 640px) calc(45.71vw + 27px), 100vw"
               className={`object-cover transition-opacity duration-2000 ${
                 index === secondImageIndex ? "opacity-100" : "opacity-0"
               }`}

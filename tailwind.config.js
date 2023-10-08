@@ -42,6 +42,10 @@ module.exports = withMT({
         'wolken': "url('/Achtergrond.jpg')",
         'radial-gradient': 'radial-gradient(ellipse farthest-side, transparent, blue)',
       },
+      img: {
+        'webkit-mask': "-webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))",
+        'mask-image': "mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))"
+      },
       fontsize: {
         xxs: ['0.625rem', '0.75rem']
       },
