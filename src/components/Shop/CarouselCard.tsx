@@ -54,6 +54,8 @@ const CarouselCard: React.FC<ProductCardProps> = ({ product }) => {
           <span className="text-[14px]">€{displayedPrice}</span>
           {product.in_stock ? (
             <button
+              id="add-to-cart"  
+              aria-label="Voeg toe aan winkelmandje"
               onClick={addToCart}
               className="bg-accent-500 py-2 px-2 rounded-lg text-white text-xs"
             >

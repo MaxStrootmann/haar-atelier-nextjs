@@ -104,27 +104,38 @@ const Cart = () => {
                 <span className="">€{finalPriceFormatted}</span>
               </div>
               <div>
-              <button
-                disabled={isRedirecting}
-                className="bg-accent-500 py-2 px-2 my-3 rounded-lg text-white w-full"
-                onClick={handleCheckout}
-              >
-                {isRedirecting ? `even wachten...` : `Naar bestellen`}
-              </button>
-              <button
-                disabled={isRedirecting}
-                className="border border-white bg-black bg-opacity-30 py-2 px-2 rounded-lg w-full text-white"
-                onClick={toggleCartVisibility}
-              >
-                Verder winkelen
-              </button>
+                <button
+                  id="checkout"
+                  aria-label="Naar bestellen"
+                  disabled={isRedirecting}
+                  className="bg-accent-500 py-2 px-2 my-3 rounded-lg text-white w-full"
+                  onClick={handleCheckout}
+                >
+                  {isRedirecting ? `even wachten...` : `Naar bestellen`}
+                </button>
+                <button
+                  id="continue-shopping"
+                  aria-label="Verder winkelen"
+                  disabled={isRedirecting}
+                  className="border border-white bg-black bg-opacity-30 py-2 px-2 rounded-lg w-full text-white"
+                  onClick={toggleCartVisibility}
+                >
+                  Verder winkelen
+                </button>
               </div>
             </div>
           </div>
         ) : (
           <div className="flex items-center justify-center h-screen w-full flex-col">
-            <h3 className="text-center">Je hebt geen artikelen in je winkelwagen.</h3>
-            <button onClick={toggleCartVisibility} className="border border-black py-2 px-2 mt-4 rounded-lg">
+            <h3 className="text-center">
+              Je hebt geen artikelen in je winkelwagen.
+            </h3>
+            <button
+              id="continue-shopping"
+              aria-label="Verder winkelen"
+              onClick={toggleCartVisibility}
+              className="border border-black py-2 px-2 mt-4 rounded-lg"
+            >
               Verder winkelen
             </button>
           </div>

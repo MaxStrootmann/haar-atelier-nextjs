@@ -40,10 +40,8 @@ const Item: React.FC<ItemProps> = ({ product }) => {
 
   return (
     <div className="my-8 grid grid-cols-[0.5fr_1fr_1fr] gap-2">
-
       <div className="row-span-2 flex items-center ml-2">
         <Link href={`/product/${product.slug}`}>
-
           <Image
             src={urlFor(featured_image).url()}
             width={80}
@@ -52,14 +50,11 @@ const Item: React.FC<ItemProps> = ({ product }) => {
             quality={100}
             alt={name}
           />
-
         </Link>
       </div>
 
       <Link href={`/product/${product.slug}`}>
-
         <div className="text-lg w-32 leading-snug">{name}</div>
-
       </Link>
 
       <div className="text-end">
@@ -70,12 +65,22 @@ const Item: React.FC<ItemProps> = ({ product }) => {
       </div>
 
       <div className="col-start-2 col-span-2 flex justify-between px-3 py-1 border border-black rounded-lg">
-        <button className="" onClick={removeSingleItem}>
-          <AiOutlineMinus color="hsl(213, 90%, 35%)"/>
+        <button
+          id="decrease-quantity"
+          aria-label="Verminder aantal"
+          className=""
+          onClick={removeSingleItem}
+        >
+          <AiOutlineMinus color="hsl(213, 90%, 35%)" />
         </button>
         <span>{quantity}</span>
-        <button className="" onClick={addSingleItem}>
-          <AiOutlinePlus color="hsl(213, 90%, 35%)"/>
+        <button
+          id="increase-quantity"
+          aria-label="Vermeerder aantal"
+          className=""
+          onClick={addSingleItem}
+        >
+          <AiOutlinePlus color="hsl(213, 90%, 35%)" />
         </button>
       </div>
     </div>

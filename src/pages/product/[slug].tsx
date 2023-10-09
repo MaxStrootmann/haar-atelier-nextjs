@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Link from "next/link";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { ProductSchema } from "lib/interfaces";
@@ -60,13 +60,14 @@ const Product: React.FC<ProductProps> = ({ product }) => {
         </div>
       )}
       <div className="flex sm:flex-row flex-col justify-between w-full max-w-2xl mx-auto sm:mt-8 mt-3 mb-24">
-        <div className="overflow-hidden relative sm:w-2/5 w-full sm:mb-0 mb-10 h-80 md:h-[32rem]">
+        <div className="overflow-hidden relative sm:w-2/5 w-full sm:mb-0 mb-10 h-96 md:h-[32rem]">
           {product?.featured_image && (
             <Image
               src={urlFor(product.featured_image).url()}
-              layout="fill"
-              quality={100}
-              className="object-cover"
+              fill={true}
+              sizes="(min-width: 640px) 252px, 100vw"
+              style={{ objectPosition: "center", objectFit: "cover" }}
+              priority={true}
               alt={product.name}
             />
           )}
@@ -98,6 +99,8 @@ const Product: React.FC<ProductProps> = ({ product }) => {
             <>
               <div className="flex justify-between items-center w-full border border-black rounded-lg text-xl mb-4 px-3 py-1">
                 <button
+                  id="decrease-quantity"
+                  aria-label="Verminder aantal"
                   className="align-middle"
                   onClick={() => setQuantity(quantity - 1)}
                 >
@@ -105,6 +108,8 @@ const Product: React.FC<ProductProps> = ({ product }) => {
                 </button>
                 <span>{quantity}</span>
                 <button
+                  id="increase-quantity"
+                  aria-label="Vermeerder aantal"
                   className="align-middle"
                   onClick={() => setQuantity(quantity + 1)}
                 >
@@ -113,6 +118,8 @@ const Product: React.FC<ProductProps> = ({ product }) => {
               </div>
 
               <button
+                id="add-to-cart"
+                aria-label="Voeg toe aan winkelmandje"
                 onClick={addToCart}
                 className="bg-accent-500 py-2 w-full rounded-lg text-white text-lg"
               >
