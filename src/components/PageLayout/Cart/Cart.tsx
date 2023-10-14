@@ -43,7 +43,7 @@ const Cart = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ items: cart }),
+      body: JSON.stringify({ items: cart, return_url: `${window.location.origin}/success` }),
     });
 
     if (response?.status == 500) return;
@@ -108,7 +108,9 @@ const Cart = () => {
                   id="checkout"
                   aria-label="Naar bestellen"
                   disabled={isRedirecting}
-                  className="bg-accent-500 py-2 px-2 my-3 rounded-lg text-white w-full"
+                  className={isRedirecting ? 
+                    "bg-accent-500 bg-opacity-70 py-2 px-2 my-3 rounded-lg text-white w-full"
+                    : "bg-accent-500 py-2 px-2 my-3 rounded-lg text-white w-full"}
                   onClick={handleCheckout}
                 >
                   {isRedirecting ? `even wachten...` : `Naar bestellen`}
