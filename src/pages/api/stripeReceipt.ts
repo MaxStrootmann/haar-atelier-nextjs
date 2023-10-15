@@ -15,11 +15,12 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     }
 
     await resend.sendEmail({
-      from: 'email@nngrafischontwerp.nl',
-      to: 'info@haaratelier-alkmaar.nl',
-      subject: 'Stripe Transaction Receipt',
-      react: ReceiptEmail({customerName, customerEmail, transactionDetails})
-    });
+     from: 'email@nngrafischontwerp.nl',
+     to: 'info@haaratelier-alkmaar.nl',
+     subject: 'Stripe Transaction Receipt',
+     react: ReceiptEmail({ receipt: { customerName, customerEmail, transactionDetails } })
+   });
+   
 
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ status: 'OK' }));

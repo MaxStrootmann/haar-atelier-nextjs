@@ -11,13 +11,14 @@ import {
   Section,
   Text,
 } from "@react-email/components";
+import { CartProduct } from "lib/interfaces";
 import * as React from "react";
 
 interface ContactProps {
   receipt: {
     customerName: string;
     customerEmail: string;
-    transactionDetails: Array<CartProduct>;
+    transactionDetails: any;
   };
 }
 
@@ -44,7 +45,7 @@ const ReceiptEmail = ({ receipt }: ContactProps) => {
             />
             <Text style={paragraph}>Customer Name: {receipt.customerName}</Text>
             <Text style={paragraph}>Email: {receipt.customerEmail}</Text>
-            {receipt.transactionDetails.map((item) => (
+            {receipt.transactionDetails.map((item: any) => (
               <Text style={paragraph} key={item.id}>
                 Product Name: {item.name}, Quantity: {item.quantity}, Price:{" "}
                 {item.price}
