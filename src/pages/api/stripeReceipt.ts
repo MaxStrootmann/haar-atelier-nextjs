@@ -1,31 +1,32 @@
+// pages/api/stripeReceipt.ts
+
 import { Resend } from 'resend';
-import ContactEmail from '../../emails/contactFormEmail';
 import { NextApiRequest, NextApiResponse } from 'next';
+import ReceiptEmail from 'emails/receiptEmail';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   try {
-    console.log("req.body: ", req.body);``
-    const { name, email, phoneNumber, message } = req.body;
+    const { customerName, customerEmail, transactionDetails } = req.body;
 
-    if(!name || !email || !phoneNumber || !message) {
+    if(!customerName || !customerEmail || !transactionDetails) {
       throw new Error('Incomplete request body');
     }
 
     await resend.sendEmail({
       from: 'email@nngrafischontwerp.nl',
       to: 'info@haaratelier-alkmaar.nl',
-      subject: 'Nieuwe contactaanvraag van haaratelier-alkmaar.nl',
-      react: ContactEmail({name, email, phoneNumber, message})
+      subject: 'Stripe Transaction Receipt',
+      react: ReceiptEmail({customerName, customerEmail, transactionDetails})
     });
 
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ status: 'OK' }));
   } catch (error) {
-    console.error("Error sending email:", error);
+    console.error("Error sending Stripe receipt:", error);
 
     res.setHeader('Content-Type', 'application/json');
-    res.status(500).end(JSON.stringify({ status: 'error', message: 'Failed to send email.' }));
+    res.status(500).end(JSON.stringify({ status: 'error', message: 'Failed to send Stripe receipt.' }));
   }
 }

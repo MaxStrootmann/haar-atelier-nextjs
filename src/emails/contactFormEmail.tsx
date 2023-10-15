@@ -49,7 +49,7 @@ interface ContactProps {
            Email: {email}
          </Text>
          <Text style={paragraph}>
-           Telefoon: {' '}<Link style={anchor} href="tel: +31 #">{phoneNumber}</Link>{' '}
+           Telefoon: {phoneNumber}
          </Text>
          <Text style={paragraph}>
            Bericht: {message}
