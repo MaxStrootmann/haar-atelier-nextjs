@@ -7,6 +7,8 @@ import ReceiptEmail from 'emails/receiptEmail';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
+ console.log("req.body: ", req.body);
+
   try {
     const { customerName, customerEmail, transactionDetails } = req.body;
 
