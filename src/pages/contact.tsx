@@ -6,11 +6,35 @@ const ContactPage = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [message, setMessage] = useState("");
+  const [submissionStatus, setSubmissionStatus] = useState("idle");  // <-- New state
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-    console.log(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`);
-  };
+    try {
+        const response = await fetch("/api/contact", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, email, phoneNumber, message }),
+        });
+
+        const data = await response.json();
+
+        if (response.status !== 200) {
+            throw new Error(data.message);
+        }
+
+        // Update submission status to success
+        setSubmissionStatus("success");
+
+    } catch (error) {
+        setSubmissionStatus("error");
+        console.error("There was an error sending the message:", error);
+    }
+}
+
+
 
   return (
     <div className="px-4 py-8 md:px-8 lg:px-12 xl:px-24 max-w-screen-2xl mx-auto">
@@ -148,7 +172,7 @@ const ContactPage = () => {
             <label htmlFor="phonenumber" className="flex flex-col">
               <span className="mb-1">Telefoonnummer:</span>
               <input
-                type="phonenumber"
+                type="tel"
                 id="phonenumber"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
@@ -166,12 +190,18 @@ const ContactPage = () => {
                 className="rounded-lg border-gray-300 border p-2 shadow-sm"
               />
             </label>
-            <button
-              type="submit"
-              className="bg-accent-500 py-2 px-2 my-3 rounded-lg text-white w-full md:w-max"
-            >
-              Versturen
-            </button>
+            {submissionStatus === "idle" ? (
+              <button
+                type="submit"
+                className="bg-accent-500 p-2 my-3 rounded-lg text-white w-full md:w-max"
+              >
+                Versturen
+              </button>
+            ) : (
+              <div className={submissionStatus === "success" ? "p-2 my-3 rounded-lg bg-green-300 w-full md:w-max" : "p-2 my-3 rounded-lg bg-red-300 w-full md:w-max"}>
+                {submissionStatus === "success" ? "Bericht verzonden!" : "Er is iets fout gegaan."}
+              </div>
+            )}
           </form>
         </div>
 
