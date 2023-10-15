@@ -71,24 +71,6 @@ export default async function handler(
         success_url: `${req.headers.origin}/success`,
         cancel_url: `${req.headers.origin}`
       });
-    
-      const response = await fetch('/api/stripeReceipt', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          customerName: 'Example Customer Name', // This should be fetched dynamically
-          customerEmail: 'example@email.com', // This should be fetched dynamically
-          transactionDetails: req.body.items, // Items in the transaction
-        }),
-      });
-
-      // Handle any errors from the email API call
-      if (!response.ok) {
-        const responseData = await response.json();
-        console.error('Error sending Stripe receipt email:', responseData.message);
-      }
 
       res.status(200).json(session);
     } catch (error) {

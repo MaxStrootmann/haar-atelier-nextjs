@@ -32,7 +32,7 @@ const ReceiptEmail = ({ receipt }: ContactProps) => {
   return (
     <Html>
       <Head />
-      <Preview>Iemand heeft je contactformulier ingevult!</Preview>
+      <Preview>Je hebt een bestelling!</Preview>
       <Body style={main}>
         <Container style={container}>
           <Section style={box}>
