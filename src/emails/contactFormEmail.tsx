@@ -36,7 +36,7 @@ interface ContactProps {
        <Section style={box}>
          <Img
            style={image}
-           src="https://haar-atelier-nextjs.vercel.app/haalogo.png"
+           src="https://haar-atelier-nextjs.vercel.app/haalogo-200.png"
            width="200"
            height="100%"
            alt="Haar Atelier Logo"
