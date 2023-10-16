@@ -8,7 +8,7 @@ interface MetaHeadProps {
   type?: string;
 }
 
-const siteUrl = "https://react-woocommerce.vercel.app";
+const siteUrl = "https://www.haaratelier-alkmaar.nl";
 
 const MetaHead: React.FC<MetaHeadProps> = ({
   title,
@@ -20,7 +20,9 @@ const MetaHead: React.FC<MetaHeadProps> = ({
 
   return (
     <Head>
-      <title>{`NextJS Sanity eCommerce${title ? ` | ${title}` : ``}`}</title>
+      <title>{`Haar Atelier Alkmaar${title ? ` | ${title}` : ``}`}</title>
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+
       <meta name="description" content={description} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
