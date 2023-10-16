@@ -17,8 +17,6 @@ const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({categories}) => 
     sort = ""
   } else sort = `&sort=${selectedSort}`;
 
-  console.log("Selected category:", selected)
-  
   return (
     <div className="">
       <Listbox value={selected} onChange={setSelected}>

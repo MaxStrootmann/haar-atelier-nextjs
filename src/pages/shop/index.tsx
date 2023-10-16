@@ -65,10 +65,6 @@ export default function CategoriesPage({
 
   useEffect(() => {
     async function fetchNewData() {
-      console.log(
-        "useEffect query:",
-        `*[_type == "product" ${categoryFilter}]${sortOption} [0...10]`
-      );
       const newProducts = await client.fetch(
         groq`*[_type == "product" ${categoryFilter}]${sortOption} [0...10]{
           _id,
@@ -86,7 +82,6 @@ export default function CategoriesPage({
     fetchNewData();
   }, [categoryFilter, sortOption]);
 
-  console.log("productslug:", products[0].slug);
 
   return (
     <>
@@ -112,7 +107,7 @@ export default function CategoriesPage({
           synthetische geur- en kleurstoffen, vulmiddelen, dierproeven,
           kinderarbeid en moderne slavernij.
         </p>
-        <div className="flex flex-col space-y-4 sm:flex-row justify-between pt-4">
+        <div id="producten" className="flex flex-col space-y-4 sm:flex-row justify-between pt-4">
           <div>
             <h2 className="text-sm font-sans ">Categorieën:</h2>
             <CategoriesDropdown categories={categories} />

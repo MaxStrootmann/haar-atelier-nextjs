@@ -53,13 +53,22 @@ const PopularProductCarousel: React.FC<ProductListProps> = ({ products }) => {
   //     smoothScroll(carouselRef.current, newScrollPos, 500, easeInOutQuart);
   //   }
   // };
+  const handleScrollToProducts = (e: any) => {
+    e.preventDefault(); // prevent the default behavior
+  
+    // Get the element with id="producten"
+    const productenElement = document.getElementById("producten");
+  
+    // Scroll to the element
+    productenElement?.scrollIntoView({ behavior: "smooth" });
+  };
   
 
   return (
     <div className="">
       <div className="flex justify-between lg:max-w-screen-lg  mx-auto px-6 items-end">
         <h2 className="text-2xl md:text-3xl">Onze favorieten</h2>
-        <Link href={"/producten"} className="underline text-sm md:text-base">
+        <Link onClick={handleScrollToProducts} href={"/#producten"} className="underline text-sm md:text-base">
           Bekijk meer
         </Link>
       </div>

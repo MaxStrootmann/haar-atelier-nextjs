@@ -18,8 +18,6 @@ const SortDropdown = () => {
    category = "";
  } else category = `category=${selectedCategory}&`;
 
- console.log("Selected sort:", selected)
-
   return (
     <div className="">
       <Listbox value={selected} onChange={setSelected}>
