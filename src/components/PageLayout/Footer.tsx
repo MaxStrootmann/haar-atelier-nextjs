@@ -105,7 +105,7 @@ const Footer = () => {
         </div>
         <div className="flex justify-center items-center gap-2 mt-8">
           <BiPhone />
-        <Link href={"tel: +31613248526"} className="underline underline-offset-2">
+        <Link href={"tel: +31651126003"} className="underline underline-offset-2">
           +31 (0)6 51 12 60 03
         </Link>
         </div>
