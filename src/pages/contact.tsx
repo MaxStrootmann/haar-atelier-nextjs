@@ -36,9 +36,7 @@ const ContactPage = () => {
 
   return (
     <div className="px-4 py-8 md:px-8 lg:px-12 xl:px-24 max-w-screen-2xl mx-auto">
-      <h1 className="text-4xl md:text-5xl pb-4 mx-auto md:w-max">
-        Parkeren & Contact
-      </h1>
+      <h1 className="text-4xl md:text-5xl pb-4 mx-auto md:w-max">Parkeren & Contact</h1>
 
       <ul className="list-disc list-inside space-y-4 py-4 mx-auto md:w-max">
         {/* <h2>Parkeergarage´s op loopafstand: </h2> */}
@@ -111,8 +109,8 @@ const ContactPage = () => {
           </div>
           <div className="flex gap-1">
             <p>E:</p>
-            <a className="underline" href="mailto:info@haaratelier-alkmaar.nl">
-              info@haaratelier-alkmaar.nl
+            <a className="underline" href="mailto:info@marloesotjes-haaratelier.nl">
+              info@marloesotjes-haaratelier.nl
             </a>
           </div>
         </div>
@@ -145,11 +143,9 @@ const ContactPage = () => {
 
       <div className="text-center text-sm md:text-base">
         <em>
-          U kunt uw afspraak uitsluitend per telefoon of e-mail kosteloos
-          wijzigen of annuleren binnen 48 uur voor aanvang van de afspraak,
-          daarna zijn wij genoodzaakt 50% van de behandelprijs in rekening te
-          brengen. Bij niet annuleren, dus “no show” moeten wij helaas het
-          gehele bedrag in rekening brengen.
+          U kunt uw afspraak uitsluitend per telefoon of e-mail kosteloos wijzigen of annuleren binnen 48 uur voor
+          aanvang van de afspraak, daarna zijn wij genoodzaakt 50% van de behandelprijs in rekening te brengen. Bij niet
+          annuleren, dus “no show” moeten wij helaas het gehele bedrag in rekening brengen.
         </em>
       </div>
 
@@ -201,10 +197,7 @@ const ContactPage = () => {
               />
             </label>
             {submissionStatus === "ready" ? (
-              <button
-                type="submit"
-                className="bg-accent-500 p-2 my-3 rounded-lg text-white w-full md:w-max"
-              >
+              <button type="submit" className="bg-accent-500 p-2 my-3 rounded-lg text-white w-full md:w-max">
                 Versturen
               </button>
             ) : submissionStatus === "loading" ? (
@@ -223,9 +216,7 @@ const ContactPage = () => {
                     : "p-2 my-3 rounded-lg bg-red-300 w-full md:w-max"
                 }
               >
-                {submissionStatus === "success"
-                  ? "Bericht verzonden!"
-                  : "Er is iets fout gegaan."}
+                {submissionStatus === "success" ? "Bericht verzonden!" : "Er is iets fout gegaan."}
               </div>
             )}
           </form>
