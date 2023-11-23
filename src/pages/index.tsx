@@ -42,26 +42,28 @@ const Home: React.FC<HomeProps> = ({ categories, reviews }) => {
 
   async function updateIds() {
     try {
-      const response = await fetch('/api/updateProductIds', {
-        method: 'POST'
+      const response = await fetch("/api/updateProductIds", {
+        method: "POST",
       });
-      
+
       const data = await response.json();
-  
+
       if (response.ok) {
         console.log(data.message);
       } else {
-        console.error('Failed to update product IDs:', data.message);
+        console.error("Failed to update product IDs:", data.message);
       }
     } catch (error) {
-      console.error('Network error:', error);
+      console.error("Network error:", error);
     }
   }
-  
 
   return (
     <>
-      <MetaHead description="Gespecialiseerd in het kleuren van haar. Lived-in balayage, faceframing, highlights, blonde & brunettes. Haircuts voor mannen & vrouwen." />
+      <MetaHead
+        title="Haar Atelier Alkmaar | Natural, Organic, Holistic"
+        description="Gespecialiseerd in kleur, balayage, highlights, natuurlijke looks."
+      />
       <HomeHero />
       <HeroContent />
       <div id="reviews">
@@ -87,7 +89,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: { reviews },
-    revalidate: 60*60*24,
+    revalidate: 60 * 60 * 24,
   };
 };
 
