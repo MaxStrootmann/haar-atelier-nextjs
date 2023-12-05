@@ -1,8 +1,4 @@
-import {
-  Carousel,
-  IconButton,
-  IconButtonProps,
-} from "@material-tailwind/react";
+import { Carousel, IconButton, IconButtonProps } from "@material-tailwind/react";
 import ReviewCard from "./ReviewCard";
 import { ReviewSchema } from "lib/interfaces";
 
@@ -10,10 +6,9 @@ interface ReviewCarouselProps {
   reviews: ReviewSchema[];
 }
 
-
 const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
   return (
-    <div className="text-center py-8  lg:px-16 xl:px-28 2xl:px-64">
+    <div className="text-center py-8  lg:px-16 xl:px-28 2xl:px-0 2xl:max-w-7xl mx-auto">
       <h2 className="text-4xl md:text-6xl">Reviews</h2>
       <Carousel
         onResizeCapture={() => {}}
@@ -38,11 +33,7 @@ const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
               stroke="currentColor"
               className="h-6 w-6"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
           </IconButton>
         )}
@@ -64,16 +55,12 @@ const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
               stroke="currentColor"
               className="h-6 w-6"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
           </IconButton>
         )}
         navigation={({ setActiveIndex, activeIndex, length }) => (
-          <div className="absolute bottom-4 left-2/4 flex items-end -translate-x-2/4 gap-2">
+          <div className="absolute bottom-0 left-2/4 flex items-end -translate-x-2/4 gap-2">
             {new Array(length).fill("").map((_, i) => (
               <span
                 key={i}

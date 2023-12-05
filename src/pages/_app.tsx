@@ -31,9 +31,7 @@ const slugs =
     return [...slugs, item.slug];
   }, []);
 
-
 const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyAppProps) => {
-
   const router = useRouter();
   const [cart, dispatch] = useReducer(cartReducer, []);
   const [cartVisibility, setCartVisibilty] = useState(false);
@@ -44,7 +42,7 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
     return products.map((product: CartProduct, i) => {
       return {
         ...product,
-        quantity: parsedCartItems[i].quantity ? parsedCartItems[i].quantity : 1
+        quantity: parsedCartItems[i].quantity ? parsedCartItems[i].quantity : 1,
       };
     });
   };
@@ -52,7 +50,7 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
   const toggleCartVisibility = () => {
     setCartVisibilty(!cartVisibility);
   };
-  
+
   const toggleSearchVisibility = () => {
     setSearchVisibilty(!searchVisibility);
   };
@@ -61,7 +59,7 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
     const fetchCartProducts = async () => {
       if (parsedCartItems) {
         const cartProducts = await client.fetch(productsBySlugsQuery, {
-          slugs
+          slugs,
         });
 
         if (!cartProducts) {
@@ -70,7 +68,7 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
 
         dispatch({
           type: Types.bulkAdd,
-          payload: cartProducts && appendTotalItemsField(cartProducts)
+          payload: cartProducts && appendTotalItemsField(cartProducts),
         });
       }
     };
@@ -93,43 +91,55 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
     const handleBackClick = () => {
       setSearchVisibilty(false);
     };
-  
-    window.addEventListener('popstate', handleBackClick);
-  
+
+    window.addEventListener("popstate", handleBackClick);
+
     return () => {
-      window.removeEventListener('popstate', handleBackClick);
+      window.removeEventListener("popstate", handleBackClick);
     };
   }, []);
 
   return (
     <SearchVisibilityContext.Provider
-    value={{
-    searchVisibility,
-    toggleSearchVisibility
-    }}>
-    <CartItemsContext.Provider
       value={{
-        cart,
-        dispatch
+        searchVisibility,
+        toggleSearchVisibility,
       }}
     >
-      <CartVisibilityContext.Provider
+      <CartItemsContext.Provider
         value={{
-          cartVisibility,
-          toggleCartVisibility
+          cart,
+          dispatch,
         }}
+      >
+        <CartVisibilityContext.Provider
+          value={{
+            cartVisibility,
+            toggleCartVisibility,
+          }}
         >
-        <DataProvider>
-        <PageLayout categories={categories} products={products}>
-          <Component backClicked={backClicked} {...pageProps} />
-          <Script async defer crossOrigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js" />
-        </PageLayout>
-        </DataProvider>
-      </CartVisibilityContext.Provider>
-    </CartItemsContext.Provider>
+          <DataProvider>
+            <Script
+              strategy="afterInteractive"
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA}`}
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${process.env.NEXT_PUBLIC_GA}');
+              `}
+            </Script>
+            <PageLayout categories={categories} products={products}>
+              <Component backClicked={backClicked} {...pageProps} />
+              <Script async defer crossOrigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js" />
+            </PageLayout>
+          </DataProvider>
+        </CartVisibilityContext.Provider>
+      </CartItemsContext.Provider>
     </SearchVisibilityContext.Provider>
   );
 };
-
 
 export default MyApp;

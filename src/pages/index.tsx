@@ -69,13 +69,6 @@ const Home: React.FC<HomeProps> = ({ categories, reviews }) => {
       <div id="reviews">
         <ReviewCarousel reviews={reviews} />
       </div>
-
-      {/* <button className="underline" onClick={fetchFormattedJSON}>
-        upload
-      </button> */}
-      {/* <button className="underline" onClick={updateIds}>
-        updateIds
-      </button> */}
     </>
   );
 };
