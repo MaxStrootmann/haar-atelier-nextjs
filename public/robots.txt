@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.haaratelier-alkmaar.nl
+
+# Sitemaps
+Sitemap: https://www.haaratelier-alkmaar.nl/sitemap.xml
