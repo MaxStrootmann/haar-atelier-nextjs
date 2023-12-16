@@ -1,118 +1,103 @@
-import {
-  Body,
-  Button,
-  Container,
-  Head,
-  Hr,
-  Html,
-  Img,
-  Link,
-  Preview,
-  Section,
-  Text,
-} from "@react-email/components";
-import { CartProduct } from "lib/interfaces";
+import { Body, Container, Head, Html, Img, Preview, Section, Text } from "@react-email/components";
+import { Tailwind } from "@react-email/tailwind";
 import * as React from "react";
 
-interface ContactProps {
+type TransactionItem = {
+  id: string;
+  object: string;
+  amount_discount: number;
+  amount_subtotal: number;
+  amount_total: number;
+  currency: string;
+  description: string;
+  quantity: number;
+};
+
+type ContactProps = {
   receipt: {
     customerName: string;
     customerEmail: string;
-    transactionDetails: any;
+    customerAddress: {
+      city: string;
+      country: string;
+      line1: string;
+      line2: string;
+      postal_code: string;
+    };
+    transactionDetails: TransactionItem[];
   };
-}
+};
 
 const ReceiptEmail = ({ receipt }: ContactProps) => {
-  if (!receipt) {
-    throw new Error("Required fields are missing for the contact email.");
-  }
-
-  //... rest of the code remains unchanged
-
   return (
     <Html>
       <Head />
       <Preview>Je hebt een bestelling!</Preview>
-      <Body style={main}>
-        <Container style={container}>
-          <Section style={box}>
-            <Img
-              style={image}
-              src="https://haar-atelier-nextjs.vercel.app/haalogo-3x.png"
-              width="200"
-              height="100%"
-              alt="Haar Atelier Logo"
-            />
-            <Text style={paragraph}>Customer Name: {receipt.customerName}</Text>
-            <Text style={paragraph}>Email: {receipt.customerEmail}</Text>
-            {receipt.transactionDetails.map((item: any) => (
-              <Text style={paragraph} key={item.id}>
-                Product Name: {item.name}, Quantity: {item.quantity}, Price:{" "}
-                {item.price}
+      <Tailwind
+        config={{
+          theme: {
+            extend: {
+              fontFamily: {
+                sans: ["Poppins", "sans-serif"],
+                display: ["Cormorant SC", "serif"],
+                serif: ["Adamina", "serif"],
+              },
+              colors: {
+                transparent: "transparent",
+                current: "currentColor",
+                white: "#ffffff",
+                black: "#000000",
+                "grey-300": "#F5F2F0",
+                "grey-500": "#47433D",
+                "bg-300": "#fff9f2",
+                "bg-500": "#faeede",
+                "bg-800": "#fbe8d4",
+                "accent-500": "#C0975A",
+                natulique: "#503421",
+                "bubble-gum": "#ff77e9",
+                bermuda: "#78dcca",
+              },
+            },
+          },
+        }}
+      >
+        <Body className="bg-bg-300 font-sans">
+          <Container className="m-auto">
+            <Section className="text-center">
+              <Section className="m-auto pt-4">
+                <Img
+                  src="https://drive.google.com/uc?export=view&id=1bV9a7kTZJykl8Ib-14mBGxAqB8NSZQZ4"
+                  width="200"
+                  height="100%"
+                  alt="Haar Atelier Logo"
+                />
+              </Section>
+              <Text>Naam: {receipt.customerName}</Text>
+              <Text>Email: {receipt.customerEmail}</Text>
+              <Text>
+                Verzendadres:
+                <br />
+                {receipt.customerAddress.line1 + " " + receipt.customerAddress.line2}
+                <br />
+                {receipt.customerAddress.postal_code}
+                <br />
+                {receipt.customerAddress.city}
               </Text>
-            ))}
-          </Section>
-        </Container>
-      </Body>
+              {receipt.transactionDetails.map((item: any) => (
+                <Text key={item.id}>
+                  {item.name !== "Verzendkosten (gratis vanaf €75)"
+                    ? `Product: ${item.description}, Aantal: ${item.quantity}, Prijs: €
+                  ${item.amount_total / 100}`
+                    : `Verzendkosten: €${item.amount_total / 100},-`}
+                </Text>
+              ))}
+              <Text></Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
     </Html>
   );
 };
 
 export default ReceiptEmail;
-
-const main = {
-  backgroundColor: "#f6f9fc",
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
-};
-
-const container = {
-  backgroundColor: "#ffffff",
-  margin: "0 auto",
-  padding: "20px 0 48px",
-  marginBottom: "64px",
-};
-
-const box = {
-  padding: "0 48px",
-};
-
-const image = {
-  marginX: "auto",
-  display: "block",
-};
-
-const hr = {
-  borderColor: "#e6ebf1",
-  margin: "20px 0",
-};
-
-const paragraph = {
-  color: "#525f7f",
-
-  fontSize: "16px",
-  lineHeight: "24px",
-  textAlign: "left" as const,
-};
-
-const anchor = {
-  color: "#556cd6",
-};
-
-const button = {
-  backgroundColor: "#C0975A",
-  borderRadius: "5px",
-  color: "#fff",
-  fontSize: "16px",
-  fontWeight: "bold",
-  textDecoration: "none",
-  textAlign: "center" as const,
-  display: "block",
-  width: "100%",
-};
-
-const footer = {
-  color: "#8898aa",
-  fontSize: "12px",
-  lineHeight: "16px",
-};
