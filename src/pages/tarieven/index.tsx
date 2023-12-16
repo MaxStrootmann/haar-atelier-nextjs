@@ -63,7 +63,6 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   }`;
   let prices = await client.fetch(query);
-  console.log("Fetched prices:", prices);
 
   const categoryOrder = ["Women", "Men", "Colour treatments", "Special events", "Wedding hair"]; // Add other categories in desired order
   prices = prices.sort((a: any, b: any) => {

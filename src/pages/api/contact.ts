@@ -14,7 +14,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       throw new Error("Incomplete request body");
     }
 
-    await resend.sendEmail({
+    await resend.emails.send({
       from: "email@nngrafischontwerp.nl",
       to: "info@marloesotjes-haaratelier.nl",
       subject: "Nieuwe contactaanvraag van haaratelier-alkmaar.nl",

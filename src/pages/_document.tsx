@@ -5,7 +5,7 @@ class MyDocument extends Document {
     return (
       <Html className="bg-wolken min-h-screen" lang="en">
         <Head>
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
         </Head>
         <body className="bg-transparent">
           <Main />

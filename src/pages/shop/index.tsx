@@ -49,7 +49,7 @@ export default function CategoriesPage({ categories, products, categoryFilter, s
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [displayedProducts]);
+  }, [categoryFilter, sortOption, displayedProducts]);
 
   useEffect(() => {
     async function fetchNewData() {

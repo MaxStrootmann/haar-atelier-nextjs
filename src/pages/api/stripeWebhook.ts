@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2022-08-01"
+  apiVersion: "2023-10-16",
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -20,29 +20,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (event.type === "checkout.session.completed") {
       const session = event.data.object as Stripe.Checkout.Session;
 
-      const customerEmail = session.customer_details?.email;  // Customer's email address
+      const customerEmail = session.customer_details?.email; // Customer's email address
       const customerName = session.customer_details?.name;
-      const customerAddress = session.shipping_address_collection;  // Customer's shipping address
+      const customerAddress = session.shipping_address_collection; // Customer's shipping address
 
-      const response = await fetch('/api/stripeReceipt', {
-        method: 'POST',
+      const response = await fetch("/api/stripeReceipt", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           customerName: customerName,
           customerEmail: customerEmail,
-          customerAddress: customerAddress, 
+          customerAddress: customerAddress,
           transactionDetails: session.line_items, // This might require an additional fetch using Stripe API based on session ID.
         }),
       });
 
       if (!response.ok) {
         const responseData = await response.json();
-        console.error('Error sending Stripe receipt email:', responseData.message);
+        console.error("Error sending Stripe receipt email:", responseData.message);
       }
 
-      res.status(200).send('Received');
+      res.status(200).send("Received");
     } else {
       res.status(400).end();
     }
