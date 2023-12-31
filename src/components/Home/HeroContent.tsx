@@ -7,10 +7,10 @@ const HeroContent = () => {
   const images = contentImages;
   const { ref: deur, inView: deurIsVisible } = useInView();
   const { ref: fohnen, inView: fohnenIsVisible } = useInView({
-    threshold: 1,
+    threshold: 0.8,
   });
   const { ref: voorraad, inView: voorraadIsVisible } = useInView({
-    threshold: 1,
+    threshold: 0.5,
   });
   return (
     <>
