@@ -12,34 +12,27 @@ interface MyComboBoxProps {
   categories?: any[];
 }
 
-const MyComboBox: React.FC<MyComboBoxProps> = ({
-  products = [],
-  categories = [],
-}) => {
+const MyComboBox: React.FC<MyComboBoxProps> = ({ products = [], categories = [] }) => {
   const [selected, setSelected] = useState<ProductSchema>(products[0] || null);
 
   const [query, setQuery] = useState("");
 
-  const { searchVisibility, toggleSearchVisibility } = useContext(
-    SearchVisibilityContext
-  );
+  const { searchVisibility, toggleSearchVisibility } = useContext(SearchVisibilityContext);
 
   const menuItems = [
     { _id: "1", name: "" },
     { _id: "2", name: "Shop" },
     { _id: "3", name: "Reviews" },
-    { _id: "4", name: "Tarieven" },
-    { _id: "5", name: "Contact" },
+    { _id: "4", name: "Team" },
+    { _id: "5", name: "Tarieven" },
+    { _id: "6", name: "Contact" },
   ];
 
   const filteredProducts =
     query === ""
       ? []
       : products.filter((product) =>
-          product.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
+          product.name.toLowerCase().replace(/\s+/g, "").includes(query.toLowerCase().replace(/\s+/g, ""))
         );
 
   return (
@@ -55,19 +48,13 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({
                   onChange={(event) => setQuery(event.target.value)}
                 />
                 <Combobox.Button className="absolute inset-y-0 right-4 flex items-center pr-2">
-                  <MagnifyingGlassIcon
-                    className="h-5 w-5 text-gray-800"
-                    aria-hidden="true"
-                  />
+                  <MagnifyingGlassIcon className="h-5 w-5 text-gray-800" aria-hidden="true" />
                 </Combobox.Button>
                 <Combobox.Button
                   className="absolute inset-y-0 left-4 flex items-center pl-2"
                   onClick={toggleSearchVisibility}
                 >
-                  <ArrowLeftIcon
-                    className="h-5 w-5 text-gray-800"
-                    aria-hidden="true"
-                  />
+                  <ArrowLeftIcon className="h-5 w-5 text-gray-800" aria-hidden="true" />
                 </Combobox.Button>
               </div>
               <Combobox.Options
@@ -93,11 +80,7 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({
                       >
                         {({ selected, active }) => (
                           <>
-                            <span
-                              className={`block truncate ml-2 ${
-                                selected ? "font-medium" : "font-normal"
-                              }`}
-                            >
+                            <span className={`block truncate ml-2 ${selected ? "font-medium" : "font-normal"}`}>
                               {item.name === "" ? "Home" : item.name}
                             </span>
 
@@ -114,48 +97,36 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({
                     </Link>
                   ))}
                 {!query && (
-                    <div className="mx-auto w-[calc(100%-3rem)] md:w-80">
-                      <Link
-                        href={
-                          "https://widget2.meetaimy.com/widgetWeb?salonId=MTIzNjkzMA%3D%3D&salonEmail=aW5mb0BtYXJsb2Vzb3RqZXMtaGFhcmF0ZWxpZXIubmw%3D"
-                        }
-                      >
-                        <div className="bg-accent-500 rounded-lg px-4 py-2 text-white text-center my-4">
-                          Afspraak maken
-                        </div>
-                      </Link>
-                    </div>
+                  <div className="mx-auto w-[calc(100%-3rem)] md:w-80">
+                    <Link
+                      href={
+                        "https://widget2.meetaimy.com/widgetWeb?salonId=MTIzNjkzMA%3D%3D&salonEmail=aW5mb0BtYXJsb2Vzb3RqZXMtaGFhcmF0ZWxpZXIubmw%3D"
+                      }
+                    >
+                      <div className="bg-accent-500 rounded-lg px-4 py-2 text-white text-center my-4">
+                        Afspraak maken
+                      </div>
+                    </Link>
+                  </div>
                 )}
                 {filteredProducts.length === 0 && query !== "" ? (
-                  <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
-                    Geen resultaat.
-                  </div>
+                  <div className="relative cursor-default select-none py-2 px-4 text-gray-700">Geen resultaat.</div>
                 ) : (
                   <>
                     {filteredProducts.map((product) => (
-                      <Link
-                        key={`${product._id}`}
-                        href={`/product/${product.slug}`}
-                        onClick={toggleSearchVisibility}
-                      >
+                      <Link key={`${product._id}`} href={`/product/${product.slug}`} onClick={toggleSearchVisibility}>
                         <Combobox.Option
                           key={`${product._id}`}
                           className={({ active }) =>
                             `relative cursor-default select-none py-2 pl-6 pr-4 flex items-center ${
-                              active
-                                ? "bg-grey-300 text-black"
-                                : "text-grey-500"
+                              active ? "bg-grey-300 text-black" : "text-grey-500"
                             }`
                           }
                           value={product}
                         >
                           {({ selected, active }) => (
                             <>
-                              <span
-                                className={`block truncate ml-2 ${
-                                  selected ? "font-medium" : "font-normal"
-                                }`}
-                              >
+                              <span className={`block truncate ml-2 ${selected ? "font-medium" : "font-normal"}`}>
                                 {product.name}
                               </span>
 

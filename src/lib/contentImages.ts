@@ -7,52 +7,53 @@ import content_voorraad from "/public/content_voorraad.jpg";
 import content_stoel from "/public/content_stoel.jpg";
 import content_fohnen from "/public/content_fohnen.jpg";
 
-export const contentImages = [
-  {
+export const contentImages = {
+  raam: {
     src: content_raam,
     alt: "Marloes voor het Atelier",
     ref: "raam",
-    inview: "raamIsVisible"
+    inview: "raamIsVisible",
   },
-  {
+  wasstoelen: {
     src: content_wasstoelen,
     alt: "Wasstoelen",
     ref: "wasstoelen",
-    inview: "wasstoelenIsVisible"
+    inview: "wasstoelenIsVisible",
   },
-  {
+  tube: {
     src: content_tube,
     alt: "Tube",
     ref: "tube",
-    inview: "tubeIsVisible"
+    inview: "tubeIsVisible",
   },
-  {
+  producten: {
     src: content_producten,
     alt: "Producten",
     ref: "producten",
-    inview: "productenIsVisible"
+    inview: "productenIsVisible",
   },
-  {
+  deur: {
     src: content_deur,
     alt: "Marloes voor de deur",
     ref: "deur",
-    inview: "deurIsVisible"
+    inview: "deurIsVisible",
   },
-  {
+  voorraad: {
     src: content_voorraad,
     alt: "Voorraad",
     ref: "voorraad",
-    inview: "voorraadIsVisible"
+    inview: "voorraadIsVisible",
   },
-  {
+  stoel: {
     src: content_stoel,
     alt: "Stoel",
     ref: "stoel",
-    inview: "stoelIsVisible"
+    inview: "stoelIsVisible",
   },
-  {
+  fohnen: {
     src: content_fohnen,
     alt: "fohnen",
     ref: "fohnen",
+    inview: "fohnenIsVisible",
   },
-];
+};

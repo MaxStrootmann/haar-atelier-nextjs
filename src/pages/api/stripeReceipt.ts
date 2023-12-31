@@ -18,7 +18,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
 
     await resend.emails.send({
       from: "email@nngrafischontwerp.nl",
-      to: "strootmann95@gmail.com",
+      to: ["max@nngrafischontwerp.nl", "info@marloesotjes-haaratelier.nl", "strootmann95@gmail.com"],
       subject: "Bestelling ontvangen",
       react: ReceiptEmail({ receipt: { customerName, customerEmail, customerAddress, transactionDetails } }),
     });
