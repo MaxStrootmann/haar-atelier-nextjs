@@ -25,6 +25,9 @@ type ContactProps = {
       postal_code: string;
     };
     transactionDetails: TransactionItem[];
+    receiptNumber: string;
+    amount: number;
+    date: string;
   };
 };
 
@@ -61,17 +64,20 @@ const ReceiptEmail = ({ receipt }: ContactProps) => {
           },
         }}
       >
-        <Body className="bg-bg-300 font-sans">
-          <Container className="m-auto">
-            <Section className="text-center">
-              <Section className="m-auto pt-4">
+        <Body className='bg-bg-300 font-sans'>
+          <Container className='m-auto'>
+            <Section className='text-center'>
+              <Section className='m-auto pt-4'>
                 <Img
-                  src="https://drive.google.com/uc?export=view&id=1bV9a7kTZJykl8Ib-14mBGxAqB8NSZQZ4"
-                  width="200"
-                  height="100%"
-                  alt="Haar Atelier Logo"
+                  src='https://drive.google.com/uc?export=view&id=1bV9a7kTZJykl8Ib-14mBGxAqB8NSZQZ4'
+                  width='200'
+                  height='100%'
+                  alt='Haar Atelier Logo'
                 />
               </Section>
+              <Text>Ontvangstbewijsnummer: {receipt.receiptNumber ? receipt.receiptNumber : "4242-4242"}</Text>
+              <Text>Betaald bedrag: {receipt.amount}</Text>
+              <Text>Datum van betaling: {receipt.date}</Text>
               <Text>Naam: {receipt.customerName}</Text>
               <Text>Email: {receipt.customerEmail}</Text>
               <Text>

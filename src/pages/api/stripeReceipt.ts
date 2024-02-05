@@ -10,17 +10,26 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   console.log("stripeReceipt req.body: ", req.body);
 
   try {
-    const { customerName, customerEmail, transactionDetails, customerAddress } = req.body;
-
-    if (!customerName || !customerEmail || !transactionDetails || !customerAddress) {
+    const { customerName, customerEmail, transactionDetails, customerAddress, receiptNumber, amount, date } = req.body;
+    if (
+      !customerName ||
+      !customerEmail ||
+      !transactionDetails ||
+      !customerAddress ||
+      !receiptNumber ||
+      !amount ||
+      !date
+    ) {
       throw new Error("Incomplete request body");
     }
 
     await resend.emails.send({
       from: "email@nngrafischontwerp.nl",
-      to: ["max@nngrafischontwerp.nl", "info@marloesotjes-haaratelier.nl", "strootmann95@gmail.com"],
+      to: ["strootmann95@gmail.com"],
       subject: "Bestelling ontvangen",
-      react: ReceiptEmail({ receipt: { customerName, customerEmail, customerAddress, transactionDetails } }),
+      react: ReceiptEmail({
+        receipt: { customerName, customerEmail, customerAddress, transactionDetails, receiptNumber, amount, date },
+      }),
     });
 
     res.status(200).json(req.body);

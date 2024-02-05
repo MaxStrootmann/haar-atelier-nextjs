@@ -10,7 +10,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     try {
-      console.log("req.body.items", req.body.items);
+      // console.log("req.body.items", req.body.items);
 
       // 1. Calculate the total cart amount
       const totalAmount = req.body.items.reduce((accum: number, item: CartProduct) => {
@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         shippingCost = 600; // 6 euros is 600 cents
       }
 
-      console.log("totalAmount and shippingCost", totalAmount, shippingCost);
+      // console.log("totalAmount and shippingCost", totalAmount, shippingCost);
 
       const session = await stripe.checkout.sessions.create({
         submit_type: "pay",
