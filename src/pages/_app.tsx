@@ -1,6 +1,6 @@
 import "styles/globals.scss";
 import type { AppProps } from "next/app";
-import React, { ReactNode, useContext, useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import PageLayout from "components/PageLayout/PageLayout";
 import CartItemsContext from "contexts/cartItemsContext";
 import CartVisibilityContext from "contexts/cartVisibilityContext";
@@ -14,7 +14,6 @@ import { useRouter } from "next/router";
 import SearchVisibilityContext from "contexts/searchVisibilityContext";
 import { DataProvider } from "contexts/DataContext";
 import Script from "next/script";
-import { APP_ID } from "./api/getFbAccessToken";
 
 interface MyAppProps {
   children: React.ReactNode;
@@ -120,10 +119,10 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
         >
           <DataProvider>
             <Script
-              strategy="afterInteractive"
+              strategy='afterInteractive'
               src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA}`}
             />
-            <Script id="google-analytics" strategy="afterInteractive">
+            <Script id='google-analytics' strategy='afterInteractive'>
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
@@ -133,7 +132,7 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
             </Script>
             <PageLayout categories={categories} products={products}>
               <Component backClicked={backClicked} {...pageProps} />
-              <Script async defer crossOrigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js" />
+              <Script async defer crossOrigin='anonymous' src='https://connect.facebook.net/en_US/sdk.js' />
             </PageLayout>
           </DataProvider>
         </CartVisibilityContext.Provider>
