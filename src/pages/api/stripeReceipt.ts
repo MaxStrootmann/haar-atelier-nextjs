@@ -20,9 +20,9 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       !amount ||
       !date
     ) {
-      throw new Error("Incomplete request body");
+      console.log("Incomplete request body");
     }
-
+    console.log("sending email");
     await resend.emails.send({
       from: "email@nngrafischontwerp.nl",
       to: ["strootmann95@gmail.com"],
@@ -31,7 +31,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
         receipt: { customerName, customerEmail, customerAddress, transactionDetails, receiptNumber, amount, date },
       }),
     });
-
+    console.log("email sent");
     res.status(200).json(req.body);
   } catch (error) {
     res.status(400).json(error);

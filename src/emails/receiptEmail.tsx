@@ -1,5 +1,5 @@
 import { Body, Container, Head, Html, Img, Preview, Section, Text } from "@react-email/components";
-import { Tailwind } from "@react-email/tailwind";
+import { Tailwind } from "@react-email/components";
 import * as React from "react";
 
 type TransactionItem = {
