@@ -1,4 +1,4 @@
-import type { PortableTextBlock } from "@portabletext/types";
+import { PortableTextBlock } from "@portabletext/types";
 
 export interface ProductSchema {
   _id: string;
