@@ -19,7 +19,7 @@ export const config = {
 
 async function handleChargeEvent({ event }: { event: Stripe.Event }) {
   if (event.type === "charge.succeeded") {
-    console.log("Logging charge.succeeded event: ", event);
+    // console.log("Logging charge.succeeded event: ", event);
     const chargeData = event.data.object as Stripe.Charge;
     const stripeId = chargeData.payment_intent as string;
     const customerEmail = chargeData.billing_details?.email as string;
@@ -57,6 +57,15 @@ async function handleCheckoutEvent({ event }: { event: Stripe.Event }) {
     const checkoutData = event.data.object as Stripe.Checkout.Session;
     const cartItems = await stripe.checkout.sessions.listLineItems(checkoutData.id, { limit: 25 });
 
+    const formattedDate = new Date(checkoutData.created * 1000).toLocaleString("NL", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+    console.log("Formatted date: ", formattedDate);
     const stripeId = checkoutData.payment_intent as string;
 
     const orderItems = cartItems.data.map((item) => {
@@ -68,8 +77,8 @@ async function handleCheckoutEvent({ event }: { event: Stripe.Event }) {
       };
     });
 
-    console.log("Logging checkout.session.completed event: ", checkoutData);
-    console.log("Logging cart items: ", cartItems);
+    // console.log("Logging checkout.session.completed event: ", checkoutData);
+    // console.log("Logging cart items: ", cartItems);
 
     const user = await prisma.user.findUnique({
       where: {
@@ -89,7 +98,7 @@ async function handleCheckoutEvent({ event }: { event: Stripe.Event }) {
         items: {
           create: orderItems,
         },
-        userId: user?.id, // Add the userId field
+        userId: user?.id,
       },
     });
 
@@ -114,28 +123,34 @@ async function handleCheckoutEvent({ event }: { event: Stripe.Event }) {
         transactionDetails: cartItems.data,
         receiptNumber: order?.receiptNumber,
         amount: checkoutData.amount_total,
-        date: new Date(checkoutData.created * 1000),
+        date: formattedDate,
       }),
     });
   }
 }
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     const buf = await buffer(req);
     const sig = req.headers["stripe-signature"]!;
 
     let event;
+    let retryCount = 0;
 
-    try {
-      event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
+    while (retryCount < 5) {
+      try {
+        event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
 
-      await handleChargeEvent({ event });
-      await handleCheckoutEvent({ event });
+        await handleChargeEvent({ event });
+        await handleCheckoutEvent({ event });
 
-      res.status(200).send(req);
-    } catch (err) {
-      console.log("error:", err);
-      res.status(400).send(`Webhook Error: ${err}`);
+        res.status(200).send(req);
+        break; // Exit the retry loop if all operations succeed
+      } catch (err) {
+        console.log("stripeWebhook error:", err, "retryCount:", retryCount);
+        res.status(400).send(`Webhook Error: ${err}`);
+        retryCount++;
+      }
     }
   } else {
     res.setHeader("Allow", "POST");
