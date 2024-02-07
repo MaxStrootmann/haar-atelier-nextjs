@@ -14,12 +14,19 @@ import { useRouter } from "next/router";
 import SearchVisibilityContext from "contexts/searchVisibilityContext";
 import { DataProvider } from "contexts/DataContext";
 import Script from "next/script";
+import { Cormorant } from "next/font/google";
 
 interface MyAppProps {
   children: React.ReactNode;
   categories: CategorySchema[];
   products: ProductSchema[];
 }
+
+const cormorant = Cormorant({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 const cartItems = Cookies.get("_cart");
 
@@ -131,6 +138,16 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
               `}
             </Script>
             <PageLayout categories={categories} products={products}>
+              <style jsx global>
+                {`
+                  h1,
+                  h2,
+                  h3,
+                  h4 {
+                    font-family: ${cormorant.style.fontFamily};
+                  }
+                `}
+              </style>
               <Component backClicked={backClicked} {...pageProps} />
               <Script async defer crossOrigin='anonymous' src='https://connect.facebook.net/en_US/sdk.js' />
             </PageLayout>
