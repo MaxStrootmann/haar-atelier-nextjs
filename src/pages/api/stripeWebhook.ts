@@ -111,7 +111,7 @@ async function handleCheckoutEvent({ event }: { event: Stripe.Event }) {
       },
     });
 
-    const response = await fetch("http://localhost:3000/api/stripeReceipt", {
+    const response = await fetch("https://haaratelier-alkmaar.nl/api/stripeReceipt", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
