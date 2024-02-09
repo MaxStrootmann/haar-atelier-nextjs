@@ -90,15 +90,15 @@ const Footer = () => {
             <div className='flex justify-center items-center gap-2 mt-8'>
               <p className='text-sm md:text-base'>Ingmar</p>
               <BiPhone size={16} />
-              <Link href={"tel: +31651126003"} className='underline underline-offset-2 text-sm md:text-base'>
-                +31 (0)6 51 12 60 03
+              <Link href={"tel: +31614678916"} className='underline underline-offset-2 text-sm md:text-base'>
+                +31 (0)6 14 67 89 16
               </Link>
             </div>
             <div className='flex justify-center items-center gap-2 mt-8'>
               <p className='text-sm md:text-base'>Marieke</p>
               <BiPhone size={16} />
-              <Link href={"tel: +31651126003"} className='underline underline-offset-2 text-sm md:text-base'>
-                +31 (0)6 51 12 60 03
+              <Link href={"tel: +31635633599"} className='underline underline-offset-2 text-sm md:text-base'>
+                +31 (0)6 35 63 35 99
               </Link>
             </div>
           </div>
