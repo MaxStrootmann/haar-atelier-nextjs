@@ -131,6 +131,7 @@ async function handleCheckoutEvent({ event }: { event: Stripe.Event }) {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
+    console.warn("Stripe webhook received");
     const buf = await buffer(req);
     const sig = req.headers["stripe-signature"]!;
 
@@ -145,9 +146,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         await handleCheckoutEvent({ event });
 
         res.status(200).send(req);
+        console.warn("Stripe webhook handled");
         break; // Exit the retry loop if all operations succeed
       } catch (err) {
-        console.log("stripeWebhook error:", err, "retryCount:", retryCount);
+        console.error("stripeWebhook error:", err, "retryCount:", retryCount);
         res.status(400).send(`Webhook Error: ${err}`);
         retryCount++;
       }
