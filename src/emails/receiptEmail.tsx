@@ -45,6 +45,8 @@ type ContactProps = {
 };
 
 const ReceiptEmail = ({ receipt }: ContactProps) => {
+  const line1 = receipt.customerAddress.line1;
+  const line2 = receipt.customerAddress.line2 === null ? "" : receipt.customerAddress.line2;
   return (
     <Html>
       <Head />
@@ -110,7 +112,7 @@ const ReceiptEmail = ({ receipt }: ContactProps) => {
                     Verzendadres:
                   </Heading>
                   <Text className='my-0'>
-                    {receipt.customerAddress.line1 + " " + receipt.customerAddress.line2}
+                    {line1 + " " + line2}
                     <br />
                     {receipt.customerAddress.postal_code}
                     <br />
