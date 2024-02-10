@@ -111,7 +111,7 @@ async function handleCheckoutEvent({ event }: { event: Stripe.Event }) {
       },
     });
 
-    const response = await fetch("https://haaratelier-alkmaar.nl/api/stripe-receipt", {
+    const response = await fetch("https://www.haaratelier-alkmaar.nl/api/stripe-receipt", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
