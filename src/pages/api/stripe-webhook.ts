@@ -47,6 +47,7 @@ async function handleChargeEvent({ event }: { event: Stripe.Event }) {
         createdAt: new Date(chargeData.created * 1000),
         stripeId: stripeId,
         userId: user.id,
+        receiptNumber: chargeData.receipt_number as string,
       },
     });
   }
