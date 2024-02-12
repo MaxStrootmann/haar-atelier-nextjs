@@ -50,6 +50,19 @@ async function handleChargeEvent({ event }: { event: Stripe.Event }) {
         receiptNumber: chargeData.receipt_number as string,
       },
     });
+
+    let receiptNumber: string | null = null;
+    while (receiptNumber === null) {
+      await prisma.order.update({
+        where: {
+          stripeId: stripeId,
+        },
+        data: {
+          receiptNumber: chargeData.receipt_number as string,
+        },
+      });
+      receiptNumber = order.receiptNumber;
+    }
   }
 }
 
