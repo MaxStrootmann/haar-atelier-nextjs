@@ -116,14 +116,18 @@ async function handleCheckoutEvent({ event }: { event: Stripe.Event }) {
       },
     });
 
-    const order = await prisma.order.findUnique({
-      where: {
-        id: completedOrder.id,
-      },
-      select: {
-        receiptNumber: true,
-      },
-    });
+    let orderReceiptNumber: string | null = null;
+    while (orderReceiptNumber === null) {
+      await prisma.order.findUnique({
+        where: {
+          id: completedOrder.id,
+        },
+        select: {
+          receiptNumber: true,
+        },
+      });
+      orderReceiptNumber = completedOrder.receiptNumber;
+    }
 
     const response = await fetch("https://www.haaratelier-alkmaar.nl/api/stripe-receipt", {
       method: "POST",
@@ -135,7 +139,7 @@ async function handleCheckoutEvent({ event }: { event: Stripe.Event }) {
         customerEmail: checkoutData.customer_details?.email,
         customerAddress: checkoutData.customer_details?.address,
         transactionDetails: cartItems.data,
-        receiptNumber: order?.receiptNumber,
+        receiptNumber: orderReceiptNumber,
         amount: checkoutData.amount_total,
         date: formattedDate,
       }),
