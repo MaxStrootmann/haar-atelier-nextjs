@@ -1,9 +1,7 @@
-import Stripe from "stripe";
 import { PrismaClient } from "@prisma/client";
+import Stripe from "stripe";
 
-const prisma = new PrismaClient();
-
-export default async function handleChargeEvent({ event }: { event: Stripe.Event }) {
+export default async function handleChargeEvent({ event, prisma }: { event: Stripe.Event; prisma: PrismaClient }) {
   if (event.type === "charge.succeeded") {
     // console.log("Logging charge.succeeded event: ", event);
     const chargeData = event.data.object as Stripe.Charge;

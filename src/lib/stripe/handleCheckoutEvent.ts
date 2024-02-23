@@ -1,5 +1,6 @@
 import Stripe from "stripe";
 import { PrismaClient } from "@prisma/client";
+import { TransactionItem } from "lib/types/receipt-email";
 
 const prisma = new PrismaClient();
 
@@ -66,20 +67,21 @@ export default async function handleCheckoutEvent({ event, stripe }: { event: St
       orderReceiptNumber = completedOrder.receiptNumber;
     }
 
-    const response = await fetch("https://www.haaratelier-alkmaar.nl/api/stripe-receipt", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = {
+      customerName: checkoutData.customer_details?.name as string,
+      customerEmail: checkoutData.customer_details?.email as string,
+      customerAddress: {
+        city: checkoutData.customer_details?.address?.city as string,
+        country: checkoutData.customer_details?.address?.country as string,
+        line1: checkoutData.customer_details?.address?.line1 as string,
+        line2: checkoutData.customer_details?.address?.line2 as string,
+        postal_code: checkoutData.customer_details?.address?.postal_code as string,
       },
-      body: JSON.stringify({
-        customerName: checkoutData.customer_details?.name,
-        customerEmail: checkoutData.customer_details?.email,
-        customerAddress: checkoutData.customer_details?.address,
-        transactionDetails: cartItems.data,
-        receiptNumber: orderReceiptNumber,
-        amount: checkoutData.amount_total,
-        date: formattedDate,
-      }),
-    });
+      transactionDetails: cartItems.data as TransactionItem[],
+      receiptNumber: orderReceiptNumber as string,
+      amount: checkoutData.amount_total as number,
+      date: formattedDate as string,
+    };
+    return response;
   }
 }
