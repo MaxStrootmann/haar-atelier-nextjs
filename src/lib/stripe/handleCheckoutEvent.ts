@@ -5,7 +5,9 @@ import { TransactionItem } from "lib/types/receipt-email";
 const prisma = new PrismaClient();
 
 export default async function handleCheckoutEvent({ event, stripe }: { event: Stripe.Event; stripe: Stripe }) {
+  console.log("handlecheckout hit");
   if (event.type === "checkout.session.completed") {
+    console.log("checkout.session.completed hit");
     const checkoutData = event.data.object as Stripe.Checkout.Session;
     const cartItems = await stripe.checkout.sessions.listLineItems(checkoutData.id, { limit: 25 });
 
@@ -82,6 +84,7 @@ export default async function handleCheckoutEvent({ event, stripe }: { event: St
       amount: checkoutData.amount_total as number,
       date: formattedDate as string,
     };
+    console.log("Logging response: ", response);
     return response;
   }
 }

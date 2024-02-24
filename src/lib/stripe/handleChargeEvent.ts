@@ -3,7 +3,7 @@ import Stripe from "stripe";
 
 export default async function handleChargeEvent({ event, prisma }: { event: Stripe.Event; prisma: PrismaClient }) {
   if (event.type === "charge.succeeded") {
-    // console.log("Logging charge.succeeded event: ", event);
+    console.log("Logging charge.succeeded event");
     const chargeData = event.data.object as Stripe.Charge;
     const stripeId = chargeData.payment_intent as string;
     const customerEmail = chargeData.billing_details?.email as string;

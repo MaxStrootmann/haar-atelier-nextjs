@@ -5,10 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import handleChargeEvent from "lib/stripe/handleChargeEvent";
 import handleCheckoutEvent from "lib/stripe/handleCheckoutEvent";
 import { ReceiptProps } from "lib/types/receipt-email";
-import { Resend } from "resend";
-import ReceiptEmail from "emails/receiptEmail";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import sendEmail from "lib/resend";
 
 const prisma = new PrismaClient();
 
@@ -37,38 +34,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       try {
         event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
 
-        await handleChargeEvent({ event, prisma });
-        const receiptProps: ReceiptProps | undefined = await handleCheckoutEvent({ event, stripe });
+        switch (event.type) {
+          case "charge.succeeded":
+            await handleChargeEvent({ event, prisma });
+            console.log("handleChargeEvent done");
+            break;
 
-        if (receiptProps) {
-          const { customerName, customerEmail, transactionDetails, customerAddress, receiptNumber, amount, date } =
-            receiptProps;
-          await resend.emails.send({
-            from: "Haar Atelier Alkmaar <email@nngrafischontwerp.nl>",
-            to:
-              process.env.NODE_ENV === "production"
-                ? ["max@nngrafischontwerp.nl", "info@marloesotjes-haaratelier.nl"]
-                : ["strootmann95#gmail.com"],
-            subject: `Bestelling ${receiptNumber} - Haar Atelier Alkmaar`,
-            react: ReceiptEmail({
-              receipt: {
-                customerName,
-                customerEmail,
-                customerAddress,
-                transactionDetails,
-                receiptNumber,
-                amount,
-                date,
-              },
-            }),
-          });
-
-          res.status(200).send(req);
-          console.warn("Stripe webhook handled");
-          break; // Exit the retry loop if all operations succeed
-        } else {
-          // Handle the case when receiptProps is undefined
+          case "checkout.session.completed":
+            const receiptProps: ReceiptProps | undefined = await handleCheckoutEvent({ event, stripe });
+            console.log("receiptProps: ", receiptProps);
+            if (receiptProps) {
+              await sendEmail(receiptProps);
+              break;
+            } else {
+              console.log("receiptProps is undefined");
+              break;
+            }
         }
+
+        res.status(200).send(req);
+        console.warn("Stripe webhook handled");
+        break; // Exit the retry loop if all operations succeed
       } catch (err) {
         console.error("stripeWebhook error:", err, "retryCount:", retryCount);
         res.status(400).send(`Webhook Error: ${err}`);
