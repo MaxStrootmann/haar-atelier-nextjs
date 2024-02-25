@@ -149,7 +149,7 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
                   }
                 `}
               </style>
-              <PlausibleProvider domain='example.com'>
+              <PlausibleProvider domain='haaratelier-alkmaar.nl'>
                 <Component backClicked={backClicked} {...pageProps} />
               </PlausibleProvider>
               <Script async defer crossOrigin='anonymous' src='https://connect.facebook.net/en_US/sdk.js' />
