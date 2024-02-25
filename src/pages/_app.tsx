@@ -15,6 +15,7 @@ import SearchVisibilityContext from "contexts/searchVisibilityContext";
 import { DataProvider } from "contexts/DataContext";
 import Script from "next/script";
 import { Cormorant } from "next/font/google";
+import PlausibleProvider from "next-plausible";
 
 interface MyAppProps {
   children: React.ReactNode;
@@ -148,7 +149,9 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
                   }
                 `}
               </style>
-              <Component backClicked={backClicked} {...pageProps} />
+              <PlausibleProvider domain='example.com'>
+                <Component backClicked={backClicked} {...pageProps} />
+              </PlausibleProvider>
               <Script async defer crossOrigin='anonymous' src='https://connect.facebook.net/en_US/sdk.js' />
             </PageLayout>
           </DataProvider>
