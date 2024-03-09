@@ -31,6 +31,8 @@ model Order {
   postalCode    String
   items         Item[]
   User          User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
 
 model User {
