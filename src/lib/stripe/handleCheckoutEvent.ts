@@ -1,13 +1,16 @@
 import Stripe from "stripe";
 import { PrismaClient } from "@prisma/client";
-import { TransactionItem } from "lib/types/receipt-email";
 
-const prisma = new PrismaClient();
-
-export default async function handleCheckoutEvent({ event, stripe }: { event: Stripe.Event; stripe: Stripe }) {
-  console.log("handlecheckout hit");
+export default async function handleCheckoutEvent({
+  event,
+  stripe,
+  prisma,
+}: {
+  event: Stripe.Event;
+  stripe: Stripe;
+  prisma: PrismaClient;
+}) {
   if (event.type === "checkout.session.completed") {
-    console.log("checkout.session.completed hit");
     const checkoutData = event.data.object as Stripe.Checkout.Session;
     const cartItems = await stripe.checkout.sessions.listLineItems(checkoutData.id, { limit: 25 });
 
@@ -19,7 +22,6 @@ export default async function handleCheckoutEvent({ event, stripe }: { event: St
       minute: "2-digit",
       second: "2-digit",
     });
-    console.log("Formatted date: ", formattedDate);
     const stripeId = checkoutData.payment_intent as string;
 
     const orderItems = cartItems.data.map((item) => {
@@ -31,60 +33,36 @@ export default async function handleCheckoutEvent({ event, stripe }: { event: St
       };
     });
 
-    // console.log("Logging checkout.session.completed event: ", checkoutData);
-    // console.log("Logging cart items: ", cartItems);
-
     const user = await prisma.user.findUnique({
       where: {
         email: checkoutData.customer_details?.email as string,
       },
     });
 
-    if (!user) {
-      console.error("User not found");
+    if (!user?.id) {
+      console.error("User id not found");
     }
 
-    const completedOrder = await prisma.order.update({
+    await prisma.order.update({
       where: {
         stripeId: stripeId,
+        userId: user?.id,
       },
       data: {
         items: {
           create: orderItems,
         },
-        userId: user?.id,
       },
     });
 
-    let orderReceiptNumber: string | null = null;
-    while (orderReceiptNumber === null) {
-      await prisma.order.findUnique({
-        where: {
-          id: completedOrder.id,
-        },
-        select: {
-          receiptNumber: true,
-        },
-      });
-      orderReceiptNumber = completedOrder.receiptNumber;
-    }
-
-    const response = {
-      customerName: checkoutData.customer_details?.name as string,
-      customerEmail: checkoutData.customer_details?.email as string,
-      customerAddress: {
-        city: checkoutData.customer_details?.address?.city as string,
-        country: checkoutData.customer_details?.address?.country as string,
-        line1: checkoutData.customer_details?.address?.line1 as string,
-        line2: checkoutData.customer_details?.address?.line2 as string,
-        postal_code: checkoutData.customer_details?.address?.postal_code as string,
+    const completedOrder = await prisma.order.findUnique({
+      where: {
+        stripeId: stripeId,
       },
-      transactionDetails: cartItems.data as TransactionItem[],
-      receiptNumber: orderReceiptNumber as string,
-      amount: checkoutData.amount_total as number,
-      date: formattedDate as string,
-    };
-    console.log("Logging response: ", response);
+    });
+
+    const response = completedOrder;
+    console.log(response);
     return response;
   }
 }

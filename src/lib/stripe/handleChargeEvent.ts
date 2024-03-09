@@ -3,7 +3,6 @@ import Stripe from "stripe";
 
 export default async function handleChargeEvent({ event, prisma }: { event: Stripe.Event; prisma: PrismaClient }) {
   if (event.type === "charge.succeeded") {
-    console.log("Logging charge.succeeded event");
     const chargeData = event.data.object as Stripe.Charge;
     const stripeId = chargeData.payment_intent as string;
     const customerEmail = chargeData.billing_details?.email as string;
@@ -20,8 +19,9 @@ export default async function handleChargeEvent({ event, prisma }: { event: Stri
       },
     });
 
-    const order = await prisma.order.create({
+    await prisma.order.create({
       data: {
+        customerEmail: customerEmail,
         amount: chargeData.amount,
         city: chargeData.billing_details?.address?.city as string,
         country: chargeData.billing_details?.address?.country as string,
@@ -34,18 +34,5 @@ export default async function handleChargeEvent({ event, prisma }: { event: Stri
         receiptNumber: chargeData.receipt_number as string,
       },
     });
-
-    let receiptNumber: string | null = null;
-    while (receiptNumber === null) {
-      await prisma.order.update({
-        where: {
-          stripeId: stripeId,
-        },
-        data: {
-          receiptNumber: chargeData.receipt_number as string,
-        },
-      });
-      receiptNumber = order.receiptNumber;
-    }
   }
 }
