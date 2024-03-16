@@ -1,9 +1,7 @@
 import { PrismaClient } from "@prisma/client";
-import sendEmail from "lib/resend";
 import { headers } from "next/headers";
 import { stripe } from "lib/stripe/stripe-client";
 import Stripe from "stripe";
-import formatDate from "lib/stripe/formatDate";
 
 const prisma = new PrismaClient();
 
@@ -48,6 +46,53 @@ export async function POST(req: Request) {
         postalCode: charge.billing_details.address?.postal_code as string,
         createdAt: new Date(charge.created * 1000),
         receiptNumber: charge.receipt_number as string,
+      },
+    });
+  }
+
+  if (event.type === "checkout.session.completed") {
+    const checkoutData = event.data.object as Stripe.Checkout.Session;
+    const cartItems = await stripe.checkout.sessions.listLineItems(checkoutData.id, { limit: 25 });
+
+    //When a checkout.session.completed event is received, your application attempts to find the corresponding order in the database using the Stripe payment intent ID. However, there might be a delay between when Stripe sends the checkout.session.completed event and when your application receives and processes the charge.succeeded event to create the order in the database.
+
+    // If the checkout.session.completed event is processed before the charge.succeeded event, the order might not exist in the database yet when your application tries to find it. This would cause the prisma.order.findUnique call to return null, even though the order will be created shortly.
+
+    // To handle this, your application retries the prisma.order.findUnique call up to 5 times with a 5-second delay between each attempt. This gives the charge.succeeded event some time to be processed and the order to be created in the database.
+    let order;
+    let retryCount = 0;
+    while (!order && retryCount < 5) {
+      order = await prisma.order.findUnique({
+        where: {
+          stripeId: checkoutData.payment_intent as string,
+        },
+        select: {
+          id: true,
+        },
+      });
+      retryCount++;
+      console.log("Retry count:", retryCount);
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+    }
+
+    if (!order) {
+      throw new Error("Order not found after 5 tries");
+      // email admin
+    }
+
+    await prisma.order.update({
+      where: {
+        id: order.id,
+      },
+      data: {
+        items: {
+          create: cartItems.data.map((item) => ({
+            stripeId: item.id,
+            amount_total: item.amount_total,
+            description: item.description,
+            quantity: item.quantity,
+          })),
+        },
       },
     });
   }
