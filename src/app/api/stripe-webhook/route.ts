@@ -71,6 +71,7 @@ export async function POST(req: Request) {
           },
           select: {
             id: true,
+            receiptNumber: true,
           },
         });
         retryCount++;
@@ -98,27 +99,7 @@ export async function POST(req: Request) {
         },
       });
 
-      let completedOrder;
-      let completedOrderRetryCount = 0;
-      while (!completedOrder && completedOrderRetryCount < 5) {
-        completedOrder = await prisma.order.findUnique({
-          where: {
-            id: order.id,
-          },
-          select: {
-            receiptNumber: true,
-          },
-        });
-        completedOrderRetryCount++;
-        console.log("Retry count:", completedOrderRetryCount);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-      }
-
-      if (!completedOrder) {
-        throw new Error("Order not found after 5 tries at 2 seconds between");
-      }
-
-      const receiptNumber = completedOrder?.receiptNumber;
+      const receiptNumber = order?.receiptNumber;
 
       const emailProps = {
         customerName: checkoutData.customer_details?.name as string,
