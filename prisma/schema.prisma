@@ -8,13 +8,11 @@ datasource db {
   relationMode = "prisma"
 }
 
-model Item {
-  id           Int     @id @default(autoincrement())
-  stripeId     String  @unique
-  amount_total Int
-  description  String
-  quantity     Int?
-  orders       Order[]
+model User {
+  id     Int     @id @default(autoincrement())
+  email  String  @unique
+  name   String
+  orders Order[]
 }
 
 model Order {
@@ -35,9 +33,11 @@ model Order {
   @@index([userId])
 }
 
-model User {
-  id     Int     @id @default(autoincrement())
-  email  String  @unique
-  name   String
-  orders Order[]
+model Item {
+  id           Int     @id @default(autoincrement())
+  stripeId     String  @unique
+  amount_total Int
+  description  String
+  quantity     Int?
+  orders       Order[]
 }

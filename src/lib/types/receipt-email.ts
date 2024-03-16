@@ -1,10 +1,6 @@
 export type TransactionItem = {
-  id: string;
-  object: string;
-  amount_discount: number;
-  amount_subtotal: number;
-  amount_total: number;
-  currency: string;
+  stripeId: string;
+  amount_total: number | null;
   description: string;
   quantity: number;
 };
@@ -23,4 +19,9 @@ export type ReceiptProps = {
   receiptNumber: string;
   amount: number;
   date: string;
+};
+
+export type User = {
+  email: string;
+  name: string;
 };

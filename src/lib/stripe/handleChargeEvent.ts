@@ -19,20 +19,32 @@ export default async function handleChargeEvent({ event, prisma }: { event: Stri
       },
     });
 
-    await prisma.order.create({
-      data: {
-        customerEmail: customerEmail,
-        amount: chargeData.amount,
-        city: chargeData.billing_details?.address?.city as string,
-        country: chargeData.billing_details?.address?.country as string,
-        line1: chargeData.billing_details?.address?.line1 as string,
-        line2: chargeData.billing_details?.address?.line2 as string,
-        postalCode: chargeData.billing_details?.address?.postal_code as string,
-        createdAt: new Date(chargeData.created * 1000),
-        stripeId: stripeId,
-        userId: user.id,
-        receiptNumber: chargeData.receipt_number as string,
-      },
-    });
+    let retries = 0;
+    let receiptNumber = chargeData.receipt_number as string | null;
+
+    while (receiptNumber === null && retries < 5) {
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait for 2 seconds
+      retries++;
+      receiptNumber = chargeData.receipt_number as string | null;
+    }
+
+    if (receiptNumber !== null) {
+      await prisma.order.create({
+        data: {
+          amount: chargeData.amount,
+          city: chargeData.billing_details?.address?.city as string,
+          country: chargeData.billing_details?.address?.country as string,
+          line1: chargeData.billing_details?.address?.line1 as string,
+          line2: chargeData.billing_details?.address?.line2 as string,
+          postalCode: chargeData.billing_details?.address?.postal_code as string,
+          createdAt: new Date(chargeData.created * 1000),
+          stripeId: stripeId,
+          userId: user.id,
+          receiptNumber: receiptNumber,
+        },
+      });
+    } else {
+      console.log("Failed to retrieve receipt number after 5 retries.");
+    }
   }
 }

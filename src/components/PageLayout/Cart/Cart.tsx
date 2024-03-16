@@ -9,9 +9,7 @@ import getStripe from "lib/stripe/getStripe";
 const Cart = () => {
   const [isRedirecting, setRedirecting] = useState(false);
   const { cart } = useContext(CartItemsContext);
-  const { cartVisibility, toggleCartVisibility } = useContext(
-    CartVisibilityContext
-  );
+  const { cartVisibility, toggleCartVisibility } = useContext(CartVisibilityContext);
 
   const subTotal = cart
     .reduce((total, item: CartProduct) => {
@@ -65,10 +63,7 @@ const Cart = () => {
     <>
       <div
         onClick={toggleCartVisibility}
-        className={classNames(
-          "fixed w-screen h-screen opacity-30 bg-black z-30",
-          { hidden: !cartVisibility }
-        )}
+        className={classNames("fixed w-screen h-screen opacity-30 bg-black z-30", { hidden: !cartVisibility })}
       ></div>
       <div
         className={classNames(
@@ -78,48 +73,48 @@ const Cart = () => {
         )}
       >
         {cart.length > 0 ? (
-          <div className="h-full">
-            <div className="hide-scrollbar overflow-y-auto h-[26rem] mr-4">
-              <h2 className="my-4 ml-7 text-4xl">Winkelwagen</h2>
+          <div className='h-full'>
+            <div className='hide-scrollbar overflow-y-auto h-[26rem] mr-4'>
+              <h2 className='my-4 ml-7 text-4xl'>Winkelwagen</h2>
               {cart && <ItemList products={cart} />}
             </div>
-            <div className="p-4 border-t bg-bg-300 border-grey-300 reverse-shadow-md h-full flex flex-col gap-1">
-              <div className=""></div>
-              <div className="flex justify-between">
-                <span className="">Subtotaal</span>
-                <span className="">€{subTotal}</span>
+            <div className='p-4 border-t bg-bg-300 border-grey-300 reverse-shadow-md h-full flex flex-col gap-1'>
+              <div className=''></div>
+              <div className='flex justify-between'>
+                <span className=''>Subtotaal</span>
+                <span className=''>€{subTotal}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="">Verzending(gratis vanaf €75,-)</span>
-                <span className="">
-                  {shippingCalc >= 75 ? "Gratis" : "€6,00"}
-                </span>
+              <div className='flex justify-between'>
+                <span className=''>Verzending(gratis vanaf €75,-)</span>
+                <span className=''>{shippingCalc >= 75 ? "Gratis" : "€6,00"}</span>
               </div>
-              <div className="-mt-2">
-                <em className="text-sm">Verzending binnen 48 uur</em>
+              <div className='-mt-2'>
+                <em className='text-sm'>Verzending binnen 48 uur</em>
               </div>
-              <div className="border border-black my-2"></div>
-              <div className="flex justify-between -mt-2 mb-1">
-                <span className="">Totaalprijs (inclusief btw)</span>
-                <span className="">€{finalPriceFormatted}</span>
+              <div className='border border-black my-2'></div>
+              <div className='flex justify-between -mt-2 mb-1'>
+                <span className=''>Totaalprijs (inclusief btw)</span>
+                <span className=''>€{finalPriceFormatted}</span>
               </div>
               <div>
                 <button
-                  id="checkout"
-                  aria-label="Naar bestellen"
+                  id='checkout'
+                  aria-label='Naar bestellen'
                   disabled={isRedirecting}
-                  className={isRedirecting ? 
-                    "bg-accent-500 bg-opacity-70 py-2 px-2 my-3 rounded-lg text-white w-full"
-                    : "bg-accent-500 py-2 px-2 my-3 rounded-lg text-white w-full"}
+                  className={
+                    isRedirecting
+                      ? "bg-accent-500 bg-opacity-70 py-2 px-2 my-3 rounded-lg text-white w-full"
+                      : "bg-accent-500 py-2 px-2 my-3 rounded-lg text-white w-full"
+                  }
                   onClick={handleCheckout}
                 >
                   {isRedirecting ? `even wachten...` : `Naar bestellen`}
                 </button>
                 <button
-                  id="continue-shopping"
-                  aria-label="Verder winkelen"
+                  id='continue-shopping'
+                  aria-label='Verder winkelen'
                   disabled={isRedirecting}
-                  className="border border-white bg-black bg-opacity-30 py-2 px-2 rounded-lg w-full text-white"
+                  className='border border-white bg-black bg-opacity-30 py-2 px-2 rounded-lg w-full text-white'
                   onClick={toggleCartVisibility}
                 >
                   Verder winkelen
@@ -128,15 +123,13 @@ const Cart = () => {
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-center h-screen w-full flex-col">
-            <h3 className="text-center">
-              Je hebt geen artikelen in je winkelwagen.
-            </h3>
+          <div className='flex items-center justify-center h-screen w-full flex-col'>
+            <h3 className='text-center px-4'>Je hebt geen artikelen in je winkelwagen.</h3>
             <button
-              id="continue-shopping"
-              aria-label="Verder winkelen"
+              id='continue-shopping'
+              aria-label='Verder winkelen'
               onClick={toggleCartVisibility}
-              className="border border-black py-2 px-2 mt-4 rounded-lg"
+              className='border border-black py-2 px-2 mt-4 rounded-lg'
             >
               Verder winkelen
             </button>
