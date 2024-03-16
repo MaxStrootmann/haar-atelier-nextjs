@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { headers } from "next/headers";
 import { stripe } from "lib/stripe/stripe-client";
 import Stripe from "stripe";
+import sendEmail from "lib/resend";
 
 const prisma = new PrismaClient();
 
@@ -61,7 +62,7 @@ export async function POST(req: Request) {
     // To handle this, your application retries the prisma.order.findUnique call up to 5 times with a 5-second delay between each attempt. This gives the charge.succeeded event some time to be processed and the order to be created in the database.
     let order;
     let retryCount = 0;
-    while (!order && retryCount < 5) {
+    while (!order && retryCount < 10) {
       order = await prisma.order.findUnique({
         where: {
           stripeId: checkoutData.payment_intent as string,
@@ -76,8 +77,7 @@ export async function POST(req: Request) {
     }
 
     if (!order) {
-      throw new Error("Order not found after 5 tries");
-      // email admin
+      throw new Error("Order not found after 10 tries at 5 seconds between");
     }
 
     await prisma.order.update({
@@ -95,6 +95,58 @@ export async function POST(req: Request) {
         },
       },
     });
+
+    let completedOrder;
+    let completedOrderRetryCount = 0;
+    while (!completedOrder && completedOrderRetryCount < 5) {
+      completedOrder = await prisma.order.findUnique({
+        where: {
+          id: order.id,
+        },
+        select: {
+          receiptNumber: true,
+        },
+      });
+      completedOrderRetryCount++;
+      console.log("Retry count:", completedOrderRetryCount);
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+    }
+
+    if (!completedOrder) {
+      throw new Error("Order not found after 5 tries at 5 seconds between");
+    }
+
+    const receiptNumber = completedOrder?.receiptNumber;
+
+    const emailProps = {
+      customerName: checkoutData.customer_details?.name as string,
+      customerEmail: checkoutData.customer_details?.email as string,
+      customerAddress: {
+        city: checkoutData.customer_details?.address?.city as string,
+        country: checkoutData.customer_details?.address?.country as string,
+        line1: checkoutData.customer_details?.address?.line1 as string,
+        line2: checkoutData.customer_details?.address?.line2 as string,
+        postal_code: checkoutData.customer_details?.address?.postal_code as string,
+      },
+      transactionDetails: cartItems.data.map((item) => ({
+        stripeId: item.id as string,
+        amount_total: item.amount_total as number,
+        description: item.description as string,
+        quantity: item.quantity as number,
+      })),
+      receiptNumber: receiptNumber as string,
+      amount: checkoutData.amount_total as number,
+      date: new Date(checkoutData?.created).toLocaleString("NL", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      }),
+    };
+
+    await sendEmail(emailProps);
   }
 
   return new Response("Webhook received", { status: 200 });

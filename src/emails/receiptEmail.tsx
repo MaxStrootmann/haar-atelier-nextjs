@@ -13,40 +13,12 @@ import {
   Text,
 } from "@react-email/components";
 import { Tailwind } from "@react-email/components";
+import { ReceiptProps } from "lib/types/receipt-email";
 import * as React from "react";
 
-type TransactionItem = {
-  id: string;
-  object: string;
-  amount_discount: number;
-  amount_subtotal: number;
-  amount_total: number;
-  currency: string;
-  description: string;
-  quantity: number;
-};
-
-type ContactProps = {
-  receipt: {
-    customerName: string;
-    customerEmail: string;
-    customerAddress: {
-      city: string;
-      country: string;
-      line1: string;
-      line2: string;
-      postal_code: string;
-    };
-    transactionDetails: TransactionItem[];
-    receiptNumber: string;
-    amount: number;
-    date: string;
-  };
-};
-
-const ReceiptEmail = ({ receipt }: ContactProps) => {
-  const line1 = receipt.customerAddress.line1;
-  const line2 = receipt.customerAddress.line2 === null ? "" : receipt.customerAddress.line2;
+const ReceiptEmail = (receiptProps: ReceiptProps) => {
+  const line1 = receiptProps.customerAddress.line1;
+  const line2 = receiptProps.customerAddress.line2 === null ? "" : receiptProps.customerAddress.line2;
   return (
     <Html>
       <Head />
@@ -103,7 +75,7 @@ const ReceiptEmail = ({ receipt }: ContactProps) => {
               Bestelling van Haar Atelier Alkmaar
             </Heading>
             <Heading as='h2' className='text-base font-light'>
-              Ontvangstbewijs nummer: {receipt.receiptNumber}
+              Ontvangstbewijs nummer: {receiptProps.receiptNumber}
             </Heading>
             <Section>
               <Row>
@@ -114,28 +86,28 @@ const ReceiptEmail = ({ receipt }: ContactProps) => {
                   <Text className='my-0'>
                     {line1 + " " + line2}
                     <br />
-                    {receipt.customerAddress.postal_code}
+                    {receiptProps.customerAddress.postal_code}
                     <br />
-                    {receipt.customerAddress.city}
+                    {receiptProps.customerAddress.city}
                   </Text>
                   <Heading as='h2' className='text-base my-0 text-slate-500 pt-2'>
                     Betaald bedrag:
                   </Heading>
-                  <Text className='my-0'>€{(receipt.amount / 100).toFixed(2).replace(".", ",")}</Text>
+                  <Text className='my-0'>€{(receiptProps.amount / 100).toFixed(2).replace(".", ",")}</Text>
                 </Column>
                 <Column className='text-left max-w-[300px] inline-block align-top'>
                   <Heading as='h2' className='text-base my-0 text-slate-500 pt-2'>
                     Naam:
                   </Heading>
-                  <Text className='my-0'>{receipt.customerName}</Text>
+                  <Text className='my-0'>{receiptProps.customerName}</Text>
                   <Heading as='h2' className='text-base my-0 text-slate-500 pt-2'>
                     Email:
                   </Heading>
-                  <Text className='my-0'>{receipt.customerEmail}</Text>
+                  <Text className='my-0'>{receiptProps.customerEmail}</Text>
                   <Heading as='h2' className='text-base my-0 text-slate-500 pt-2'>
                     Datum van betaling:
                   </Heading>
-                  <Text className='my-0'>{receipt.date}</Text>
+                  <Text className='my-0'>{receiptProps.date}</Text>
                 </Column>
               </Row>
             </Section>
@@ -144,7 +116,7 @@ const ReceiptEmail = ({ receipt }: ContactProps) => {
                 Overzicht
               </Heading>
               <Section className='bg-slate-100 p-2'>
-                {receipt.transactionDetails.map((item: any) => (
+                {receiptProps.transactionDetails.map((item: any) => (
                   <Row key={item.id} className='p-2'>
                     <Column>
                       {item.name !== "Verzendkosten (gratis vanaf €75)"
@@ -164,7 +136,7 @@ const ReceiptEmail = ({ receipt }: ContactProps) => {
                     </Heading>
                   </Column>
                   <Column className='text-right text-slate-600 font-bold'>
-                    €{(receipt.amount / 100).toFixed(2).replace(".", ",")}
+                    €{(receiptProps.amount / 100).toFixed(2).replace(".", ",")}
                   </Column>
                 </Row>
               </Section>
