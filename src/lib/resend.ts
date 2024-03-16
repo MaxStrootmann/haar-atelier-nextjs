@@ -36,7 +36,7 @@ export default async function sendEmail(receiptProps: ReceiptProps): Promise<voi
       from: "WEBSHOP ERROR <email@nngrafischontwerp.nl>",
       to:
         process.env.NODE_ENV === "production"
-          ? ["max@nngrafischontwerp.nl", "info@marloesotjes-haaratelier.nl"]
+          ? ["strootmann95@gmail.com", "info@marloesotjes-haaratelier.nl"]
           : ["strootmann95@gmail.com"],
       subject: `Kan email niet versturen - Haar Atelier Alkmaar`,
       text: `Er is een fout opgetreden bij het versturen van de email voor bestelling ${receiptNumber}. De benodigde data is niet gevonden.`,

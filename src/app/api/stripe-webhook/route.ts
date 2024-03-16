@@ -158,7 +158,7 @@ export async function POST(req: Request) {
       from: "WEBSHOP ERROR <email@nngrafischontwerp.nl>",
       to:
         process.env.NODE_ENV === "production"
-          ? ["max@nngrafischontwerp.nl", "info@marloesotjes-haaratelier.nl"]
+          ? ["strootmann95@gmail.com", "info@marloesotjes-haaratelier.nl"]
           : ["strootmann95@gmail.com"],
       subject: `Kan email niet versturen - Haar Atelier Alkmaar`,
       text: `problemen met de webhook: ${error.message}`,
