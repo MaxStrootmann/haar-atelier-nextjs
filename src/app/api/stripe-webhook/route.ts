@@ -75,11 +75,11 @@ export async function POST(req: Request) {
         });
         retryCount++;
         console.log("Retry count:", retryCount);
-        await new Promise((resolve) => setTimeout(resolve, 5000));
+        await new Promise((resolve) => setTimeout(resolve, 2000));
       }
 
       if (!order) {
-        throw new Error("Order not found after 10 tries at 5 seconds between");
+        throw new Error("Order not found after 10 tries at 2 seconds between");
       }
 
       await prisma.order.update({
@@ -111,11 +111,11 @@ export async function POST(req: Request) {
         });
         completedOrderRetryCount++;
         console.log("Retry count:", completedOrderRetryCount);
-        await new Promise((resolve) => setTimeout(resolve, 5000));
+        await new Promise((resolve) => setTimeout(resolve, 2000));
       }
 
       if (!completedOrder) {
-        throw new Error("Order not found after 5 tries at 5 seconds between");
+        throw new Error("Order not found after 5 tries at 2 seconds between");
       }
 
       const receiptNumber = completedOrder?.receiptNumber;
