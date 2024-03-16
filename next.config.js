@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const { withPlausibleProxy } = require("next-plausible");
+
+module.exports = withPlausibleProxy()({
+  // ...your next js config, if any
   reactStrictMode: true,
   swcMinify: true,
   images: {
@@ -19,6 +22,4 @@ const nextConfig = {
       },
     ];
   },
-};
-
-module.exports = nextConfig;
+});
