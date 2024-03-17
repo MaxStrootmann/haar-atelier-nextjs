@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       let shippingCost = 0; // Default to 0 for free shipping
       if (totalAmount < 7500) {
         // Remember, we're using cents here. 75 euros is 7500 cents.
-        shippingCost = 600; // 6 euros is 600 cents
+        shippingCost = 695; // 6 euros is 600 cents
       }
 
       // console.log("totalAmount and shippingCost", totalAmount, shippingCost);

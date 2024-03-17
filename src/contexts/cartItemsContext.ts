@@ -7,7 +7,7 @@ const CartContext = React.createContext<{
   cart: ProductSchema[];
 }>({
   dispatch: () => null,
-  cart: []
+  cart: [],
 });
 
 export default CartContext;

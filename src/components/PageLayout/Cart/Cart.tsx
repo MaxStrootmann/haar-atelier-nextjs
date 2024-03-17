@@ -86,7 +86,7 @@ const Cart = () => {
               </div>
               <div className='flex justify-between'>
                 <span className=''>Verzending(gratis vanaf €75,-)</span>
-                <span className=''>{shippingCalc >= 75 ? "Gratis" : "€6,00"}</span>
+                <span className=''>{shippingCalc >= 75 ? "Gratis" : "€6,95"}</span>
               </div>
               <div className='-mt-2'>
                 <em className='text-sm'>Verzending binnen 48 uur</em>
