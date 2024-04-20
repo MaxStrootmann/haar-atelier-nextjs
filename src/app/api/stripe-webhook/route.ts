@@ -7,7 +7,8 @@ import { Resend } from "resend";
 
 const prisma = new PrismaClient();
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+const webhookSecret =
+  process.env.NODE_ENV === "production" ? process.env.STRIPE_WEBHOOK_SECRET! : process.env.STRIPE_WEBHOOK_TEST_SECRET!;
 
 export async function POST(req: Request) {
   try {

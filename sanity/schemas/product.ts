@@ -7,7 +7,7 @@ export default {
       title: "Name",
       name: "name",
       type: "string",
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "slug",
@@ -16,18 +16,18 @@ export default {
       validation: (Rule) => Rule.required(),
       options: {
         source: "name",
-        maxLength: 96
-      }
+        maxLength: 96,
+      },
     },
     {
       title: "SKU",
       name: "sku",
-      type: "string"
+      type: "string",
     },
     {
       title: "Description",
       name: "description",
-      type: "blockContent"
+      type: "blockContent",
     },
     {
       name: "categories",
@@ -36,37 +36,37 @@ export default {
       of: [
         {
           type: "reference",
-          to: { type: "category" }
-        }
-      ]
+          to: { type: "category" },
+        },
+      ],
     },
     {
       title: "Featured Image",
       name: "featured_image",
-      type: "image"
+      type: "image",
     },
     {
       title: "Price",
       name: "price",
-      type: "number"
+      type: "number",
     },
     {
       title: "Currency",
       name: "currency",
       type: "string",
       initialValue: "USD",
-      hidden: true
+      hidden: true,
     },
     {
       title: "Sale Price",
       name: "sale_price",
       type: "number",
-      hidden: ({ document }) => !document.on_sale
+      hidden: ({ document }) => !document.on_sale,
     },
     {
       title: "On Sale?",
       name: "on_sale",
-      type: "boolean"
-    }
-  ]
+      type: "boolean",
+    },
+  ],
 };
