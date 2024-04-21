@@ -12,6 +12,9 @@ const stripe = new Stripe(
   }
 );
 
+const shippingRate =
+  process.env.NODE_ENV === "production" ? "shr_1P7dIJBTrHWnWUF3wIPIRp3s" : "shr_1P7d4IBTrHWnWUF30nMVfqRZ";
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     try {
@@ -77,7 +80,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         automatic_tax: { enabled: true },
         shipping_options: [
           {
-            shipping_rate: "shr_1P7d4IBTrHWnWUF30nMVfqRZ",
+            shipping_rate: shippingRate,
           },
         ],
         mode: "payment",
