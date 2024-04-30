@@ -12,9 +12,6 @@ const stripe = new Stripe(
   }
 );
 
-const shippingRate =
-  process.env.NODE_ENV === "production" ? "shr_1P7dIJBTrHWnWUF3wIPIRp3s" : "shr_1P7d4IBTrHWnWUF30nMVfqRZ";
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     try {
@@ -26,10 +23,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }, 0);
 
       // 2. Conditionally set the shipping costs
-      let shippingCost = 0; // Default to 0 for free shipping
-      if (totalAmount < 7500) {
-        // Remember, we're using cents here. 75 euros is 7500 cents.
-        shippingCost = 695; // 6 euros is 600 cents
+      let shippingRate;
+      if (totalAmount > 7500) {
+        shippingRate =
+          process.env.NODE_ENV === "production" ? "shr_1PBFRtBTrHWnWUF3YjqzH1FA" : "shr_1PBFSZBTrHWnWUF3LE8zTznv";
+      } else {
+        shippingRate =
+          process.env.NODE_ENV === "production" ? "shr_1P7dIJBTrHWnWUF3wIPIRp3s" : "shr_1P7d4IBTrHWnWUF30nMVfqRZ";
       }
 
       // console.log("totalAmount and shippingCost", totalAmount, shippingCost);
@@ -63,7 +63,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 minimum: 1,
               },
               quantity: item.quantity ? item.quantity : 1,
-              tax_behavior: "inclusive",
             };
           }),
           // {
