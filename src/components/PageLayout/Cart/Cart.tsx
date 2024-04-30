@@ -26,7 +26,7 @@ const Cart = () => {
   if (shippingCalc >= 75) {
     finalPrice = shippingCalc;
   } else {
-    finalPrice = shippingCalc + 6;
+    finalPrice = shippingCalc + 6.95;
   }
 
   const finalPriceFormatted = finalPrice.toFixed(2).replace(".", ",");
