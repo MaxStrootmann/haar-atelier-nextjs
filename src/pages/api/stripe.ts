@@ -63,6 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 minimum: 1,
               },
               quantity: item.quantity ? item.quantity : 1,
+              tax_behavior: "inclusive",
             };
           }),
           // {
