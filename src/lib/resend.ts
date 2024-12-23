@@ -19,7 +19,7 @@ export default async function sendEmail(receiptProps: ReceiptProps): Promise<voi
         process.env.NODE_ENV === "production"
           ? ["max@nngrafischontwerp.nl", "info@marloesotjes-haaratelier.nl"]
           : ["strootmann95@gmail.com"],
-      subject: `Bestelling ${receiptNumber} - Haar Atelier Alkmaar`,
+      subject: `Bestelling ${receiptNumber ?? date} - Haar Atelier Alkmaar`,
       react: ReceiptEmail({
         customerName,
         customerEmail,
