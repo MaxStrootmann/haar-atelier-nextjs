@@ -34,8 +34,7 @@ const SortDropdown = () => {
                   <Listbox.Option
                     key={index}
                     className={({ active }) =>
-                      `relative cursor-default select-none py-2 px-3 ${
-                        active ? "bg-accent-500 text-white" : "text-gray-900"
+                      `relative cursor-default select-none py-2 px-3 ${active ? "bg-accent-500 text-white" : "text-gray-900"
                       }`
                     }
                     value={option}
