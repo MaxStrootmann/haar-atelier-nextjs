@@ -11,7 +11,7 @@ export default function CategoryCard({
   image: string;
 }) {
   return (
-    <CardContainer>
+    <CardContainer className="shadow-lg rounded-xl">
       <CardBody className="relative group/card border-black/[0.1] text-center bg-white bg-opacity-30 w-[18rem] h-auto rounded-xl p-6 border">
         <CardItem translateZ="50" className="text-lg font-bold mx-auto h-12">
           {name}
