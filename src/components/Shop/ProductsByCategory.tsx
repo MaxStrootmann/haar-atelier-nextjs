@@ -7,11 +7,13 @@ import SortDropdown from "./SortDropdown";
 
 interface CategoriesPageProps {
   products: ProductSchema[];
-  categories: CategorySchema[];
+  categories: CategorySchema[] | string[];
 }
 
-const ProductsByCategory: React.FC<CategoriesPageProps> = ({ products, categories }) => {
-
+const ProductsByCategory: React.FC<CategoriesPageProps> = ({
+  products,
+  categories,
+}) => {
   return (
     <div className="px-8 pb-48 pt-10 space-y-8">
       <div className="flex justify-center">
@@ -29,16 +31,19 @@ const ProductsByCategory: React.FC<CategoriesPageProps> = ({ products, categorie
         slavernij.
       </p>
       <div className="flex justify-between pt-4">
-        <div><h2 className="text-sm font-sans pl-">Categorieën:</h2><CategoriesDropdown categories={categories}/></div>
-        <div><h2 className="text-sm font-sans pl-">Sorteren op:</h2><SortDropdown /></div>
-      </div>
-      <div
-          className="flex overflow-x-auto py-4 gap-4 ml-4"
-        >
-          {products.map((product) => (
-            <ProductCard product={product} key={product._id} />
-          ))}
+        <div>
+          <h2 className="text-sm font-sans pl-">Categorieën:</h2>
         </div>
+        <div>
+          <h2 className="text-sm font-sans pl-">Sorteren op:</h2>
+          <SortDropdown />
+        </div>
+      </div>
+      <div className="flex overflow-x-auto py-4 gap-4 ml-4">
+        {products.map((product) => (
+          <ProductCard product={product} key={product._id} />
+        ))}
+      </div>
     </div>
   );
 };
