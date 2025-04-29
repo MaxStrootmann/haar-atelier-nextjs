@@ -137,7 +137,7 @@ export async function POST(req: Request) {
   } catch (error: any) {
     const resend = new Resend(process.env.RESEND_API_KEY);
     await resend.emails.send({
-      from: "WEBSHOP ERROR <email@nngrafischontwerp.nl>",
+      from: "WEBSHOP ERROR <email@manndigital.nl>",
       to:
         process.env.NODE_ENV === "production"
           ? ["strootmann95@gmail.com", "info@marloesotjes-haaratelier.nl"]

@@ -14,10 +14,10 @@ export default async function sendEmail(receiptProps: ReceiptProps): Promise<voi
     }
 
     await resend.emails.send({
-      from: "Haar Atelier Alkmaar <email@nngrafischontwerp.nl>",
+      from: "Haar Atelier Alkmaar <email@manndigital.nl>",
       to:
         process.env.NODE_ENV === "production"
-          ? ["max@nngrafischontwerp.nl", "info@marloesotjes-haaratelier.nl"]
+          ? ["max@manndigital.nl", "info@marloesotjes-haaratelier.nl"]
           : ["strootmann95@gmail.com"],
       subject: `Bestelling ${receiptNumber ?? date} - Haar Atelier Alkmaar`,
       react: ReceiptEmail({
@@ -33,7 +33,7 @@ export default async function sendEmail(receiptProps: ReceiptProps): Promise<voi
     console.log("Email sent");
   } catch ({ error, receiptNumber }: any) {
     await resend.emails.send({
-      from: "WEBSHOP ERROR <email@nngrafischontwerp.nl>",
+      from: "WEBSHOP ERROR <email@manndigital.nl>",
       to:
         process.env.NODE_ENV === "production"
           ? ["strootmann95@gmail.com", "info@marloesotjes-haaratelier.nl"]
