@@ -37,7 +37,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const session = await stripe.checkout.sessions.create({
         submit_type: "pay",
         payment_method_types: ["card", "ideal"],
-        billing_address_collection: "auto",
+        billing_address_collection: "required",
+        customer_creation: "always",
         shipping_address_collection: {
           allowed_countries: ["NL"], // Include any country codes where you wish to ship. This is just a sample list.
         },
