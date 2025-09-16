@@ -16,6 +16,7 @@ export type ReceiptProps = {
     postal_code: string;
   };
   transactionDetails: TransactionItem[];
+  houseNumber: string;
   receiptNumber: string;
   amount: number;
   date: string;
