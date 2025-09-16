@@ -6,10 +6,25 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function sendEmail(receiptProps: ReceiptProps): Promise<void> {
   try {
-    const { customerName, customerEmail, transactionDetails, customerAddress, receiptNumber, amount, date } =
-      receiptProps;
+    const {
+      customerName,
+      customerEmail,
+      transactionDetails,
+      customerAddress,
+      receiptNumber,
+      amount,
+      date,
+      houseNumber, // ✅ include houseNumber
+    } = receiptProps;
 
-    if (!customerName || !customerEmail || !transactionDetails || !customerAddress || !amount || !date) {
+    if (
+      !customerName ||
+      !customerEmail ||
+      !transactionDetails ||
+      !customerAddress ||
+      !amount ||
+      !date
+    ) {
       throw new Error("Missing required data for email");
     }
 
@@ -28,6 +43,7 @@ export default async function sendEmail(receiptProps: ReceiptProps): Promise<voi
         receiptNumber,
         amount,
         date,
+        houseNumber, // ✅ pass it into the component
       }),
     });
     console.log("Email sent");

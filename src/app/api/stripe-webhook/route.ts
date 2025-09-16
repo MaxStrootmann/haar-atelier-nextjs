@@ -25,6 +25,8 @@ export async function POST(req: Request) {
 
     if (event.type === "charge.succeeded") {
       const charge = event.data.object as Stripe.Charge;
+
+      // ...your existing user upsert + order.create
       const user = await prisma.user.upsert({
         where: {
           email: charge.billing_details.email as string,
@@ -52,6 +54,26 @@ export async function POST(req: Request) {
           receiptNumber: charge.receipt_number as string,
         },
       });
+
+      // fire a lightweight admin alert (no line items yet)
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      await resend.emails.send({
+        from: "Haar Atelier <email@manndigital.nl>",
+        to: process.env.NODE_ENV === "production"
+          ? ["max@manndigital.nl", "info@marloesotjes-haaratelier.nl"]
+          : ["strootmann95@gmail.com"],
+        subject: `Nieuwe betaling ontvangen: €${(charge.amount / 100).toFixed(2)} – ${charge.billing_details.email ?? ""}`,
+        text:
+          `Er is betaald.\n` +
+          `PI: ${charge.payment_intent}\n` +
+          `Naam: ${charge.billing_details.name}\n` +
+          `Email: ${charge.billing_details.email}\n` +
+          `Adres: ${(charge.shipping?.address?.line1 ?? "")} ${(charge.shipping?.address?.line2 ?? "")}, ` +
+          `${charge.shipping?.address?.postal_code ?? ""} ${charge.shipping?.address?.city ?? ""}\n` +
+          `LET OP: bonnetje met winkelmandje volgt hierna, anders Stripe controleren!`,
+      });
+
+
     }
 
     if (event.type === "checkout.session.completed") {
@@ -102,6 +124,11 @@ export async function POST(req: Request) {
 
       const receiptNumber = order?.receiptNumber;
 
+      // 👉 extract house number from custom_fields
+      const hnField = checkoutData.custom_fields?.find((f) => f.key === "house_number");
+      const houseNumber = (hnField as any)?.text?.value ?? "";
+      console.log(hnField?.text);
+
       const emailProps = {
         customerName: checkoutData.customer_details?.name as string,
         customerEmail: checkoutData.customer_details?.email as string,
@@ -112,6 +139,7 @@ export async function POST(req: Request) {
           line2: checkoutData.customer_details?.address?.line2 as string,
           postal_code: checkoutData.customer_details?.address?.postal_code as string,
         },
+        houseNumber: houseNumber as string,
         transactionDetails: cartItems.data.map((item) => ({
           stripeId: item.id as string,
           amount_total: item.amount_total as number,
