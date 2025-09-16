@@ -105,6 +105,7 @@ export default async function handleCheckoutEvent({
         postal_code: completedOrder?.postalCode as string,
       },
       transactionDetails: orderItems,
+      houseNumber: checkoutData?.custom_fields.find((f) => f.key === "house_number")?.text?.value as string,
       receiptNumber: completedOrder?.receiptNumber as string,
       amount: completedOrder?.amount as number,
       date: formattedDate,
