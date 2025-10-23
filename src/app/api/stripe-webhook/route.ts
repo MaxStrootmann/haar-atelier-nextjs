@@ -60,7 +60,7 @@ export async function POST(req: Request) {
       await resend.emails.send({
         from: "Haar Atelier <email@manndigital.nl>",
         to: process.env.NODE_ENV === "production"
-          ? ["max@manndigital.nl", "info@marloesotjes-haaratelier.nl"]
+          ? ["info@marloesotjes-haaratelier.nl"]
           : ["strootmann95@gmail.com"],
         subject: `Nieuwe betaling ontvangen: €${(charge.amount / 100).toFixed(2)} – ${charge.billing_details.email ?? ""}`,
         text:

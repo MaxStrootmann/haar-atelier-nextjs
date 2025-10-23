@@ -32,7 +32,7 @@ export default async function sendEmail(receiptProps: ReceiptProps): Promise<voi
       from: "Haar Atelier Alkmaar <email@manndigital.nl>",
       to:
         process.env.NODE_ENV === "production"
-          ? ["max@manndigital.nl", "info@marloesotjes-haaratelier.nl"]
+          ? ["info@marloesotjes-haaratelier.nl"]
           : ["strootmann95@gmail.com"],
       subject: `Bestelling ${receiptNumber ?? date} - Haar Atelier Alkmaar`,
       react: ReceiptEmail({
