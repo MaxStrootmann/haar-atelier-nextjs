@@ -93,7 +93,7 @@ const Team = () => {
               lang haar en korte(re) coupes. Met respect voor mens, dier en milieu draag ik met liefde mijn steentje bij
               aan een schonere, minder chemische wereld.
             </p>
-            <p>Ik werk op dinsdag, soms woensdag, donderdag, vrijdag en zaterdag.</p>
+            <p>Ik werk op dinsdag, donderdag en vrijdag.</p>
             <div className='mt-4'>
               <Link
                 href={
@@ -123,7 +123,7 @@ const Team = () => {
               wekelijks bij haar in de stoel. Ze creëert graag warme, zachte, blond- en kopertinten. Laat je adviseren
               door deze master stylist.
             </p>
-            <p>Ingmar werkt op dinsdag en vrijdag.</p>
+            <p>Ingmar werkt op dinsdag, donderdag en vrijdag (per januari ook maandag).</p>
           </div>
           <div ref={marieke} className='space-y-4'>
             <h2 className='uppercase text-4xl mb-6 md:text-5xl md:mb-[0.5em]'>Marieke</h2>
@@ -141,7 +141,7 @@ const Team = () => {
               Marieke haar stijl is naturel, soft en glanzend met hier en daar een creatieve pastel kleur. Ook is ze een
               wenkbrauw specialist en kun je bij haar terecht voor diverse, natuurlijke brow treatments.
             </p>
-            <p>Marieke werkt op maandag, woensdag en vrijdag.</p>
+            <p>Marieke werkt op maandag, woensdag, donderdag en vrijdag.</p>
           </div>
           <div ref={stoelhuur} className='space-y-4'>
             <h2 className='uppercase text-4xl mb-6 md:text-5xl md:mb-[0.5em]'>Stoelhuur</h2>
