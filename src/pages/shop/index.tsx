@@ -5,84 +5,30 @@ import PopularProductCarousel from "components/Shop/PopularProductCarousel";
 import ProductCard from "components/Shop/ProductCard";
 import SortDropdown from "components/Shop/SortDropdown";
 import WebshopHero from "components/Shop/WebshopHero";
-import groq from "groq";
 import { Logo_Natulique } from "lib/icons";
 import { ProductSchema } from "lib/interfaces";
-import client from "lib/sanity/client";
+import {
+  getPayloadProductCategories,
+  getPayloadProducts,
+} from "lib/payload/queries/products";
 import { hardCodedCategories } from "lib/shop/categories";
-import popularProductsQuery from "lib/sanity/queries/popular_products";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface Props {
   categories: any[];
   products: ProductSchema[];
-  categoryFilter: string;
-  sortOption: string;
   popularProducts: ProductSchema[];
 }
 
 export default function CategoriesPage({
   categories,
   products,
-  categoryFilter,
-  sortOption,
   popularProducts,
 }: Props) {
-  const [displayedProducts, setDisplayedProducts] =
-    useState<ProductSchema[]>(products);
-
-  useEffect(() => {
-    const handleScroll = async () => {
-      if (
-        window.innerHeight + window.scrollY >=
-        document.body.offsetHeight - 1500
-      ) {
-        // Fetch next set of products
-        const newProducts = await client.fetch(
-          groq`*[_type == "product" ${categoryFilter}]${sortOption} [${displayedProducts.length}...${
-            displayedProducts.length + 10
-          }]{
-            _id,
-            name,
-            "slug": slug.current,
-            featured_image,
-            price,
-            in_stock,
-            popularity
-          }`,
-        );
-        setDisplayedProducts([...displayedProducts, ...newProducts]);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [categoryFilter, sortOption, displayedProducts]);
-
-  useEffect(() => {
-    async function fetchNewData() {
-      const newProducts = await client.fetch(
-        groq`*[_type == "product" ${categoryFilter}]${sortOption} [0...10]{
-          _id,
-          name,
-          "slug": slug.current,
-          featured_image,
-          price,
-          in_stock,
-          popularity
-        }`,
-      );
-      setDisplayedProducts(newProducts);
-    }
-
-    fetchNewData();
-  }, [categoryFilter, sortOption]);
-
+  const [displayedProducts] = useState<ProductSchema[]>(products);
   const [selected, setSelected] = useState(categories[categories.length - 1]);
   let selectedSort = useSearchParams()?.get("sort") ?? "";
   let sort = selectedSort ? `&sort=${selectedSort}` : "";
@@ -161,48 +107,31 @@ export const getServerSideProps: GetServerSideProps = async (
           .replace(/and/g, "&")
           .trim()
       : undefined;
-  const categoryFilter =
-    category && category !== "Alle producten"
-      ? `&& category == "${category}"`
-      : "";
+
   const sortFormat = () => {
     if (context.query.sort === "Prijs-laag-hoog") {
       return "price asc";
     } else if (context.query.sort === "Prijs-hoog-laag") {
       return "price desc";
-    } else if (context.query.sort === "Populariteit") {
-      return "popularity desc";
     } else {
       return "popularity desc";
     }
   };
-  let sort = sortFormat();
-  const sortOption = sort ? ` | order(${sort})` : "";
 
-  const products = await client.fetch(
-    groq`*[_type == "product" ${categoryFilter}]${sortOption} [0...10]{
-      _id,
-      name,
-      "slug": slug.current,
-      featured_image,
-      price,
-      in_stock,
-      popularity
-    }`,
-  );
-  const categories = await client.fetch(
-    groq`array::unique(*[_type == "product"].category)`,
-  );
-  const popularProducts = await client.fetch(popularProductsQuery);
-
-  categories.push("Alle producten");
+  const products = (await getPayloadProducts({
+    category,
+    limit: 200,
+    sort: sortFormat(),
+  })).filter((product) => product.featured_image?.asset?._ref);
+  const categories = await getPayloadProductCategories();
+  const popularProducts = (await getPayloadProducts({ limit: 20, sort: "popularity desc" }))
+    .filter((product) => product.featured_image?.asset?._ref)
+    .slice(0, 10);
 
   return {
     props: {
       categories,
       products,
-      categoryFilter,
-      sortOption,
       popularProducts,
     },
   };

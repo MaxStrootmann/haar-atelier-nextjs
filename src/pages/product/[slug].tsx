@@ -1,15 +1,13 @@
 import React, { useContext, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { GetStaticProps, GetStaticPaths } from "next";
+import { GetServerSideProps } from "next";
 import { ProductSchema } from "lib/interfaces";
 import CartItemsContext from "contexts/cartItemsContext";
 import Types from "reducers/cart/types";
 import { toPlainText } from "@portabletext/react";
-import productsSlugsQuery from "lib/sanity/queries/products_slugs";
-import productQuery from "lib/sanity/queries/product";
 import urlFor from "lib/sanity/urlFor";
-import client from "lib/sanity/client";
+import { getPayloadProductBySlug } from "lib/payload/queries/products";
 import MetaHead from "components/MetaHead";
 import CartVisibilityContext from "contexts/cartVisibilityContext";
 import SimpleBlockText from "components/RichText/SimpleBlockText";
@@ -128,10 +126,8 @@ const Product: React.FC<ProductProps> = ({ product }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const product = await client.fetch<ProductSchema>(productQuery, {
-    slug: params?.slug as string,
-  });
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const product = await getPayloadProductBySlug(params?.slug as string);
 
   if (!product) {
     throw Error("Sorry, something went wrong.");
@@ -139,20 +135,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: { product },
-    revalidate: 100,
-  };
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = await client.fetch(productsSlugsQuery);
-
-  const paths = slugs.map((item: { slug: string }) => ({
-    params: { slug: item.slug },
-  }));
-
-  return {
-    paths,
-    fallback: true,
   };
 };
 

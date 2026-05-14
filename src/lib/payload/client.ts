@@ -1,5 +1,8 @@
-import { getPayload } from 'payload'
+export const getPayloadClient = async () => {
+  const [{ getPayload }, { default: config }] = await Promise.all([
+    import('payload'),
+    import('@payload-config'),
+  ])
 
-import config from '../../payload.config'
-
-export const getPayloadClient = () => getPayload({ config })
+  return getPayload({ config })
+}

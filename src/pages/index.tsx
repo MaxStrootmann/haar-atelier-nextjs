@@ -2,9 +2,8 @@ import { ReviewSchema } from "lib/interfaces/schema";
 import MetaHead from "components/MetaHead";
 import HomeHero from "components/Home/HomeHero";
 import HeroContent from "components/Home/HeroContent";
-import { GetStaticProps } from "next";
-import client from "lib/sanity/client";
-import reviewsQuery from "lib/sanity/queries/reviews";
+import { GetServerSideProps } from "next";
+import { getPayloadReviews } from "lib/payload/queries/reviews";
 import ReviewCarousel from "components/Home/ReviewCarousel";
 
 interface HomeProps {
@@ -27,8 +26,8 @@ const Home: React.FC<HomeProps> = ({ reviews }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const reviews = await client.fetch(reviewsQuery);
+export const getServerSideProps: GetServerSideProps = async () => {
+  const reviews = await getPayloadReviews();
 
   if (!reviews) {
     throw Error("Sorry, something went wrong.");
@@ -36,7 +35,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: { reviews },
-    revalidate: 60 * 60 * 24,
   };
 };
 

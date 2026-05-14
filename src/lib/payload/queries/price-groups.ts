@@ -10,9 +10,14 @@ export const getPayloadPriceGroups = async () => {
   })
 
   return result.docs.map((group) => ({
-    _id: String(group.source?.id || group.id),
+    _id: String(group.sourceId || group.id),
     category: group.category,
     conditions: group.conditions,
-    treatment: group.treatments || [],
+    treatment: (group.treatments || []).map((row) => ({
+      _id: row.id || row.sourceKey || row.name,
+      treatment: row.name,
+      conditions: row.conditions,
+      price: row.price,
+    })),
   }))
 }

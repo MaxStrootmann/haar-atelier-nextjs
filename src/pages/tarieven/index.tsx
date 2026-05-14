@@ -1,6 +1,5 @@
-import groq from "groq";
-import client from "lib/sanity/client";
-import { GetStaticProps } from "next";
+import { getPayloadPriceGroups } from "lib/payload/queries/price-groups";
+import { GetServerSideProps } from "next";
 
 type PriceSchema = {
   _id: string;
@@ -54,33 +53,8 @@ export default function Tarieven({ prices }: TarievenProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const query = groq`
-  *[_type == "prices"] {
-    _id,
-    category,
-    conditions,
-    treatment[] {
-      _id,
-      treatment,
-      conditions,
-      price
-    }
-  }`;
-  let prices = await client.fetch(query);
-
-  const categoryOrder = [
-    "Women",
-    "Men",
-    "Colour treatments",
-    "Special events",
-    "Wedding hair",
-  ]; // Add other categories in desired order
-  prices = prices.sort((a: any, b: any) => {
-    return (
-      categoryOrder.indexOf(a.category) - categoryOrder.indexOf(b.category)
-    );
-  });
+export const getServerSideProps: GetServerSideProps = async () => {
+  const prices = await getPayloadPriceGroups();
 
   return {
     props: {
