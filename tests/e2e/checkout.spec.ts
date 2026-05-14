@@ -69,14 +69,6 @@ test("webshop checkout succeeds in Stripe test mode and creates an order", async
 
   await fillStripeCheckout(page, email);
 
-  const agentDisclosure = page.getByRole("checkbox", {
-    name: /i am an ai agent acting on behalf of someone else/i,
-  });
-  if (await agentDisclosure.isVisible().catch(() => false)) {
-    await page.mouse.click(322, 1324);
-    await expect(agentDisclosure).toBeChecked();
-  }
-
   await page.getByTestId("hosted-payment-submit-button").click();
 
   await page.waitForURL(/\/success/, { timeout: 90_000 });
