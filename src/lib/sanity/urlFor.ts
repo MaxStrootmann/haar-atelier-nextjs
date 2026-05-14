@@ -4,6 +4,10 @@ import { Image } from "lib/interfaces";
 
 const builder = imageUrlBuilder(client);
 
-export default function urlFor(source: Image) {
+export default function urlFor(source: Image & { asset?: { url?: string | null } }) {
+  if (source?.asset?.url) {
+    return { url: () => source.asset?.url as string };
+  }
+
   return builder.image(source);
 }

@@ -20,6 +20,7 @@ export const payloadMediaToSanityImage = (media: PayloadMedia | string | number 
     asset: {
       _type: 'reference',
       _ref: media.source?.sanityAssetRef || String(media.id || media.filename || ''),
+      url: media.url || null,
     },
   }
 }
