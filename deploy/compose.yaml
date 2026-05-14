@@ -13,6 +13,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    volumes:
+      - /var/lib/services/haar-atelier-nextjs/payload-media:/app/media
     networks:
       - default
       - mann-ingress
