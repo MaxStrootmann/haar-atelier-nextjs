@@ -8,9 +8,12 @@ interface ReviewCarouselProps {
   reviews: ReviewSchema[];
 }
 
+const SafeCarousel = Carousel as any;
+const SafeIconButton = IconButton as any;
+
 const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
   const prevArrow: CarouselProps["prevArrow"] = ({ handlePrev }) => (
-    <IconButton
+    <SafeIconButton
       placeholder={"vorige"}
       variant="outlined"
       size="sm"
@@ -27,11 +30,11 @@ const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
       >
         <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
       </svg>
-    </IconButton>
+    </SafeIconButton>
   );
 
   const nextArrow: CarouselProps["nextArrow"] = ({ handleNext }) => (
-    <IconButton
+    <SafeIconButton
       placeholder={"volgende"}
       variant="outlined"
       size="sm"
@@ -48,7 +51,7 @@ const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
       >
         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
       </svg>
-    </IconButton>
+    </SafeIconButton>
   );
 
   const navigation: CarouselProps["navigation"] = ({ setActiveIndex, activeIndex, length }) => (
@@ -68,7 +71,7 @@ const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
   return (
     <div className="text-center py-8 lg:px-16 xl:px-28 2xl:px-0 2xl:max-w-7xl mx-auto">
       <h2 className="text-4xl md:text-6xl">Reviews</h2>
-      <Carousel
+      <SafeCarousel
         placeholder={"review"}
         className="rounded-xl"
         prevArrow={prevArrow}
@@ -78,7 +81,7 @@ const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
         {reviews.map((review) => (
           <ReviewCard review={review} key={review._id} />
         ))}
-      </Carousel>
+      </SafeCarousel>
     </div>
   );
 };

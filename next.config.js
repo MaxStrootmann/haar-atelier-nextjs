@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
+const { withPayload } = require("@payloadcms/next/withPayload");
 const { withPlausibleProxy } = require("next-plausible");
 
-module.exports = withPlausibleProxy()({
+module.exports = withPayload(withPlausibleProxy()({
   // ...your next js config, if any
   reactStrictMode: true,
-  swcMinify: true,
   output: "standalone",
   images: {
     remotePatterns: [
@@ -27,4 +27,4 @@ module.exports = withPlausibleProxy()({
       },
     ];
   },
-});
+}));

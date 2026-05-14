@@ -38,7 +38,7 @@ const slugs =
     return [...slugs, item.slug];
   }, []);
 
-const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyAppProps) => {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
   const [cart, dispatch] = useReducer(cartReducer, []);
   const [cartVisibility, setCartVisibilty] = useState(false);
@@ -138,7 +138,7 @@ const MyApp = ({ Component, pageProps }: AppProps, { categories, products }: MyA
                 gtag('config', '${process.env.NEXT_PUBLIC_GA}');
               `}
             </Script>
-            <PageLayout categories={categories} products={products}>
+            <PageLayout categories={[]} products={[]}>
               <style jsx global>
                 {`
                   h1,
