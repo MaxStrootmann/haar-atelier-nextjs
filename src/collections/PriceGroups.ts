@@ -1,8 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
+import { anyone } from '../access/anyone'
+
 import { sourceField, sourceIdField } from './fields/source'
 
 export const PriceGroups: CollectionConfig = {
+  access: { read: anyone },
   slug: 'price-groups',
   admin: {
     useAsTitle: 'category',

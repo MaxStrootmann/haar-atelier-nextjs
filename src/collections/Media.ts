@@ -1,6 +1,9 @@
 import type { CollectionConfig } from 'payload'
 
+import { anyone } from '../access/anyone'
+
 export const Media: CollectionConfig = {
+  access: { read: anyone },
   slug: 'media',
   upload: {
     staticDir: 'media',

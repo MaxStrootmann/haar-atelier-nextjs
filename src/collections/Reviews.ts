@@ -1,8 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
+import { anyone } from '../access/anyone'
+
 import { sourceField, sourceIdField } from './fields/source'
 
 export const Reviews: CollectionConfig = {
+  access: { read: anyone },
   slug: 'reviews',
   versions: { drafts: true },
   admin: {

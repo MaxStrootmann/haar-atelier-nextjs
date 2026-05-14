@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
+import { anyone } from '../access/anyone'
+
 import { sourceField, sourceIdField } from './fields/source'
 
 const productCategoryOptions = [
@@ -12,6 +14,7 @@ const productCategoryOptions = [
 ]
 
 export const Products: CollectionConfig = {
+  access: { read: anyone },
   slug: 'products',
   versions: { drafts: true },
   admin: {
