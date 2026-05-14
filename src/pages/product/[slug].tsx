@@ -39,8 +39,9 @@ const Product: React.FC<ProductProps> = ({ product }) => {
 
   const displayedPrice = product?.price?.toFixed(2).replace(".", ",");
 
-  const descriptions = product.description;
+  const descriptions = (product.description ?? []).filter(Boolean);
   const formattedDescriptions = descriptions.filter((description) => toPlainText(description).replace(/\n/g, '<br>'))
+  const featuredImageUrl = product.featured_image?.asset ? urlFor(product.featured_image).url() : null;
   
       
 
@@ -49,7 +50,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
       {product?.name && (
         <MetaHead
           title={product.name}
-          description={toPlainText(product.description)}
+          description={toPlainText(descriptions)}
         />
       )}
       {product?.subcategories && (
@@ -61,9 +62,9 @@ const Product: React.FC<ProductProps> = ({ product }) => {
       )}
       <div className="flex sm:flex-row flex-col justify-between w-full max-w-2xl mx-auto sm:mt-8 mt-3 mb-24">
         <div className="overflow-hidden relative sm:w-2/5 w-full sm:mb-0 mb-10 h-96 md:h-[32rem]">
-          {product?.featured_image && (
+          {featuredImageUrl && (
             <Image
-              src={urlFor(product.featured_image).url()}
+              src={featuredImageUrl}
               fill={true}
               sizes="(min-width: 640px) 252px, 100vw"
               style={{ objectPosition: "center", objectFit: "cover" }}

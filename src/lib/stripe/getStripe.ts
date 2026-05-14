@@ -4,8 +4,10 @@ let stripePromise: Promise<Stripe | null>;
 
 const getStripe = () => {
   if (!stripePromise) {
+    const stripeMode = process.env.NEXT_PUBLIC_STRIPE_MODE === "test" ? "test" : "live";
+
     stripePromise = loadStripe(
-      process.env.NODE_ENV === "production"
+      stripeMode === "live"
         ? process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
         : process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_TEST_KEY ?? "",
       {

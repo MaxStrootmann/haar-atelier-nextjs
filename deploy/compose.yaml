@@ -1,0 +1,47 @@
+name: haar-atelier-nextjs
+
+services:
+  app:
+    image: haar-atelier-nextjs:latest
+    build:
+      context: /opt/services/haar-atelier-nextjs/current
+      secrets:
+        - app_env
+    restart: unless-stopped
+    env_file:
+      - /home/mann/.varlock/env/websites/haar-atelier-nextjs.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - default
+      - mann-ingress
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: haar_atelier
+      POSTGRES_USER: haar_atelier
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    secrets:
+      - postgres_password
+    volumes:
+      - /var/lib/services/haar-atelier-nextjs/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U haar_atelier -d haar_atelier"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - default
+
+secrets:
+  app_env:
+    file: /home/mann/.varlock/env/websites/haar-atelier-nextjs.env
+  postgres_password:
+    file: /opt/services/haar-atelier-nextjs/config/postgres_password
+
+networks:
+  mann-ingress:
+    external: true

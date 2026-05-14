@@ -1,7 +1,9 @@
 import Stripe from "stripe";
 
+const stripeMode = process.env.STRIPE_MODE === "test" ? "test" : "live";
+
 export const stripe = new Stripe(
-  process.env.NODE_ENV === "production"
+  stripeMode === "live"
     ? process.env.STRIPE_SECRET_KEY ?? ""
     : process.env.STRIPE_SECRET_TEST_KEY ?? "",
   {

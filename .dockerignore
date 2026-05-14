@@ -1,0 +1,11 @@
+.git
+.next
+node_modules
+.env
+.env.*
+.vercel
+production-export-*
+dataset.tar.gz
+npm-debug.log*
+pnpm-debug.log*
+README.md

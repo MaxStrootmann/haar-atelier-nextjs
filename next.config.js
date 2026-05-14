@@ -5,6 +5,7 @@ module.exports = withPlausibleProxy()({
   // ...your next js config, if any
   reactStrictMode: true,
   swcMinify: true,
+  output: "standalone",
   images: {
     remotePatterns: [
       {

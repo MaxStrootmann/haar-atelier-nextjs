@@ -7,8 +7,10 @@ import { Resend } from "resend";
 
 const prisma = new PrismaClient();
 
+const stripeMode = process.env.STRIPE_MODE === "test" ? "test" : "live";
+
 const webhookSecret =
-  process.env.NODE_ENV === "production" ? process.env.STRIPE_WEBHOOK_SECRET! : process.env.STRIPE_WEBHOOK_TEST_SECRET!;
+  stripeMode === "live" ? process.env.STRIPE_WEBHOOK_SECRET! : process.env.STRIPE_WEBHOOK_TEST_SECRET!;
 
 export async function POST(req: Request) {
   try {
@@ -59,7 +61,7 @@ export async function POST(req: Request) {
       const resend = new Resend(process.env.RESEND_API_KEY);
       await resend.emails.send({
         from: "Haar Atelier <email@manndigital.nl>",
-        to: process.env.NODE_ENV === "production"
+        to: stripeMode === "live"
           ? ["info@marloesotjes-haaratelier.nl"]
           : ["strootmann95@gmail.com"],
         subject: `Nieuwe betaling ontvangen: €${(charge.amount / 100).toFixed(2)} – ${charge.billing_details.email ?? ""}`,

@@ -4,8 +4,10 @@ import Stripe from "stripe";
 import { CartProduct } from "lib/interfaces";
 import urlFor from "lib/sanity/urlFor";
 
+const stripeMode = process.env.STRIPE_MODE === "test" ? "test" : "live";
+
 const stripe = new Stripe(
-  process.env.NODE_ENV === "production"
+  stripeMode === "live"
     ? process.env.STRIPE_SECRET_KEY ?? ""
     : process.env.STRIPE_SECRET_TEST_KEY ?? "",
   { apiVersion: "2023-10-16" }
@@ -27,17 +29,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Choose shipping rate based on cart total (in cents)
     const shippingRate =
       totalAmount > 7500
-        ? (process.env.NODE_ENV === "production"
+        ? (stripeMode === "live"
           ? "shr_1PBFRtBTrHWnWUF3YjqzH1FA"
           : "shr_1PBFSZBTrHWnWUF3LE8zTznv")
-        : (process.env.NODE_ENV === "production"
+        : (stripeMode === "live"
           ? "shr_1P7dIJBTrHWnWUF3wIPIRp3s"
           : "shr_1P7d4IBTrHWnWUF30nMVfqRZ");
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       submit_type: "pay",
-      payment_method_types: ["card", "ideal"],
       automatic_tax: { enabled: true },
 
       billing_address_collection: "required",
