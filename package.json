@@ -15,7 +15,8 @@
     "payload:generate-types": "payload generate:types",
     "payload:generate-importmap": "payload generate:importmap",
     "migration:sanity-dry-run": "tsx scripts/migration/sanity-dry-run.ts",
-    "migration:payload-dry-run": "tsx scripts/migration/import-payload-dry-run.ts"
+    "migration:payload-dry-run": "tsx scripts/migration/import-payload-dry-run.ts",
+    "migration:payload-import": "tsx scripts/migration/import-payload.ts"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.19",
