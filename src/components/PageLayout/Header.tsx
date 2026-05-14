@@ -10,13 +10,6 @@ import haalogo from "/public/haalogo.svg"
 import Image from "next/image";
 import SearchVisibilityContext from "contexts/searchVisibilityContext";
 import Searchbar from "./Searchbar/Searchbar";
-import { GetStaticProps } from "next";
-import client from "lib/sanity/client";
-import categoriesQuery from "lib/sanity/queries/categories";
-import popularProductsQuery from "lib/sanity/queries/popular_products";
-
-
-
 interface HeaderProps {
   products: ProductSchema[];
 }
@@ -96,20 +89,6 @@ const Header: React.FC<HeaderProps> = ({ products }) => {
     </header>
   </div>
   );
-};
-
-export const getStaticProps: GetStaticProps = async () => {
-  const categories = await client.fetch(categoriesQuery);
-  const popularProducts = await client.fetch(popularProductsQuery);
-
-  if (!categories || !popularProducts) {
-    throw Error("Sorry, something went wrong.");
-  }
-
-  return {
-    props: { categories, products: popularProducts },
-    revalidate: 60
-  };
 };
 
 export default Header;

@@ -12,7 +12,7 @@ import {
 const cartItemsStr = Cookies.get("_cart");
 const parsedCartItems = cartItemsStr ? JSON.parse(cartItemsStr) : [];
 
-export const initialState = parsedCartItems;
+const initialState = parsedCartItems;
 
 export type ACTIONTYPES =
   | AddToCartAction
