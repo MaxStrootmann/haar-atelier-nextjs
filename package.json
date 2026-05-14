@@ -13,7 +13,9 @@
     "test:e2e:headed": "playwright test --headed",
     "payload": "payload",
     "payload:generate-types": "payload generate:types",
-    "payload:generate-importmap": "payload generate:importmap"
+    "payload:generate-importmap": "payload generate:importmap",
+    "migration:sanity-dry-run": "tsx scripts/migration/sanity-dry-run.ts",
+    "migration:payload-dry-run": "tsx scripts/migration/import-payload-dry-run.ts"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.19",
@@ -62,6 +64,7 @@
     "postcss": "^8.5.3",
     "prisma": "^5.22.0",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.22.0",
     "typescript": "5.3.3"
   }
 }

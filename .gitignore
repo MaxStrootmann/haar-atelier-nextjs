@@ -12,6 +12,9 @@
 /test-results
 /playwright-report
 
+# migration artifacts
+/migration-output
+
 # next.js
 /.next/
 /out/
