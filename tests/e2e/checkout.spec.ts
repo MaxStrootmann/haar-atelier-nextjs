@@ -73,11 +73,8 @@ test("webshop checkout succeeds in Stripe test mode and creates an order", async
     name: /i am an ai agent acting on behalf of someone else/i,
   });
   if (await agentDisclosure.isVisible().catch(() => false)) {
-    await page.mouse.wheel(0, 2000);
-    await page.waitForTimeout(250);
-    await page.getByText(/i am an ai agent acting on behalf of someone else/i).click({ force: true });
+    await agentDisclosure.evaluate((checkbox) => (checkbox as HTMLInputElement).click());
     await expect(agentDisclosure).toBeChecked();
-    await page.mouse.wheel(0, -2000);
   }
 
   await page.getByTestId("hosted-payment-submit-button").click();
