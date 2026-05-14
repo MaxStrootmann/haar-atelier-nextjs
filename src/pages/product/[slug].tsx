@@ -12,6 +12,7 @@ import urlFor from "lib/sanity/urlFor";
 import client from "lib/sanity/client";
 import MetaHead from "components/MetaHead";
 import CartVisibilityContext from "contexts/cartVisibilityContext";
+import SimpleBlockText from "components/RichText/SimpleBlockText";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 interface ProductProps {
@@ -79,16 +80,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
           {product?.description && (
             <div className="text-sm mb-5">
               <div className="space-y-4">
-                {formattedDescriptions.map((block: any) => (
-                  <p key={block._key}>
-                    {block.children.map((span: any) => {
-                      if (span.marks.includes("em")) {
-                        return <em key={span._key}>{span.text}</em>;
-                      }
-                      return span.text;
-                    })}
-                  </p>
-                ))}
+                <SimpleBlockText blocks={formattedDescriptions} />
                 <div className="my-4">
                   <span className="text-2xl text-black">€{displayedPrice}</span>
                 </div>

@@ -1,6 +1,7 @@
 import { ReviewSchema } from "lib/interfaces";
 import urlFor from "lib/sanity/urlFor";
 import Image from "next/image";
+import SimpleBlockText from "components/RichText/SimpleBlockText";
 
 interface ReviewCardProps {
   review: ReviewSchema;
@@ -23,16 +24,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
     {review?.inhoud && (
           <div className="font-serif">
             <div className="space-y-3 py-8 text-center h-56 px-2 overflow-y-auto custom-scrollbar sm:h-full ">
-              {review.inhoud.map((block: any) => (
-                <p key={block._key}>
-                  {block.children.map((span: any) => {
-                    if (span.marks.includes("em")) {
-                      return <em key={span._key}>{span.text}</em>;
-                    }
-                    return span.text;
-                  })}
-                </p>
-              ))}
+              <SimpleBlockText blocks={review.inhoud} />
             <p className="font-bold text-center text-xs md:text-sm">{review.name}</p>
             </div>
           </div>
