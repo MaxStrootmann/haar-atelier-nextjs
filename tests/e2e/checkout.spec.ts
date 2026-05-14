@@ -52,6 +52,7 @@ async function fillStripeCheckout(page: import("@playwright/test").Page, email: 
 }
 
 test("webshop checkout succeeds in Stripe test mode and creates an order", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 1400 });
   const stamp = Date.now();
   const email = `e2e+${stamp}@manndigital.test`;
   const ordersBefore = Number(sqlScalar('SELECT COUNT(*) FROM "Order";'));
