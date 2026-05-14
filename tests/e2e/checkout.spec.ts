@@ -70,6 +70,7 @@ test("webshop checkout succeeds in Stripe test mode and creates an order", async
   await fillStripeCheckout(page, email);
 
   await page.getByTestId("hosted-payment-submit-button").click();
+  await page.keyboard.press("Enter");
 
   await page.waitForURL(/\/success/, { timeout: 90_000 });
   await expect(page).toHaveURL(/\/success/);
