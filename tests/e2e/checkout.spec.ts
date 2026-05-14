@@ -72,12 +72,9 @@ test("webshop checkout succeeds in Stripe test mode and creates an order", async
     name: /i am an ai agent acting on behalf of someone else/i,
   });
   if (await agentDisclosure.isVisible().catch(() => false)) {
-    await agentDisclosure.evaluate((checkbox) => {
-      const input = checkbox as HTMLInputElement;
-      input.checked = true;
-      input.dispatchEvent(new Event("input", { bubbles: true }));
-      input.dispatchEvent(new Event("change", { bubbles: true }));
-    });
+    await agentDisclosure.scrollIntoViewIfNeeded();
+    await agentDisclosure.check({ force: true });
+    await expect(agentDisclosure).toBeChecked();
   }
 
   await page.getByTestId("hosted-payment-submit-button").click();
