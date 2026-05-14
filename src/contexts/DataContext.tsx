@@ -5,8 +5,6 @@ import React, {
   useState,
   useEffect,
 } from "react";
-import client from "lib/sanity/client";
-import groq from "groq";
 
 interface DataContextProps {
   categories: any[];
@@ -23,15 +21,16 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
 
   useEffect(() => {
     const fetchData = async () => {
-      const query = groq`
-        *[_type == "product"] {
-          _id,
-          name,
-          "slug": slug.current,
-          }`;
-      const fetchedProducts = await client.fetch(query);
-      const fetchedCategories = await client.fetch(
-        groq`array::unique(*[_type == "product"].category)`
+      const response = await fetch("/api/payload-products");
+      if (!response.ok) return;
+
+      const { products: fetchedProducts = [] } = await response.json();
+      const fetchedCategories = Array.from(
+        new Set(
+          fetchedProducts
+            .map((product: any) => product.subcategories?.[0]?.title)
+            .filter(Boolean)
+        )
       );
 
       setCategories(fetchedCategories);

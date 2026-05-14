@@ -6,10 +6,8 @@ import CartItemsContext from "contexts/cartItemsContext";
 import CartVisibilityContext from "contexts/cartVisibilityContext";
 import { cartReducer } from "reducers/cart/reducer";
 import Types from "reducers/cart/types";
-import productsBySlugsQuery from "lib/sanity/queries/products_by_slugs";
 import { CookieCart, CartProduct, CategorySchema, ProductSchema } from "lib/interfaces";
 import Cookies from "js-cookie";
-import client from "lib/sanity/client";
 import { useRouter } from "next/router";
 import SearchVisibilityContext from "contexts/searchVisibilityContext";
 import { DataProvider } from "contexts/DataContext";
@@ -65,9 +63,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
     const fetchCartProducts = async () => {
       if (parsedCartItems) {
-        const cartProducts = await client.fetch(productsBySlugsQuery, {
-          slugs,
-        });
+        const response = await fetch(`/api/payload-products?slugs=${slugs.join(",")}`);
+        const { products: cartProducts } = response.ok ? await response.json() : { products: null };
 
         if (!cartProducts) {
           throw Error("Sorry, something went wrong.");
