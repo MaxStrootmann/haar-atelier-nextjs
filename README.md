@@ -1,33 +1,131 @@
-## 🛍 Next.js Sanity E-commerce Starter Kit
+# Haar Atelier Next.js Webshop
 
-A [Next.js](https://nextjs.org/) E-commerce app with [Sanity.io](https://www.sanity.io/) and [Stripe API](https://stripe.com/). Built with [TailwindCSS](https://tailwindcss.com/) framework & [SASS](https://sass-lang.com/) CSS extension.
+Production Next.js storefront for Haar Atelier at:
 
-Demo live at: [nextjs-sanity-ecommerce-loq24.vercel.app](https://nextjs-sanity-ecommerce-loq24.vercel.app/)
+```text
+https://haar.manndigital.nl
+```
 
-> You may use `4242 4242 4242 4242` as card number when paying and future `MM/YY` value and arbitrary `CVC` value
+This repository is the current deployment truth for the webshop. It is a Next.js/Sanity/Stripe storefront deployed as a Docker Compose service with local PostgreSQL on `mann-dev`.
 
-## Run the app locally
+## Stack
 
-> To run this app locally, you need to have [Sanity.io](https://www.sanity.io/) and [Stripe](https://stripe.com/) accounts.
+- Next.js 14
+- React 18
+- TypeScript
+- Tailwind CSS and Sass
+- Sanity content/data
+- Stripe Checkout and webhooks
+- Prisma with PostgreSQL
+- Playwright E2E
+- Fallow codebase analysis
 
-### Setting up Sanity
+## Local Development
 
-- Head over to the [Sanity.io's](https://www.sanity.io/docs/create-a-sanity-project?ref=navbar) getting started page and generate a blank template
-- Copy the schema files located in `sanity/schemas` from this project to your sanity project's `schemas` directory
-- Make sure to replace the client configuration found under `src/lib/sanity/client.ts` with your own Sanity project
+```bash
+pnpm install
+pnpm dev
+```
 
-### Setting up Stripe
+Useful checks:
 
-- Create a [Stripe](https://stripe.com/) account
-- Make sure to enable Test mode first
-- Submit basic account details to enable test mode payment
+```bash
+pnpm exec tsc --noEmit
+pnpm build
+pnpm exec next lint
+```
 
-### Environment Variables
+## E2E Checkout Test
 
-> It is important to provide the following environment variables in order for this project to run properly locally
+The checkout E2E runs against the deployed URL by default via `playwright.config.ts`.
 
-`SANITY_PROJECT_TOKEN` - Found under [https://www.sanity.io/manage](https://www.sanity.io/manage) then select your project and then go to API -> Tokens
+```bash
+E2E_BASE_URL=https://haar.manndigital.nl pnpm test:e2e
+```
 
-`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` - This can be found in your Stripe's dashboard
+The Stripe webhook listener must be running during checkout E2E validation:
 
-`STRIPE_SECRET_KEY` - This can be found in your Stripe's dashboard
+```bash
+stripe listen --forward-to https://haar.manndigital.nl/api/stripe-webhook
+```
+
+If the listener is restarted, sync the new webhook signing secret into the runtime env without printing it, then restart the app container.
+
+## Fallow Codebase Audits
+
+Run from the repo root:
+
+```bash
+npx fallow dead-code --format json --quiet --explain 2>/dev/null || true
+npx fallow dupes --format json --quiet --explain 2>/dev/null || true
+npx fallow health --format json --quiet --explain 2>/dev/null || true
+```
+
+Notes:
+
+- Exit code `1` can mean findings exist, not command failure.
+- Treat Fallow findings as review evidence, not automatic deletion permission.
+- Current modernization pass reduced unused files/exports/types/cycles/dupes to zero.
+
+## Deployment
+
+See `SERVICE.md` for service paths and operations.
+
+Current deployment root:
+
+```text
+/opt/services/haar-atelier-nextjs
+```
+
+Current source deployed into:
+
+```text
+/opt/services/haar-atelier-nextjs/current
+```
+
+Typical deploy from this repo on the host:
+
+```bash
+rsync -a --delete \
+  --exclude .git \
+  --exclude node_modules \
+  --exclude .next \
+  --exclude .env \
+  --exclude .vercel \
+  --exclude 'production-export-*' \
+  --exclude dataset.tar.gz \
+  ~/projects/haar-atelier-nextjs/ \
+  /opt/services/haar-atelier-nextjs/current/
+
+cd /opt/services/haar-atelier-nextjs
+docker compose up -d --build app
+```
+
+## Runtime Secrets
+
+Runtime env is Varlock-backed. Do not print raw env values, Stripe keys, webhook secrets, or DB URLs.
+
+Runtime env file location on the host:
+
+```text
+/home/mann/.varlock/env/websites/haar-atelier-nextjs.env
+```
+
+Current checkout mode is controlled explicitly by:
+
+```text
+STRIPE_MODE
+NEXT_PUBLIC_STRIPE_MODE
+```
+
+## Known Deferred Work
+
+- Decide when to switch Stripe from test mode to live mode.
+- Add/verify PostgreSQL backup and restore routine.
+- Review remaining Fallow resolver/tooling findings:
+  - retained build/tool packages: `sass`, `sharp`, `eslint-config-next`
+  - public asset path resolver noise
+  - Sanity virtual imports
+  - `next-sitemap` config/dependency decision
+- Refactor Stripe webhook/API complexity only with additional safety tests.
+- Optional manual visual QA after larger UI changes.
