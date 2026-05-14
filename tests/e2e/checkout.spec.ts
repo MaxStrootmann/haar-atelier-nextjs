@@ -70,9 +70,8 @@ test("webshop checkout succeeds in Stripe test mode and creates an order", async
   await fillStripeCheckout(page, email);
 
   const submitButton = page.getByTestId("hosted-payment-submit-button");
-  const submitBox = await submitButton.boundingBox();
-  if (!submitBox) throw new Error("Stripe submit button is not visible");
-  await page.mouse.click(submitBox.x + submitBox.width / 2, submitBox.y + submitBox.height / 2);
+  await submitButton.focus();
+  await page.keyboard.press("Space");
 
   await page.waitForURL(/\/success/, { timeout: 90_000 });
   await expect(page).toHaveURL(/\/success/);
