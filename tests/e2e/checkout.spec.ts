@@ -69,13 +69,10 @@ test("webshop checkout succeeds in Stripe test mode and creates an order", async
 
   await fillStripeCheckout(page, email);
 
-  await page.getByTestId("hosted-payment-submit-button").evaluate((button) => {
-    const form = button.closest("form");
-    if (form) form.requestSubmit(button as HTMLButtonElement);
-    else (button as HTMLButtonElement).click();
-  });
+  await page.waitForTimeout(1000);
+  await page.getByTestId("hosted-payment-submit-button").click();
 
-  await page.waitForURL(/\/success/, { timeout: 90_000 });
+  await page.waitForURL(/\/success/, { timeout: 90_000, waitUntil: "commit" });
   await expect(page).toHaveURL(/\/success/);
 
   await expect
