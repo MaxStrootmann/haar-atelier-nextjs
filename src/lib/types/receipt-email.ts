@@ -22,7 +22,3 @@ export type ReceiptProps = {
   date: string;
 };
 
-export type User = {
-  email: string;
-  name: string;
-};
