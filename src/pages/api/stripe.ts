@@ -61,7 +61,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       ],
 
       line_items: items.map((item) => {
-        const imgUrl = urlFor(item.featured_image).url();
+        const rawImgUrl = urlFor(item.featured_image).url();
+        const imgUrl = rawImgUrl.startsWith("http")
+          ? rawImgUrl
+          : `${req.headers.origin}${rawImgUrl}`;
         return {
           price_data: {
             currency: "EUR",
