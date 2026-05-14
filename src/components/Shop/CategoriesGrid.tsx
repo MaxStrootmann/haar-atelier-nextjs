@@ -1,4 +1,4 @@
-import { HardcodedCategories } from "pages/shop";
+import { HardcodedCategories } from "lib/shop/categories";
 import CategoryCard from "./CategoryCard";
 import Link from "next/link";
 

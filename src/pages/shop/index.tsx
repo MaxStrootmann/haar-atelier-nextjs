@@ -9,6 +9,7 @@ import groq from "groq";
 import { Logo_Natulique } from "lib/icons";
 import { ProductSchema } from "lib/interfaces";
 import client from "lib/sanity/client";
+import { hardCodedCategories } from "lib/shop/categories";
 import popularProductsQuery from "lib/sanity/queries/popular_products";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Image from "next/image";
@@ -22,38 +23,6 @@ interface Props {
   sortOption: string;
   popularProducts: ProductSchema[];
 }
-
-export type HardcodedCategories = {
-  id: number;
-  name: string;
-  image: string;
-}[];
-
-const hardCodedCategories: HardcodedCategories = [
-  {
-    id: 1,
-    name: "Alle producten",
-    image: "/categories/conditioner.png",
-  },
-  {
-    id: 2,
-    name: "Shampoo & Conditioners",
-    image: "/categories/hairwash.png",
-  },
-  {
-    id: 3,
-    name: "Lichaamsverzorging",
-    image: "/categories/lichaamsverzorging.png",
-  },
-  { id: 4, name: "Maskers & Colour Treatments", image: "/categories/mask.png" },
-  { id: 5, name: "Versteviging & Styling", image: "/categories/styling.png" },
-  {
-    id: 6,
-    name: "Verzorging & Bescherming",
-    image: "/categories/bescherming.png",
-  },
-  { id: 7, name: "Accessoires", image: "/categories/accessoires.png" },
-];
 
 export default function CategoriesPage({
   categories,
