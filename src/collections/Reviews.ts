@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { sourceField } from './fields/source'
+import { sourceField, sourceIdField } from './fields/source'
 
 export const Reviews: CollectionConfig = {
   slug: 'reviews',
@@ -23,6 +23,7 @@ export const Reviews: CollectionConfig = {
     { name: 'photo', type: 'upload', relationTo: 'media' },
     { name: 'sortOrder', type: 'number', defaultValue: 0 },
     { name: 'published', type: 'checkbox', defaultValue: true },
+    sourceIdField,
     sourceField,
   ],
 }

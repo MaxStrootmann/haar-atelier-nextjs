@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { sourceField } from './fields/source'
+import { sourceField, sourceIdField } from './fields/source'
 
 export const PriceGroups: CollectionConfig = {
   slug: 'price-groups',
@@ -23,6 +23,7 @@ export const PriceGroups: CollectionConfig = {
         { name: 'price', type: 'text', required: true },
       ],
     },
+    sourceIdField,
     sourceField,
   ],
 }

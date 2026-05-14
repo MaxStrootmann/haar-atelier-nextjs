@@ -159,6 +159,7 @@ export interface Media {
   id: number;
   alt: string;
   caption?: string | null;
+  sanityAssetRef?: string | null;
   source?: {
     sanityAssetRef?: string | null;
     sanityCdnUrl?: string | null;
@@ -227,6 +228,10 @@ export interface Brand {
   } | null;
   image?: (number | null) | Media;
   sortOrder?: number | null;
+  /**
+   * Original source document ID for idempotent imports.
+   */
+  sourceId?: string | null;
   source?: {
     system?: string | null;
     id?: string | null;
@@ -281,7 +286,7 @@ export interface Product {
     | number
     | boolean
     | null;
-  featuredImage: number | Media;
+  featuredImage?: (number | null) | Media;
   secondaryImages?:
     | {
         image: number | Media;
@@ -302,6 +307,10 @@ export interface Product {
     | 'Verzorging & Bescherming';
   brand?: (number | null) | Brand;
   legacyBrandLabel?: string | null;
+  /**
+   * Original source document ID for idempotent imports.
+   */
+  sourceId?: string | null;
   source?: {
     system?: string | null;
     id?: string | null;
@@ -341,6 +350,10 @@ export interface PriceGroup {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Original source document ID for idempotent imports.
+   */
+  sourceId?: string | null;
   source?: {
     system?: string | null;
     id?: string | null;
@@ -397,6 +410,10 @@ export interface Review {
   photo?: (number | null) | Media;
   sortOrder?: number | null;
   published?: boolean | null;
+  /**
+   * Original source document ID for idempotent imports.
+   */
+  sourceId?: string | null;
   source?: {
     system?: string | null;
     id?: string | null;
@@ -537,6 +554,7 @@ export interface UsersSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   caption?: T;
+  sanityAssetRef?: T;
   source?:
     | T
     | {
@@ -600,6 +618,7 @@ export interface BrandsSelect<T extends boolean = true> {
   description?: T;
   image?: T;
   sortOrder?: T;
+  sourceId?: T;
   source?:
     | T
     | {
@@ -637,6 +656,7 @@ export interface ProductsSelect<T extends boolean = true> {
   category?: T;
   brand?: T;
   legacyBrandLabel?: T;
+  sourceId?: T;
   source?:
     | T
     | {
@@ -669,6 +689,7 @@ export interface PriceGroupsSelect<T extends boolean = true> {
         price?: T;
         id?: T;
       };
+  sourceId?: T;
   source?:
     | T
     | {
@@ -693,6 +714,7 @@ export interface ReviewsSelect<T extends boolean = true> {
   photo?: T;
   sortOrder?: T;
   published?: T;
+  sourceId?: T;
   source?:
     | T
     | {

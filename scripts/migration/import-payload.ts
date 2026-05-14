@@ -43,7 +43,7 @@ const findBySourceId = async (payload: any, collection: string, sourceId: string
     collection,
     limit: 1,
     depth: 0,
-    where: { 'source.id': { equals: sourceId } },
+    where: { sourceId: { equals: sourceId } },
   })
   return result.docs[0]
 }
@@ -53,7 +53,7 @@ const findMediaByRef = async (payload: any, sanityAssetRef: string) => {
     collection: 'media',
     limit: 1,
     depth: 0,
-    where: { 'source.sanityAssetRef': { equals: sanityAssetRef } },
+    where: { sanityAssetRef: { equals: sanityAssetRef } },
   })
   return result.docs[0]
 }
@@ -85,6 +85,7 @@ const createOrUpdateMedia = async (payload: any, entry: MediaManifestEntry, tmpD
     collection: 'media',
     data: {
       alt: filename,
+      sanityAssetRef: entry.sanityAssetRef,
       source: {
         sanityAssetRef: entry.sanityAssetRef,
         sanityCdnUrl: entry.sanityCdnUrl,
@@ -168,8 +169,9 @@ const main = async () => {
 
     const brandByLabel = new Map<string, string>()
     for (const label of brandLabels) {
-      const sourceDoc = { _id: `brand-${label.toLowerCase()}`, _type: 'derived-brand', _createdAt: undefined, _updatedAt: undefined, label }
+          const sourceDoc = { _id: `brand-${label.toLowerCase()}`, _type: 'derived-brand', _createdAt: undefined, _updatedAt: undefined, label }
       const result = await upsertBySourceId(payload, 'brands', sourceDoc, {
+        sourceId: sourceDoc._id,
         title: label,
         slug: label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
         source: sourceData(sourceDoc),
@@ -186,9 +188,9 @@ const main = async () => {
     for (const product of products) {
       try {
         const featuredImage = imageId(product.featured_image)
-        if (!featuredImage) throw new Error('Missing featured image mapping')
 
         const result = await upsertBySourceId(payload, 'products', product, {
+          sourceId: product._id,
           name: product.name,
           slug: slugValue(product.slug),
           description: portableTextToLexical(product.description),
@@ -212,6 +214,7 @@ const main = async () => {
 
     for (const group of priceGroups) {
       const result = await upsertBySourceId(payload, 'price-groups', group, {
+        sourceId: group._id,
         category: group.category,
         slug: slugValue(group.slug) || String(group.category || group._id).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
         treatments: (group.treatment || []).map((row: JsonObject) => ({
@@ -227,6 +230,7 @@ const main = async () => {
 
     for (const review of reviews) {
       const result = await upsertBySourceId(payload, 'reviews', review, {
+        sourceId: review._id,
         name: review.name,
         body: portableTextToLexical(review.inhoud),
         rawPortableTextBody: review.inhoud || [],
@@ -243,7 +247,9 @@ const main = async () => {
   console.log(JSON.stringify(summary, null, 2))
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.message : error)
-  process.exit(1)
-})
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error instanceof Error ? error.message : error)
+    process.exit(1)
+  })

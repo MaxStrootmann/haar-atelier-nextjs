@@ -14,6 +14,7 @@
 
 # migration artifacts
 /migration-output
+/media
 
 # next.js
 /.next/

@@ -17,7 +17,7 @@ export type SanitySnapshot = Record<SourceType, unknown[]>
 export const fetchSanitySnapshot = async (): Promise<SanitySnapshot> => {
   const entries = await Promise.all(
     sourceTypes.map(async (type) => {
-      const docs = await sanityClient.fetch<unknown[]>(`*[_type == $type] | order(_createdAt asc)`, { type })
+      const docs = await sanityClient.fetch<unknown[]>(`*[_type == $type && !(_id in path("drafts.**"))] | order(_createdAt asc)`, { type })
       return [type, docs] as const
     }),
   )

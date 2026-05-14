@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { sourceField } from './fields/source'
+import { sourceField, sourceIdField } from './fields/source'
 
 const productCategoryOptions = [
   { label: 'Accessoires', value: 'Accessoires' },
@@ -30,7 +30,7 @@ export const Products: CollectionConfig = {
         position: 'sidebar',
       },
     },
-    { name: 'featuredImage', type: 'upload', relationTo: 'media', required: true },
+    { name: 'featuredImage', type: 'upload', relationTo: 'media' },
     {
       name: 'secondaryImages',
       type: 'array',
@@ -64,6 +64,7 @@ export const Products: CollectionConfig = {
       type: 'text',
       admin: { position: 'sidebar' },
     },
+    sourceIdField,
     sourceField,
   ],
 }

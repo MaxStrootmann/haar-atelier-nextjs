@@ -19,6 +19,13 @@ export const Media: CollectionConfig = {
     { name: 'alt', type: 'text', required: true },
     { name: 'caption', type: 'text' },
     {
+      name: 'sanityAssetRef',
+      type: 'text',
+      unique: true,
+      index: true,
+      admin: { position: 'sidebar' },
+    },
+    {
       name: 'source',
       type: 'group',
       admin: { position: 'sidebar' },
