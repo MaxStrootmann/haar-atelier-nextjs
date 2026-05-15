@@ -12,6 +12,7 @@ import {
   getStorefrontProducts,
 } from "lib/payload/storefront";
 import { hardCodedCategories } from "lib/shop/categories";
+import { categoryFromQueryValue } from "lib/shop/query";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
@@ -28,7 +29,7 @@ export default function CategoriesPage({
   products,
   popularProducts,
 }: Props) {
-  const [displayedProducts] = useState<StorefrontProduct[]>(products);
+  const displayedProducts = products;
   const [selected, setSelected] = useState(categories[categories.length - 1]);
   let selectedSort = useSearchParams()?.get("sort") ?? "";
   let sort = selectedSort ? `&sort=${selectedSort}` : "";
@@ -102,10 +103,7 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   let category =
     typeof context.query.category === "string"
-      ? decodeURIComponent(context.query.category)
-          .replace(/-/g, " ")
-          .replace(/and/g, "&")
-          .trim()
+      ? categoryFromQueryValue(context.query.category)
       : undefined;
 
   const sortFormat = () => {

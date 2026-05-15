@@ -1,10 +1,10 @@
-import React, { Fragment } from "react";
-import { Listbox, Transition } from "@headlessui/react";
+import React from "react";
+import { Listbox } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import Link from "next/link";
+import { useRouter } from "next/router";
+import { categoryToQueryValue } from "lib/shop/query";
 
 const CategoriesDropdown = ({
-  sort,
   selected,
   setSelected,
   currentCategory,
@@ -16,9 +16,26 @@ const CategoriesDropdown = ({
   currentCategory: string;
   categories: string[];
 }) => {
+  const router = useRouter();
+
+  const handleChange = (category: string) => {
+    setSelected(category);
+
+    const query: Record<string, string | string[]> = {
+      ...router.query,
+      category: categoryToQueryValue(category),
+    };
+
+    if (category === "Alle producten") {
+      delete query.category;
+    }
+
+    router.push({ pathname: "/shop", query }, undefined, { scroll: false });
+  };
+
   return (
     <div className="">
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={selected} onChange={handleChange}>
         <div className="relative mt-1">
           <Listbox.Button className="relative text-sm shadow-sm bg-bg-300 w-full cursor-default rounded-lg py-2 pl-2 pr-7 text-left ring-1 ring-black ring-opacity-5 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
             <span className="block truncate">{currentCategory}</span>
@@ -29,42 +46,27 @@ const CategoriesDropdown = ({
               />
             </span>
           </Listbox.Button>
-          <Transition
-            as={Fragment}
-            leave="transition ease-in duration-100"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <Listbox.Options className="absolute z-10 rounded-xl mt-1 w-full md:w-max bg-bg-300 py-1 text-sm shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {categories.map((category, index) => (
-                <Link
-                  scroll={false}
-                  key={index}
-                  href={`?category=${category.replace(/\s+/g, "-").replace(/&/g, "and")}${sort}`}
-                >
-                  <Listbox.Option
-                    key={index}
-                    className={({ active }) =>
-                      `relative cursor-default select-none py-2 px-3 ${
-                        active ? "bg-accent-500 text-white" : "text-gray-900"
-                      }`
-                    }
-                    value={category}
+          <Listbox.Options className="absolute z-10 rounded-xl mt-1 w-full md:w-max bg-bg-300 py-1 text-sm shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            {categories.map((category) => (
+              <Listbox.Option
+                key={category}
+                className={({ active }) =>
+                  `relative cursor-default select-none py-2 px-3 ${
+                    active ? "bg-accent-500 text-white" : "text-gray-900"
+                  }`
+                }
+                value={category}
+              >
+                {({ selected }) => (
+                  <span
+                    className={`block truncate ${selected ? "font-medium" : "font-normal"}`}
                   >
-                    {({ selected }) => (
-                      <>
-                        <span
-                          className={`block truncate ${selected ? "font-medium" : "font-normal"}`}
-                        >
-                          {category}
-                        </span>
-                      </>
-                    )}
-                  </Listbox.Option>
-                </Link>
-              ))}
-            </Listbox.Options>
-          </Transition>
+                    {category}
+                  </span>
+                )}
+              </Listbox.Option>
+            ))}
+          </Listbox.Options>
         </div>
       </Listbox>
     </div>

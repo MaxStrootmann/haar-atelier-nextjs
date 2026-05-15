@@ -1,6 +1,7 @@
 import { HardcodedCategories } from "lib/shop/categories";
 import CategoryCard from "./CategoryCard";
 import Link from "next/link";
+import { categoryToQueryValue } from "lib/shop/query";
 
 export default function CategoriesGrid({
   sort,
@@ -19,7 +20,7 @@ export default function CategoriesGrid({
           <Link
             scroll={false}
             key={hcc.id}
-            href={`?category=${hcc.name.replace(/\s+/g, "-").replace(/&/g, "and")}${sort}#producten`}
+            href={`/shop?category=${categoryToQueryValue(hcc.name)}${sort}#producten`}
           >
             <CategoryCard name={hcc.name} image={hcc.image} />
           </Link>
