@@ -8,6 +8,7 @@ import getStripe from "lib/stripe/getStripe";
 
 const Cart = () => {
   const [isRedirecting, setRedirecting] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const { cart } = useContext(CartItemsContext);
   const { cartVisibility, toggleCartVisibility } = useContext(CartVisibilityContext);
 
@@ -33,6 +34,7 @@ const Cart = () => {
 
   const handleCheckout = async () => {
     setRedirecting(true);
+    setCheckoutError(null);
 
     const stripe = await getStripe();
 
@@ -44,9 +46,13 @@ const Cart = () => {
       body: JSON.stringify({ items: cart, return_url: `${window.location.origin}/success` }),
     });
 
-    if (response?.status == 500) return;
-
     const data = await response.json();
+
+    if (!response.ok) {
+      setCheckoutError(data.message || "Afrekenen is niet gelukt. Controleer je winkelwagen.");
+      setRedirecting(false);
+      return;
+    }
 
     stripe?.redirectToCheckout({ sessionId: data.id });
   };
@@ -97,6 +103,7 @@ const Cart = () => {
                 <span className=''>€{finalPriceFormatted}</span>
               </div>
               <div>
+                {checkoutError && <p className='text-sm text-red-700 mb-2'>{checkoutError}</p>}
                 <button
                   id='checkout'
                   aria-label='Naar bestellen'

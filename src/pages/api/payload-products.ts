@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       : [];
     const products = await getStorefrontProducts({ limit: 200 });
     const filteredProducts = slugs.length > 0
-      ? products.filter((product) => slugs.includes(product.slug))
+      ? products.filter((product) => slugs.includes(product.slug) && product.inStock)
       : products;
 
     res.status(200).json({ products: filteredProducts });

@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 import { CartProduct } from "lib/interfaces";
-import { absoluteStorefrontImageUrl } from "lib/payload/storefront";
+import { absoluteStorefrontImageUrl, getStorefrontProducts, type StorefrontProduct } from "lib/payload/storefront";
 
 const stripeMode = process.env.STRIPE_MODE === "test" ? "test" : "live";
 
@@ -20,9 +20,35 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const items: CartProduct[] = req.body.items ?? [];
+    const requestedItems: CartProduct[] = req.body.items ?? [];
+    const requestedSlugs = requestedItems.map((item) => item.slug).filter(Boolean);
+
+    if (requestedSlugs.length === 0) {
+      return res.status(400).json({ message: "No checkout items provided." });
+    }
+
+    const currentProducts = await getStorefrontProducts({ limit: 200 });
+    const productBySlug = new Map(currentProducts.map((product) => [product.slug, product]));
+
+    const items = requestedItems.map((item) => {
+      const currentProduct = productBySlug.get(item.slug);
+
+      if (!currentProduct) {
+        throw new Error(`Product ${item.slug} is no longer available.`);
+      }
+
+      if (!currentProduct.inStock) {
+        throw new Error(`${currentProduct.name} is niet meer op voorraad.`);
+      }
+
+      return {
+        ...currentProduct,
+        quantity: item.quantity || 1,
+      } satisfies StorefrontProduct & { quantity: number };
+    });
+
     const totalAmount = items.reduce(
-      (accum, item) => accum + item.price * 100 * (item.quantity || 1),
+      (accum, item) => accum + item.price * 100 * item.quantity,
       0
     );
 
@@ -87,8 +113,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     return res.status(200).json(session);
   } catch (error) {
-    return res.status(500).json({
-      message: error instanceof Error ? error.message : "Unknown error",
+    return res.status(400).json({
+      message: error instanceof Error ? error.message : "Unknown checkout error",
     });
   }
 }
