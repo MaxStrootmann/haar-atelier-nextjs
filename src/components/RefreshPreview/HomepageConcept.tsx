@@ -5,6 +5,18 @@ import MetaHead from "components/MetaHead";
 
 type Version = "allure" | "haar" | "mix";
 
+const appointmentUrl =
+  "https://widget2.meetaimy.com/widgetWeb?salonId=MTIzNjkzMA%3D%3D&salonEmail=aW5mb0BtYXJsb2Vzb3RqZXMtaGFhcmF0ZWxpZXIubmw%3D";
+
+const atelierCopy =
+  "Haar Atelier Alkmaar is ontstaan vanuit mijn visie en passie voor eerlijke, natuurlijke en duurzame producten. Mijn naam is Marloes. Ik ben ruim 14 jaar kapster en heb in verschillende toonaangevende salons gewerkt in Nederland en Australië. In 2021 heb ik Haar Atelier Alkmaar opgericht op een prachtige locatie, middenin de binnenstad van Alkmaar.";
+
+const colourCopy =
+  "Ik ben gespecialiseerd in natuurlijke kleuringen. Sunkissed balayage, Lived in blonde, mooie, zachte highlights, Rich Brunette. Met de ammonia-vrije haarkleuringen van Natulique creëer ik voor jou de mooiste look, met biologische ingrediënten en minder gifstoffen.";
+
+const natuliqueCopy =
+  "Ik geloof in de kracht van natuurlijke haarverzorging en kies er bewust voor te werken met de producten van het Deense merk Natulique. De producten zijn biologisch, vrij van siliconen, synthetische geur- en kleurstoffen en kunstmatige toevoegingen.";
+
 type Concept = {
   version: Version;
   label: string;
@@ -14,6 +26,9 @@ type Concept = {
   statement: string;
   storyTitle: string;
   story: string;
+  imageOne: string;
+  imageTwo: string;
+  imageThree: string;
   navTone: string;
   className: string;
   headlineClass: string;
@@ -32,7 +47,10 @@ export const concepts: Record<Version, Concept> = {
     intro: "Een uitgesproken, mobiel-first richting met grote beelden, warme terracotta knoppen en editorial typografie.",
     statement: "De salon als eerste indruk: groot, warm en direct boekbaar.",
     storyTitle: "Voor liefde voor haar",
-    story: "Deze versie leunt het meest op de Allure-referentie: beeld en headline bepalen de sfeer, daarna volgen simpele keuzes voor afspraak, shop en tarieven.",
+    story: colourCopy,
+    imageOne: "/content_deur.jpg",
+    imageTwo: "/content_fohnen.jpg",
+    imageThree: "/content_voorraad.jpg",
     navTone: "text-[oklch(98%_0.006_75)] mix-blend-difference",
     className: "bg-[oklch(96%_0.012_62)] text-[oklch(24%_0.045_35)]",
     headlineClass: "text-[oklch(37%_0.11_28)]",
@@ -49,7 +67,10 @@ export const concepts: Record<Version, Concept> = {
     intro: "Een zachtere richting die dichter bij de huidige Haar-identiteit blijft: premium, licht, rustig en persoonlijk.",
     statement: "Rustige luxe, natuurlijke verzorging en aandacht voor jou.",
     storyTitle: "Het Haar Atelier",
-    story: "Deze versie houdt de bestaande warmte vast en maakt de homepage vooral helderder: afspraak maken blijft primair, de shop is aanwezig maar minder dominant.",
+    story: atelierCopy,
+    imageOne: "/content_raam.jpg",
+    imageTwo: "/content_deur.jpg",
+    imageThree: "/content_producten.jpg",
     navTone: "text-[oklch(20%_0.02_52)]",
     className: "bg-[oklch(97%_0.01_75)] text-[oklch(19%_0.018_52)]",
     headlineClass: "text-[oklch(20%_0.02_52)]",
@@ -66,7 +87,10 @@ export const concepts: Record<Version, Concept> = {
     intro: "Een brug tussen Allure en Haar: grote typografie en sterk beeld, maar zachter, persoonlijker en minder hard.",
     statement: "Een warm ateliergevoel met duidelijke keuzes: boeken of shoppen.",
     storyTitle: "Zachte luxe voor dagelijks mooi haar",
-    story: "Deze richting gebruikt de energie van de referentie, maar laat Haar Atelier rustiger en lokaler aanvoelen. Waarschijnlijk de veiligste basis om verder te verfijnen.",
+    story: natuliqueCopy,
+    imageOne: "/content_deur.jpg",
+    imageTwo: "/content_fohnen.jpg",
+    imageThree: "/content_producten.jpg",
     navTone: "text-[oklch(98%_0.006_75)] mix-blend-difference",
     className: "bg-[oklch(96%_0.014_66)] text-[oklch(21%_0.025_45)]",
     headlineClass: "text-[oklch(31%_0.07_32)]",
@@ -120,7 +144,7 @@ function Hero({ concept }: { concept: Concept }) {
             </h1>
             <p className="mt-7 max-w-xl text-base leading-7 opacity-80 md:text-lg md:leading-8">{concept.intro}</p>
             <div className="mt-9 grid gap-4 sm:max-w-xl sm:grid-cols-2">
-              <a href="tel:+31651126003" className={`px-6 py-4 text-center text-sm font-semibold uppercase tracking-[0.2em] ${concept.buttonClass}`}>Afspraak maken</a>
+              <Link href={appointmentUrl} className={`px-6 py-4 text-center text-sm font-semibold uppercase tracking-[0.2em] ${concept.buttonClass}`}>Afspraak maken</Link>
               <Link href="/shop" className={`px-6 py-4 text-center text-sm font-semibold uppercase tracking-[0.2em] ${concept.secondaryClass}`}>Shop haarverzorging</Link>
             </div>
           </div>
@@ -140,7 +164,7 @@ function MenuBlock({ concept }: { concept: Concept }) {
       <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[0.85fr_1.15fr] md:items-end">
         <p className={`font-serif text-5xl leading-[0.95] tracking-[-0.04em] md:text-7xl ${concept.headlineClass}`}>{concept.statement}</p>
         <div className="grid gap-4 text-center text-sm font-semibold uppercase tracking-[0.18em] md:grid-cols-2">
-          <a href="tel:+31651126003" className={`px-6 py-5 ${concept.buttonClass}`}>Afspraak maken</a>
+          <Link href={appointmentUrl} className={`px-6 py-5 ${concept.buttonClass}`}>Afspraak maken</Link>
           <Link href="/shop" className={`px-6 py-5 ${concept.secondaryClass}`}>Shop haarverzorging</Link>
           <Link href="/tarieven" className="border border-current px-6 py-5 opacity-75">Tarieven</Link>
           <a href="tel:+31651126003" className="border border-current px-6 py-5 opacity-75">Contact</a>
@@ -154,7 +178,7 @@ function StorySection({ concept }: { concept: Concept }) {
   return (
     <section className="grid md:grid-cols-2">
       <div className="relative min-h-[520px] md:min-h-[760px]">
-        <Image src="/Salon.jpg" alt="Haar Atelier detail" fill className={`object-cover ${concept.imageClass}`} />
+        <Image src={concept.imageOne} alt="Haar Atelier Alkmaar" fill className={`object-cover ${concept.imageClass}`} />
       </div>
       <div className="flex items-center px-7 py-20 md:px-16">
         <div className="max-w-xl">
@@ -167,12 +191,48 @@ function StorySection({ concept }: { concept: Concept }) {
   );
 }
 
+function ContentPanels({ concept }: { concept: Concept }) {
+  return (
+    <section className="px-7 py-20 md:px-12 md:py-28">
+      <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-3">
+        <article>
+          <div className="relative mb-8 aspect-[4/5] overflow-hidden">
+            <Image src={concept.imageTwo} alt="Natural healthy hair" fill className={`object-cover ${concept.imageClass}`} />
+          </div>
+          <p className="mb-4 text-xs uppercase tracking-[0.28em] opacity-60">Natural, healthy & sexy hair</p>
+          <h2 className={`font-serif text-4xl leading-[0.95] tracking-[-0.035em] ${concept.headlineClass}`}>Natuurlijke kleuringen</h2>
+          <p className="mt-5 leading-7 opacity-80">{colourCopy}</p>
+          <Link href={appointmentUrl} className={`mt-6 inline-block px-5 py-3 text-center text-xs font-semibold uppercase tracking-[0.18em] ${concept.buttonClass}`}>Afspraak maken</Link>
+        </article>
+        <article>
+          <div className="relative mb-8 aspect-[4/5] overflow-hidden">
+            <Image src={concept.imageThree} alt="Natulique producten" fill className={`object-cover ${concept.imageClass}`} />
+          </div>
+          <p className="mb-4 text-xs uppercase tracking-[0.28em] opacity-60">Natulique</p>
+          <h2 className={`font-serif text-4xl leading-[0.95] tracking-[-0.035em] ${concept.headlineClass}`}>Biologische haarverzorging</h2>
+          <p className="mt-5 leading-7 opacity-80">{natuliqueCopy} De producten zijn verkrijgbaar in de salon en de webshop.</p>
+          <Link href="/shop" className={`mt-6 inline-block px-5 py-3 text-center text-xs font-semibold uppercase tracking-[0.18em] ${concept.secondaryClass}`}>Naar de shop</Link>
+        </article>
+        <article>
+          <div className="relative mb-8 aspect-[4/5] overflow-hidden">
+            <Image src="/content_stoel.jpg" alt="Haar Atelier salonstoel" fill className={`object-cover ${concept.imageClass}`} />
+          </div>
+          <p className="mb-4 text-xs uppercase tracking-[0.28em] opacity-60">Voel je welkom</p>
+          <h2 className={`font-serif text-4xl leading-[0.95] tracking-[-0.035em] ${concept.headlineClass}`}>Binnenstad van Alkmaar</h2>
+          <p className="mt-5 leading-7 opacity-80">Loop binnen in de salon, of boek je afspraak eenvoudig online. Haar Atelier zit op een prachtige locatie, middenin de binnenstad van Alkmaar.</p>
+          <Link href="/tarieven" className="mt-6 inline-block border border-current px-5 py-3 text-center text-xs font-semibold uppercase tracking-[0.18em] opacity-75">Bekijk tarieven</Link>
+        </article>
+      </div>
+    </section>
+  );
+}
+
 function BookingStrip({ concept }: { concept: Concept }) {
   return (
     <section className={`px-7 py-16 md:px-12 ${concept.sectionClass}`}>
       <div className="mx-auto flex max-w-6xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <p className={`font-serif text-4xl leading-none md:text-6xl ${concept.headlineClass}`}>Klaar voor je volgende afspraak?</p>
-        <a href="tel:+31651126003" className={`px-8 py-5 text-center text-sm font-semibold uppercase tracking-[0.2em] ${concept.buttonClass}`}>Bel Haar Atelier</a>
+        <Link href={appointmentUrl} className={`px-8 py-5 text-center text-sm font-semibold uppercase tracking-[0.2em] ${concept.buttonClass}`}>Afspraak maken</Link>
       </div>
     </section>
   );
@@ -189,6 +249,7 @@ export function HomepageConcept({ version }: { version: Version }) {
         <Hero concept={concept} />
         <MenuBlock concept={concept} />
         <StorySection concept={concept} />
+        <ContentPanels concept={concept} />
         <BookingStrip concept={concept} />
       </main>
     </>
