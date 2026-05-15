@@ -41,9 +41,6 @@ importers:
       '@sanity/client':
         specifier: ^6.29.1
         version: 6.29.1
-      '@sanity/image-url':
-        specifier: ^1.1.0
-        version: 1.1.0
       '@stripe/stripe-js':
         specifier: ^2.4.0
         version: 2.4.0
@@ -56,9 +53,6 @@ importers:
       graphql:
         specifier: ^16.14.0
         version: 16.14.0
-      groq:
-        specifier: ^2.36.6
-        version: 2.36.6
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
@@ -1890,10 +1884,6 @@ packages:
   '@sanity/eventsource@5.0.2':
     resolution: {integrity: sha512-/B9PMkUvAlUrpRq0y+NzXgRv5lYCLxZNsBJD2WXVnqZYOfByL9oQBV7KiTaARuObp5hcQYuPfOAVjgXe3hrixA==}
 
-  '@sanity/image-url@1.1.0':
-    resolution: {integrity: sha512-JHumVRxzzaZAJyOimntdukA9TjjzsJiaiq/uUBdTknMLCNvtM6KQ5OCp6W5fIdY78uyFxtQjz+MPXwK8WBIxWg==}
-    engines: {node: '>=10.0.0'}
-
   '@selderee/plugin-htmlparser2@0.11.0':
     resolution: {integrity: sha512-P33hHGdldxGabLFjPPpaTxVolMrzrcegejx+0GxjrIb9Zv48D8yAIA/QTDR2dFl7Uz7urX8aX6+5bCZslr+gWQ==}
 
@@ -3105,10 +3095,6 @@ packages:
   graphql@16.14.0:
     resolution: {integrity: sha512-BBvQ/406p+4CZbTpCbVPSxfzrZrbnuWSP1ELYgyS6B+hNeKzgrdB4JczCa5VZUBQrDa9hUngm0KnexY6pJRN5Q==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
-
-  groq@2.36.6:
-    resolution: {integrity: sha512-310G0orZTW0Qbuba1/PHfIXSh3yGDq6pLm9GDZigukKwkTRqyp9cSbCfj55YqZq4PA6N6KqHRQ7e1Wpqeyk56g==}
-    engines: {node: '>=6'}
 
   happy-dom@20.9.0:
     resolution: {integrity: sha512-GZZ9mKe8r646NUAf/zemnGbjYh4Bt8/MqASJY+pSm5ZDtc3YQox+4gsLI7yi1hba6o+eCsGxpHn5+iEVn31/FQ==}
@@ -6277,8 +6263,6 @@ snapshots:
       event-source-polyfill: 1.0.31
       eventsource: 2.0.2
 
-  '@sanity/image-url@1.1.0': {}
-
   '@selderee/plugin-htmlparser2@0.11.0':
     dependencies:
       domhandler: 5.0.3
@@ -7667,8 +7651,6 @@ snapshots:
       tslib: 2.8.1
 
   graphql@16.14.0: {}
-
-  groq@2.36.6: {}
 
   happy-dom@20.9.0:
     dependencies:

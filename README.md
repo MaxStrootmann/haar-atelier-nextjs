@@ -120,12 +120,10 @@ NEXT_PUBLIC_STRIPE_MODE
 
 ## Known Deferred Work
 
-- Decide when to switch Stripe from test mode to live mode.
-- Add/verify PostgreSQL backup and restore routine.
+- Add/verify recurring PostgreSQL and Payload media backup routine.
 - Review remaining Fallow resolver/tooling findings:
   - retained build/tool packages: `sass`, `sharp`, `eslint-config-next`
   - public asset path resolver noise
-  - Sanity virtual imports
-  - `next-sitemap` config/dependency decision
+  - generated Payload type exports
 - Refactor Stripe webhook/API complexity only with additional safety tests.
 - Optional manual visual QA after larger UI changes.
