@@ -1,13 +1,13 @@
-import { ReviewSchema } from "lib/interfaces/schema";
+import type { StorefrontReview } from "lib/payload/storefront";
 import MetaHead from "components/MetaHead";
 import HomeHero from "components/Home/HomeHero";
 import HeroContent from "components/Home/HeroContent";
 import { GetServerSideProps } from "next";
-import { getPayloadReviews } from "lib/payload/queries/reviews";
+import { getStorefrontReviews } from "lib/payload/storefront";
 import ReviewCarousel from "components/Home/ReviewCarousel";
 
 interface HomeProps {
-  reviews: ReviewSchema[];
+  reviews: StorefrontReview[];
 }
 
 const Home: React.FC<HomeProps> = ({ reviews }) => {
@@ -27,7 +27,7 @@ const Home: React.FC<HomeProps> = ({ reviews }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const reviews = await getPayloadReviews();
+  const reviews = await getStorefrontReviews();
 
   if (!reviews) {
     throw Error("Sorry, something went wrong.");

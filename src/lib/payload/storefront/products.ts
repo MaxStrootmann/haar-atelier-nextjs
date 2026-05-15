@@ -19,7 +19,7 @@ export const payloadProductToStorefrontProduct = (product: Product): StorefrontP
   id: String(product.id),
   name: product.name,
   slug: product.slug,
-  description: product.description || product.rawPortableTextDescription || null,
+  description: product.rawPortableTextDescription || product.description || null,
   image: payloadMediaToStorefrontImage(product.featuredImage),
   secondaryImages: (product.secondaryImages || [])
     .map((row) => payloadMediaToStorefrontImage(row.image))

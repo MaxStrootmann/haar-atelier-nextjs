@@ -1,11 +1,11 @@
 import React from "react";
 import { Carousel, IconButton } from "@material-tailwind/react";
 import ReviewCard from "./ReviewCard";
-import { ReviewSchema } from "lib/interfaces";
+import type { StorefrontReview } from "lib/payload/storefront";
 import type { CarouselProps } from "@material-tailwind/react";
 
 interface ReviewCarouselProps {
-  reviews: ReviewSchema[];
+  reviews: StorefrontReview[];
 }
 
 const SafeCarousel = Carousel as any;
@@ -79,7 +79,7 @@ const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
         navigation={navigation}
       >
         {reviews.map((review) => (
-          <ReviewCard review={review} key={review._id} />
+          <ReviewCard review={review} key={review.id} />
         ))}
       </SafeCarousel>
     </div>
