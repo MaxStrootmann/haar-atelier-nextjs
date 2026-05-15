@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 import { CartProduct } from "lib/interfaces";
-import urlFor from "lib/sanity/urlFor";
+import { absoluteStorefrontImageUrl } from "lib/payload/storefront";
 
 const stripeMode = process.env.STRIPE_MODE === "test" ? "test" : "live";
 
@@ -61,16 +61,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       ],
 
       line_items: items.map((item) => {
-        const rawImgUrl = urlFor(item.featured_image).url();
-        const imgUrl = rawImgUrl.startsWith("http")
-          ? rawImgUrl
-          : `${req.headers.origin}${rawImgUrl}`;
+        const imgUrl = absoluteStorefrontImageUrl(item.image?.url, req.headers.origin) || undefined;
         return {
           price_data: {
             currency: "EUR",
             product_data: {
               name: item.name,
-              images: [imgUrl],
+              images: imgUrl ? [imgUrl] : [],
               metadata: {
                 basePrice: item.price * 79,
                 taxAmount: item.price * 21,

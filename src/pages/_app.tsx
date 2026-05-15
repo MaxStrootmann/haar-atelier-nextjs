@@ -6,7 +6,8 @@ import CartItemsContext from "contexts/cartItemsContext";
 import CartVisibilityContext from "contexts/cartVisibilityContext";
 import { cartReducer } from "reducers/cart/reducer";
 import Types from "reducers/cart/types";
-import { CookieCart, CartProduct, CategorySchema, ProductSchema } from "lib/interfaces";
+import { CookieCart, CartProduct, CategorySchema } from "lib/interfaces";
+import type { StorefrontProduct } from "lib/payload/storefront";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import SearchVisibilityContext from "contexts/searchVisibilityContext";
@@ -18,7 +19,7 @@ import PlausibleProvider from "next-plausible";
 interface MyAppProps {
   children: React.ReactNode;
   categories: CategorySchema[];
-  products: ProductSchema[];
+  products: StorefrontProduct[];
 }
 
 const cormorant = Cormorant({

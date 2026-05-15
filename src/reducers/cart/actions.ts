@@ -1,14 +1,14 @@
 import Types from "./types";
-import { ProductSchema } from "lib/interfaces";
+import { CartProduct } from "lib/interfaces";
 
 export interface BulkAddAction {
   type: Types.bulkAdd;
-  payload: ProductSchema[];
+  payload: CartProduct[];
 }
 
 export interface AddToCartAction {
   type: Types.addToCart;
-  payload: ProductSchema;
+  payload: CartProduct;
 }
 
 export interface RemoveSingleItemAction {

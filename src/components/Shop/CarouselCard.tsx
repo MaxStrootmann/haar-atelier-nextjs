@@ -1,8 +1,8 @@
-import { ProductSchema } from "lib/interfaces";
+import type { StorefrontProduct } from "lib/payload/storefront";
 import ProductCardBase from "./ProductCardBase";
 
 interface ProductCardProps {
-  product: ProductSchema;
+  product: StorefrontProduct;
 }
 
 const CarouselCard: React.FC<ProductCardProps> = ({ product }) => {

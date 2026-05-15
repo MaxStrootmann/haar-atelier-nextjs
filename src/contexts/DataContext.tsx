@@ -28,7 +28,7 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
       const fetchedCategories = Array.from(
         new Set(
           fetchedProducts
-            .map((product: any) => product.subcategories?.[0]?.title)
+            .map((product: any) => product.category)
             .filter(Boolean)
         )
       );

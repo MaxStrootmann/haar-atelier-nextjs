@@ -1,14 +1,13 @@
 import CartItemsContext from "contexts/cartItemsContext";
 import CartVisibilityContext from "contexts/cartVisibilityContext";
-import { ProductSchema } from "lib/interfaces";
-import urlFor from "lib/sanity/urlFor";
+import type { StorefrontProduct } from "lib/payload/storefront";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext } from "react";
 import Types from "reducers/cart/types";
 
 interface ProductCardBaseProps {
-  product: ProductSchema;
+  product: StorefrontProduct;
   contentClassName?: string;
 }
 
@@ -35,7 +34,7 @@ export default function ProductCardBase({
       <Link href={`/product/${product.slug}`}>
         <div className="relative w-32 h-32 md:w-44 md:h-44 my-4 mx-auto">
           <Image
-            src={urlFor(product.featured_image).url()}
+            src={product.image?.url || ""}
             quality={100}
             fill={true}
             sizes="(min-width: 780px) 176px, 128px"
@@ -53,7 +52,7 @@ export default function ProductCardBase({
         </Link>
         <div className="flex justify-between w-full items-center">
           <span className="text-[14px]">€{displayedPrice}</span>
-          {product.in_stock ? (
+          {product.inStock ? (
             <button
               id="add-to-cart"
               aria-label="Voeg toe aan winkelmandje"

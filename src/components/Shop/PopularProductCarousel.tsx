@@ -1,10 +1,10 @@
-import { ProductSchema } from "lib/interfaces";
+import type { StorefrontProduct } from "lib/payload/storefront";
 import Link from "next/link";
 import React from "react";
 import CarouselCard from "./CarouselCard";
 
 interface ProductListProps {
-  products: ProductSchema[];
+  products: StorefrontProduct[];
 }
 
 const PopularProductCarousel: React.FC<ProductListProps> = ({ products }) => {
@@ -29,7 +29,7 @@ const PopularProductCarousel: React.FC<ProductListProps> = ({ products }) => {
       <div className="relative lg:max-w-screen-lg  mx-auto">
         <div className="flex overflow-x-auto py-4 gap-4 pl-4">
           {products.map((product) => (
-            <CarouselCard product={product} key={product._id} />
+            <CarouselCard product={product} key={product.id} />
           ))}
         </div>
       </div>

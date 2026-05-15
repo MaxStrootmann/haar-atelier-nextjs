@@ -6,11 +6,11 @@ import ProductCard from "components/Shop/ProductCard";
 import SortDropdown from "components/Shop/SortDropdown";
 import WebshopHero from "components/Shop/WebshopHero";
 import { Logo_Natulique } from "lib/icons";
-import { ProductSchema } from "lib/interfaces";
+import type { StorefrontProduct } from "lib/payload/storefront";
 import {
-  getPayloadProductCategories,
-  getPayloadProducts,
-} from "lib/payload/queries/products";
+  getStorefrontProductCategories,
+  getStorefrontProducts,
+} from "lib/payload/storefront";
 import { hardCodedCategories } from "lib/shop/categories";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Image from "next/image";
@@ -19,8 +19,8 @@ import { useState } from "react";
 
 interface Props {
   categories: any[];
-  products: ProductSchema[];
-  popularProducts: ProductSchema[];
+  products: StorefrontProduct[];
+  popularProducts: StorefrontProduct[];
 }
 
 export default function CategoriesPage({
@@ -28,7 +28,7 @@ export default function CategoriesPage({
   products,
   popularProducts,
 }: Props) {
-  const [displayedProducts] = useState<ProductSchema[]>(products);
+  const [displayedProducts] = useState<StorefrontProduct[]>(products);
   const [selected, setSelected] = useState(categories[categories.length - 1]);
   let selectedSort = useSearchParams()?.get("sort") ?? "";
   let sort = selectedSort ? `&sort=${selectedSort}` : "";
@@ -89,7 +89,7 @@ export default function CategoriesPage({
         </div>
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-8">
           {displayedProducts.map((product) => (
-            <ProductCard product={product} key={product._id} />
+            <ProductCard product={product} key={product.id} />
           ))}
         </div>
       </div>
@@ -118,14 +118,14 @@ export const getServerSideProps: GetServerSideProps = async (
     }
   };
 
-  const products = (await getPayloadProducts({
+  const products = (await getStorefrontProducts({
     category,
     limit: 200,
     sort: sortFormat(),
-  })).filter((product) => product.featured_image?.asset?._ref);
-  const categories = await getPayloadProductCategories();
-  const popularProducts = (await getPayloadProducts({ limit: 20, sort: "popularity desc" }))
-    .filter((product) => product.featured_image?.asset?._ref)
+  })).filter((product) => product.image?.url);
+  const categories = await getStorefrontProductCategories();
+  const popularProducts = (await getStorefrontProducts({ limit: 20, sort: "popularity desc" }))
+    .filter((product) => product.image?.url)
     .slice(0, 10);
 
   return {

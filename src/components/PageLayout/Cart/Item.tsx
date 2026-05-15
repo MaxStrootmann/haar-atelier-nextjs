@@ -3,7 +3,6 @@ import { CartProduct } from "lib/interfaces";
 import Image from "next/legacy/image";
 import CartItemsContext from "contexts/cartItemsContext";
 import Types from "reducers/cart/types";
-import urlFor from "lib/sanity/urlFor";
 import { AiOutlineClose, AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import Link from "next/link";
 
@@ -13,7 +12,7 @@ interface ItemProps {
 
 const Item: React.FC<ItemProps> = ({ product }) => {
   const { dispatch } = useContext(CartItemsContext);
-  const { slug, featured_image, name, in_stock, price, quantity } = product;
+  const { slug, image, name, price, quantity } = product;
 
   const removeWholeProduct = () => {
     dispatch({
@@ -43,7 +42,7 @@ const Item: React.FC<ItemProps> = ({ product }) => {
       <div className="row-span-2 flex items-center ml-2">
         <Link href={`/product/${product.slug}`}>
           <Image
-            src={urlFor(featured_image).url()}
+            src={image?.url || ""}
             width={80}
             height={80}
             className=""

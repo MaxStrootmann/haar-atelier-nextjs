@@ -1,6 +1,6 @@
-import { ProductSchema, Image } from "./schema";
+import type { StorefrontProduct } from "lib/payload/storefront";
 
-export interface CartProduct extends ProductSchema {
+export interface CartProduct extends StorefrontProduct {
   quantity?: number;
 }
 

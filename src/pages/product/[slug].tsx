@@ -2,19 +2,18 @@ import React, { useContext, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
-import { ProductSchema } from "lib/interfaces";
+import type { StorefrontProduct } from "lib/payload/storefront";
 import CartItemsContext from "contexts/cartItemsContext";
 import Types from "reducers/cart/types";
 import { toPlainText } from "@portabletext/react";
-import urlFor from "lib/sanity/urlFor";
-import { getPayloadProductBySlug } from "lib/payload/queries/products";
+import { getStorefrontProductBySlug } from "lib/payload/storefront";
 import MetaHead from "components/MetaHead";
 import CartVisibilityContext from "contexts/cartVisibilityContext";
 import SimpleBlockText from "components/RichText/SimpleBlockText";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 interface ProductProps {
-  product: ProductSchema;
+  product: StorefrontProduct;
 }
 
 const Product: React.FC<ProductProps> = ({ product }) => {
@@ -38,9 +37,9 @@ const Product: React.FC<ProductProps> = ({ product }) => {
 
   const displayedPrice = product?.price?.toFixed(2).replace(".", ",");
 
-  const descriptions = (product.description ?? []).filter(Boolean);
+  const descriptions = Array.isArray(product.description) ? product.description.filter(Boolean) : [];
   const formattedDescriptions = descriptions.filter((description) => toPlainText(description).replace(/\n/g, '<br>'))
-  const featuredImageUrl = product.featured_image?.asset ? urlFor(product.featured_image).url() : null;
+  const featuredImageUrl = product.image?.url || null;
   
       
 
@@ -52,10 +51,10 @@ const Product: React.FC<ProductProps> = ({ product }) => {
           description={toPlainText(descriptions)}
         />
       )}
-      {product?.subcategories && (
+      {product?.category && (
         <div className="flex sm:flex-row flex-col justify-between w-full max-w-2xl mx-auto sm:mt-0 mb-9 ">
-          <Link href={`/category/${product.subcategories[0].slug}`}>
-            «{product.subcategories[0].title}
+          <Link href={`/shop?category=${encodeURIComponent(product.category.replace(/ & /g, "-and-").replace(/ /g, "-"))}`}>
+            «{product.category}
           </Link>
         </div>
       )}
@@ -75,10 +74,10 @@ const Product: React.FC<ProductProps> = ({ product }) => {
         <div className="sm:w-3/5 w-full sm:pl-6 sm:pr-0 pl-5 pr-5 ">
           <h1 className="text-4xl text-left font-bold mb-8">{product?.name}</h1>
           <h2 className="mb-6"></h2>
-          {product?.description && (
+          {descriptions.length > 0 && (
             <div className="text-sm mb-5">
               <div className="space-y-4">
-                <SimpleBlockText blocks={formattedDescriptions} />
+                <SimpleBlockText blocks={formattedDescriptions as any} />
                 <div className="my-4">
                   <span className="text-2xl text-black">€{displayedPrice}</span>
                 </div>
@@ -86,7 +85,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
             </div>
           )}
 
-          {product.in_stock ? (
+          {product.inStock ? (
             <>
               <div className="flex justify-between items-center w-full border border-black rounded-lg text-xl mb-4 px-3 py-1">
                 <button
@@ -127,7 +126,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const product = await getPayloadProductBySlug(params?.slug as string);
+  const product = await getStorefrontProductBySlug(params?.slug as string);
 
   if (!product) {
     throw Error("Sorry, something went wrong.");
