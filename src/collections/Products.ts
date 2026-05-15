@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { anyone } from '../access/anyone'
+import { adminsOrEditors } from '../access/roles'
 
 import { sourceField, sourceIdField } from './fields/source'
 
@@ -14,7 +15,12 @@ const productCategoryOptions = [
 ]
 
 export const Products: CollectionConfig = {
-  access: { read: anyone },
+  access: {
+    read: anyone,
+    create: adminsOrEditors,
+    update: adminsOrEditors,
+    delete: adminsOrEditors,
+  },
   slug: 'products',
   versions: { drafts: true },
   admin: {

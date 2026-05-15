@@ -1,11 +1,17 @@
 import type { CollectionConfig } from 'payload'
 
 import { anyone } from '../access/anyone'
+import { adminsOrEditors } from '../access/roles'
 
 import { sourceField, sourceIdField } from './fields/source'
 
 export const Brands: CollectionConfig = {
-  access: { read: anyone },
+  access: {
+    read: anyone,
+    create: adminsOrEditors,
+    update: adminsOrEditors,
+    delete: adminsOrEditors,
+  },
   slug: 'brands',
   admin: {
     useAsTitle: 'title',
