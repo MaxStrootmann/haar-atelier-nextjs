@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import MetaHead from "components/MetaHead";
 
-type Version = "allure" | "haar" | "mix";
+type Version = "editorial" | "natural" | "atelier" | "colour" | "ritual";
 
 const appointmentUrl =
   "https://widget2.meetaimy.com/widgetWeb?salonId=MTIzNjkzMA%3D%3D&salonEmail=aW5mb0BtYXJsb2Vzb3RqZXMtaGFhcmF0ZWxpZXIubmw%3D";
@@ -39,72 +39,114 @@ type Concept = {
 };
 
 export const concepts: Record<Version, Concept> = {
-  allure: {
-    version: "allure",
-    label: "Allure geïnspireerd",
+  editorial: {
+    version: "editorial",
+    label: "Editorial warm",
     eyebrow: "Haar Atelier Alkmaar",
     headline: "Jouw reis naar mooi haar begint hier.",
-    intro: "Een uitgesproken, mobiel-first richting met grote beelden, warme terracotta knoppen en editorial typografie.",
-    statement: "De salon als eerste indruk: groot, warm en direct boekbaar.",
+    intro: "Allure-energie met Haar Atelier warmte: groot beeld, directe actie en echte saloncopy als basis.",
+    statement: "Gespecialiseerd in kleur, balayage, highlights en natuurlijke looks.",
     storyTitle: "Voor liefde voor haar",
     story: colourCopy,
     imageOne: "/content_deur.jpg",
     imageTwo: "/content_fohnen.jpg",
     imageThree: "/content_voorraad.jpg",
     navTone: "text-[oklch(98%_0.006_75)] mix-blend-difference",
-    className: "bg-[oklch(96%_0.012_62)] text-[oklch(24%_0.045_35)]",
-    headlineClass: "text-[oklch(37%_0.11_28)]",
-    buttonClass: "bg-[oklch(62%_0.12_38)] text-[oklch(98%_0.008_62)]",
-    secondaryClass: "bg-[oklch(62%_0.12_38)] text-[oklch(98%_0.008_62)]",
-    sectionClass: "bg-[oklch(98%_0.006_70)]",
-    imageClass: "brightness-[1.04] contrast-[0.94] saturate-[0.92]",
+    className: "bg-[#faf1df] text-[#351713]",
+    headlineClass: "text-[#74271e]",
+    buttonClass: "bg-[#ba7860] text-white",
+    secondaryClass: "bg-[#74271e] text-white",
+    sectionClass: "bg-[#fff8ed]",
+    imageClass: "brightness-[1.04] contrast-[0.94] saturate-[0.9]",
   },
-  haar: {
-    version: "haar",
-    label: "Haar-native",
+  natural: {
+    version: "natural",
+    label: "Natural calm",
     eyebrow: "Natural, healthy & sexy hair",
     headline: "Natuurlijk mooi haar in alle rust.",
-    intro: "Een zachtere richting die dichter bij de huidige Haar-identiteit blijft: premium, licht, rustig en persoonlijk.",
-    statement: "Rustige luxe, natuurlijke verzorging en aandacht voor jou.",
+    intro: "Rustiger, zachter en dichter bij het huidige Haar Atelier: duurzaam, persoonlijk en licht.",
+    statement: "Eerlijke, natuurlijke en duurzame producten in het hart van Alkmaar.",
     storyTitle: "Het Haar Atelier",
-    story: atelierCopy,
+    story: atelierCopy + " Loop binnen in de salon, of boek je afspraak eenvoudig online. Voel je welkom.",
     imageOne: "/content_raam.jpg",
     imageTwo: "/content_deur.jpg",
     imageThree: "/content_producten.jpg",
-    navTone: "text-[oklch(20%_0.02_52)]",
-    className: "bg-[oklch(97%_0.01_75)] text-[oklch(19%_0.018_52)]",
-    headlineClass: "text-[oklch(20%_0.02_52)]",
-    buttonClass: "bg-[oklch(66%_0.08_72)] text-[oklch(98%_0.006_75)]",
-    secondaryClass: "border border-[oklch(70%_0.05_72)] bg-[oklch(98%_0.006_75)] text-[oklch(24%_0.025_52)]",
-    sectionClass: "bg-[oklch(94%_0.018_78)]",
+    navTone: "text-[#503421]",
+    className: "bg-[#fff9f2] text-[#2b2119]",
+    headlineClass: "text-[#503421]",
+    buttonClass: "bg-[#c0975a] text-white",
+    secondaryClass: "border border-[#c0975a] bg-[#fff9f2] text-[#503421]",
+    sectionClass: "bg-[#fbe8d4]",
     imageClass: "brightness-[1.08] contrast-[0.9] saturate-[0.8]",
   },
-  mix: {
-    version: "mix",
-    label: "Mix",
+  atelier: {
+    version: "atelier",
+    label: "Atelier luxe",
     eyebrow: "Warm editorial atelier",
     headline: "Mooi haar, zachte luxe, persoonlijk advies.",
-    intro: "Een brug tussen Allure en Haar: grote typografie en sterk beeld, maar zachter, persoonlijker en minder hard.",
-    statement: "Een warm ateliergevoel met duidelijke keuzes: boeken of shoppen.",
-    storyTitle: "Zachte luxe voor dagelijks mooi haar",
-    story: natuliqueCopy,
+    intro: "Een premium mix: grote typografie, zachte fotografie, persoonlijke Marloes-copy en duidelijke keuzes.",
+    statement: "Loop binnen in de salon, of boek je afspraak eenvoudig online. Voel je welkom.",
+    storyTitle: "Haar Atelier Alkmaar",
+    story: atelierCopy,
     imageOne: "/content_deur.jpg",
-    imageTwo: "/content_fohnen.jpg",
+    imageTwo: "/content_stoel.jpg",
     imageThree: "/content_producten.jpg",
     navTone: "text-[oklch(98%_0.006_75)] mix-blend-difference",
-    className: "bg-[oklch(96%_0.014_66)] text-[oklch(21%_0.025_45)]",
-    headlineClass: "text-[oklch(31%_0.07_32)]",
-    buttonClass: "bg-[oklch(60%_0.10_42)] text-[oklch(98%_0.007_66)]",
-    secondaryClass: "bg-[oklch(91%_0.025_66)] text-[oklch(28%_0.035_42)]",
-    sectionClass: "bg-[oklch(92%_0.022_62)]",
-    imageClass: "brightness-[1.02] contrast-[0.92] saturate-[0.86]",
+    className: "bg-[#f8f2e8] text-[#2f1d18]",
+    headlineClass: "text-[#6f2a22]",
+    buttonClass: "bg-[#b8785f] text-white",
+    secondaryClass: "bg-[#efdfc7] text-[#503421]",
+    sectionClass: "bg-[#faf1df]",
+    imageClass: "brightness-[1.03] contrast-[0.92] saturate-[0.84]",
+  },
+  colour: {
+    version: "colour",
+    label: "Colour specialist",
+    eyebrow: "Balayage · Highlights · Brunettes",
+    headline: "Natuurlijke kleuringen met zacht resultaat.",
+    intro: "Een homepage die sterker opent op Marloes' specialisme: sunkissed balayage, lived-in blonde en rijke brunettes.",
+    statement: "Sunkissed balayage, lived-in blonde, zachte highlights en rich brunette.",
+    storyTitle: "Natural, healthy & sexy hair",
+    story: colourCopy,
+    imageOne: "/content_fohnen.jpg",
+    imageTwo: "/portfolio/IMG_20230918_111432_edit_158602670998714.jpg",
+    imageThree: "/portfolio/IMG_20230929-WA0004.jpg",
+    navTone: "text-[#fff9f2] mix-blend-difference",
+    className: "bg-[#2b1713] text-[#fff9f2]",
+    headlineClass: "text-[#faf1df]",
+    buttonClass: "bg-[#ba7860] text-white",
+    secondaryClass: "border border-[#faf1df] text-[#faf1df]",
+    sectionClass: "bg-[#3a211b]",
+    imageClass: "brightness-[0.96] contrast-[1.02] saturate-[0.92]",
+  },
+  ritual: {
+    version: "ritual",
+    label: "Care ritual",
+    eyebrow: "Natulique organic hair care",
+    headline: "Gezonde verzorging, mooi haar, elke dag.",
+    intro: "Meer webshop- en productgericht, maar nog steeds salon-first: Natulique als natuurlijke verzorgingslijn.",
+    statement: "Biologische haarverzorging verkrijgbaar in de salon en de webshop.",
+    storyTitle: "Natulique",
+    story: natuliqueCopy + " Dat voel je, en dat ruik je. De producten zijn verkrijgbaar in de salon en de webshop.",
+    imageOne: "/content_producten.jpg",
+    imageTwo: "/content_voorraad.jpg",
+    imageThree: "/haa_ps_colourshield.jpg",
+    navTone: "text-[#503421]",
+    className: "bg-[#fff9f2] text-[#30231b]",
+    headlineClass: "text-[#503421]",
+    buttonClass: "bg-[#c0975a] text-white",
+    secondaryClass: "bg-[#fbe8d4] text-[#503421]",
+    sectionClass: "bg-[#fbe8d4]",
+    imageClass: "brightness-[1.06] contrast-[0.9] saturate-[0.86]",
   },
 };
 
-const routes: Array<{ href: string; label: string }> = [
-  { href: "/refresh-preview/allure", label: "Allure" },
-  { href: "/refresh-preview/haar", label: "Haar" },
-  { href: "/refresh-preview/mix", label: "Mix" },
+const routes: Array<{ href: string; label: string; version: Version }> = [
+  { href: "/refresh-preview/editorial", label: "Editorial", version: "editorial" },
+  { href: "/refresh-preview/natural", label: "Natural", version: "natural" },
+  { href: "/refresh-preview/atelier", label: "Atelier", version: "atelier" },
+  { href: "/refresh-preview/colour", label: "Colour", version: "colour" },
+  { href: "/refresh-preview/ritual", label: "Ritual", version: "ritual" },
 ];
 
 function PreviewShell({ concept }: { concept: Concept }) {
@@ -116,7 +158,7 @@ function PreviewShell({ concept }: { concept: Concept }) {
       </Link>
       <nav className="flex gap-4 text-xs uppercase tracking-[0.18em] md:gap-7">
         {routes.map((route) => (
-          <Link key={route.href} href={route.href} className={route.label.toLowerCase() === concept.version ? "underline underline-offset-4" : ""}>
+          <Link key={route.href} href={route.href} className={route.version === concept.version ? "underline underline-offset-4" : ""}>
             {route.label}
           </Link>
         ))}

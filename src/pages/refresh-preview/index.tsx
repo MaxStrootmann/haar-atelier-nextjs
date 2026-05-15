@@ -3,9 +3,11 @@ import { concepts, getPreviewLayout } from "components/RefreshPreview/HomepageCo
 import MetaHead from "components/MetaHead";
 
 const cards = [
-  { href: "/refresh-preview/allure", concept: concepts.allure },
-  { href: "/refresh-preview/haar", concept: concepts.haar },
-  { href: "/refresh-preview/mix", concept: concepts.mix },
+  { href: "/refresh-preview/editorial", concept: concepts.editorial },
+  { href: "/refresh-preview/natural", concept: concepts.natural },
+  { href: "/refresh-preview/atelier", concept: concepts.atelier },
+  { href: "/refresh-preview/colour", concept: concepts.colour },
+  { href: "/refresh-preview/ritual", concept: concepts.ritual },
 ];
 
 export default function RefreshPreviewIndex() {
@@ -16,12 +18,12 @@ export default function RefreshPreviewIndex() {
         <div className="mx-auto max-w-6xl">
           <p className="text-xs uppercase tracking-[0.3em] opacity-60">Haar Atelier refresh</p>
           <h1 className="mt-5 max-w-4xl font-serif text-6xl leading-[0.9] tracking-[-0.055em] text-[oklch(31%_0.07_32)] md:text-8xl">
-            Drie homepage richtingen om los te beoordelen.
+            Vijf homepage richtingen om los te beoordelen.
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 opacity-75">
-            Elke route is een kleine homepage-prototype met dezelfde tijdelijke salonfoto, Nederlandse copy en afspraak maken als primaire actie.
+            Elke route is een homepage-prototype met dezelfde tijdelijke salonfoto, Nederlandse copy en afspraak maken als primaire actie.
           </p>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-5">
             {cards.map(({ href, concept }) => (
               <Link key={href} href={href} className="group flex min-h-80 flex-col justify-between bg-[oklch(98%_0.006_70)] p-6 transition hover:-translate-y-1">
                 <div>
