@@ -1,6 +1,9 @@
+import type React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import MetaHead from "components/MetaHead";
+
+const usePreviewShell = true;
 
 const versions = [
   {
@@ -40,6 +43,22 @@ const versions = [
     imageClass: "brightness-[1.02] contrast-[0.92] saturate-[0.86]",
   },
 ];
+
+function ShellHeader() {
+  return (
+    <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-5 py-4 text-[oklch(98%_0.006_75)] mix-blend-difference md:px-10">
+      <div className="font-serif text-xl leading-none tracking-[0.18em] md:text-3xl">
+        HAAR ATELIER
+        <span className="block text-center text-[0.55em] tracking-[0.28em]">ALKMAAR</span>
+      </div>
+      <nav className="flex gap-5 text-xs uppercase tracking-[0.2em] md:gap-8">
+        <a href="#allure">V1</a>
+        <a href="#haar">V2</a>
+        <a href="#mix">V3</a>
+      </nav>
+    </header>
+  );
+}
 
 function HeroVersion({ version }: { version: (typeof versions)[number] }) {
   return (
@@ -89,11 +108,16 @@ function HeroVersion({ version }: { version: (typeof versions)[number] }) {
   );
 }
 
+RefreshPreview.getLayout = function getLayout(page: React.ReactElement) {
+  return page;
+};
+
 export default function RefreshPreview() {
   return (
     <>
       <MetaHead title="Refresh preview" description="Haar Atelier refresh hero concepts" />
-      <main className="pt-14 md:pt-20">
+      {usePreviewShell && <ShellHeader />}
+      <main className={usePreviewShell ? "" : "pt-14 md:pt-20"}>
         {versions.map((version) => (
           <HeroVersion key={version.id} version={version} />
         ))}

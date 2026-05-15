@@ -1,5 +1,6 @@
 import "styles/globals.scss";
 import type { AppProps } from "next/app";
+import type { NextPage } from "next";
 import React, { useEffect, useReducer, useState } from "react";
 import PageLayout from "components/PageLayout/PageLayout";
 import CartItemsContext from "contexts/cartItemsContext";
@@ -15,6 +16,14 @@ import { DataProvider } from "contexts/DataContext";
 import Script from "next/script";
 import { Cormorant } from "next/font/google";
 import PlausibleProvider from "next-plausible";
+
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: React.ReactElement) => React.ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
 
 interface MyAppProps {
   children: React.ReactNode;
@@ -37,7 +46,7 @@ const slugs =
     return [...slugs, item.slug];
   }, []);
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const router = useRouter();
   const [cart, dispatch] = useReducer(cartReducer, []);
   const [cartVisibility, setCartVisibilty] = useState(false);
@@ -104,6 +113,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     };
   }, []);
 
+  const page = <Component backClicked={backClicked} {...pageProps} />;
+  const content = Component.getLayout ? page : <PageLayout categories={[]} products={[]}>{page}</PageLayout>;
+
   return (
     <SearchVisibilityContext.Provider
       value={{
@@ -136,22 +148,20 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                 gtag('config', '${process.env.NEXT_PUBLIC_GA}');
               `}
             </Script>
-            <PageLayout categories={[]} products={[]}>
-              <style jsx global>
-                {`
-                  h1,
-                  h2,
-                  h3,
-                  h4 {
-                    font-family: ${cormorant.style.fontFamily};
-                  }
-                `}
-              </style>
-              <PlausibleProvider domain='haaratelier-alkmaar.nl'>
-                <Component backClicked={backClicked} {...pageProps} />
-              </PlausibleProvider>
-              <Script async defer crossOrigin='anonymous' src='https://connect.facebook.net/en_US/sdk.js' />
-            </PageLayout>
+            <style jsx global>
+              {`
+                h1,
+                h2,
+                h3,
+                h4 {
+                  font-family: ${cormorant.style.fontFamily};
+                }
+              `}
+            </style>
+            <PlausibleProvider domain='haaratelier-alkmaar.nl'>
+              {content}
+            </PlausibleProvider>
+            <Script async defer crossOrigin='anonymous' src='https://connect.facebook.net/en_US/sdk.js' />
           </DataProvider>
         </CartVisibilityContext.Provider>
       </CartItemsContext.Provider>
