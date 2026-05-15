@@ -6,7 +6,7 @@ import CartItemsContext from "contexts/cartItemsContext";
 import CartVisibilityContext from "contexts/cartVisibilityContext";
 import { cartReducer } from "reducers/cart/reducer";
 import Types from "reducers/cart/types";
-import { CookieCart, CartProduct, CategorySchema } from "lib/interfaces";
+import { CookieCart, CartProduct } from "lib/interfaces";
 import type { StorefrontProduct } from "lib/payload/storefront";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
@@ -18,7 +18,7 @@ import PlausibleProvider from "next-plausible";
 
 interface MyAppProps {
   children: React.ReactNode;
-  categories: CategorySchema[];
+  categories: string[];
   products: StorefrontProduct[];
 }
 

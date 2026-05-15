@@ -4,14 +4,15 @@ import Cart from "./Cart/Cart";
 import React, { useContext, useEffect } from "react";
 import CartItemsContext from "contexts/cartItemsContext";
 import CartVisibilityContext from "contexts/cartVisibilityContext";
-import { CartProduct, CategorySchema, ProductSchema } from "lib/interfaces";
+import { CartProduct } from "lib/interfaces";
+import type { StorefrontProduct } from "lib/payload/storefront";
 import { MdManageSearch, MdOutlineShoppingBag } from "react-icons/md";
 import haalogo from "/public/haalogo.svg"
 import Image from "next/image";
 import SearchVisibilityContext from "contexts/searchVisibilityContext";
 import Searchbar from "./Searchbar/Searchbar";
 interface HeaderProps {
-  products: ProductSchema[];
+  products: StorefrontProduct[];
 }
 
 

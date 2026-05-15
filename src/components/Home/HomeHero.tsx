@@ -1,4 +1,3 @@
-import { CategorySchema, ProductSchema } from "lib/interfaces/schema";
 import MetaHead from "components/MetaHead";
 import Link from "next/link";
 import Image from "next/image";

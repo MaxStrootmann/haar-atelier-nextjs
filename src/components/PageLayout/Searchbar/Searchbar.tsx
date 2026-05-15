@@ -2,10 +2,10 @@ import SearchVisibilityContext from "contexts/searchVisibilityContext";
 import { useContext, useEffect } from "react";
 import classNames from "classnames";
 import MyComboBox from "./MyComboBox";
-import { CategorySchema, ProductSchema } from "lib/interfaces";
+import type { StorefrontProduct } from "lib/payload/storefront";
 
 interface SearchbarProps {
-  products: ProductSchema[];
+  products: StorefrontProduct[];
 }
 const Searchbar: React.FC<SearchbarProps> = ({ products }) => {
   const { searchVisibility, toggleSearchVisibility } = useContext(

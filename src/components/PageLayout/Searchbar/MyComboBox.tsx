@@ -1,31 +1,29 @@
 import { useContext, useState } from "react";
 import { Combobox } from "@headlessui/react";
-import { ProductSchema } from "lib/interfaces";
+import type { StorefrontProduct } from "lib/payload/storefront";
 import { ArrowLeftIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import Image from "next/legacy/image";
-import urlFor from "lib/sanity/urlFor";
 import Link from "next/link";
 import SearchVisibilityContext from "contexts/searchVisibilityContext";
 
 interface MyComboBoxProps {
-  products: ProductSchema[];
+  products: StorefrontProduct[];
   categories?: any[];
 }
 
 const MyComboBox: React.FC<MyComboBoxProps> = ({ products = [], categories = [] }) => {
-  const [selected, setSelected] = useState<ProductSchema>(products[0] || null);
+  const [selected, setSelected] = useState<StorefrontProduct | { id: string; name: string } | null>(products[0] || null);
 
   const [query, setQuery] = useState("");
 
   const { searchVisibility, toggleSearchVisibility } = useContext(SearchVisibilityContext);
 
   const menuItems = [
-    { _id: "1", name: "" },
-    { _id: "2", name: "Shop" },
-    { _id: "3", name: "Reviews" },
-    { _id: "4", name: "Team" },
-    { _id: "5", name: "Tarieven" },
-    { _id: "6", name: "Contact" },
+    { id: "1", name: "" },
+    { id: "2", name: "Shop" },
+    { id: "3", name: "Reviews" },
+    { id: "4", name: "Team" },
+    { id: "5", name: "Tarieven" },
+    { id: "6", name: "Contact" },
   ];
 
   const filteredProducts =
@@ -65,11 +63,11 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({ products = [], categories = [] 
                 {!query &&
                   menuItems.map((item) => (
                     <Link
-                      key={`${item._id}`}
+                      key={`${item.id}`}
                       href={item.name.toLowerCase() === "reviews" ? "/#reviews" : `/${item.name.toLowerCase()}`}
                     >
                       <Combobox.Option
-                        key={`${item._id}`}
+                        key={`${item.id}`}
                         onClick={toggleSearchVisibility}
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-6 pr-4 flex items-center ${
@@ -114,9 +112,9 @@ const MyComboBox: React.FC<MyComboBoxProps> = ({ products = [], categories = [] 
                 ) : (
                   <>
                     {filteredProducts.map((product) => (
-                      <Link key={`${product._id}`} href={`/product/${product.slug}`} onClick={toggleSearchVisibility}>
+                      <Link key={`${product.id}`} href={`/product/${product.slug}`} onClick={toggleSearchVisibility}>
                         <Combobox.Option
-                          key={`${product._id}`}
+                          key={`${product.id}`}
                           className={({ active }) =>
                             `relative cursor-default select-none py-2 pl-6 pr-4 flex items-center ${
                               active ? "bg-grey-300 text-black" : "text-grey-500"
