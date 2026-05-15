@@ -1,127 +1,41 @@
-import type React from "react";
-import Image from "next/image";
 import Link from "next/link";
+import { concepts, getPreviewLayout } from "components/RefreshPreview/HomepageConcept";
 import MetaHead from "components/MetaHead";
 
-const usePreviewShell = true;
-
-const versions = [
-  {
-    id: "allure",
-    label: "Versie 1 · Allure geïnspireerd",
-    eyebrow: "Haar Atelier Alkmaar",
-    headline: "Jouw reis naar mooi haar begint hier.",
-    note: "Groot, uitgesproken en mobiel-first. Terracotta knoppen, editorial serif en directe acties zoals in de referentie.",
-    className: "bg-[oklch(96%_0.012_62)] text-[oklch(24%_0.045_35)]",
-    headlineClass: "text-[oklch(37%_0.11_28)]",
-    buttonClass: "bg-[oklch(62%_0.12_38)] text-[oklch(98%_0.008_62)]",
-    secondaryClass: "bg-[oklch(62%_0.12_38)] text-[oklch(98%_0.008_62)]",
-    imageClass: "brightness-[1.04] contrast-[0.94] saturate-[0.92]",
-  },
-  {
-    id: "haar",
-    label: "Versie 2 · Haar-native",
-    eyebrow: "Natural, healthy & sexy hair",
-    headline: "Natuurlijk mooi haar in alle rust.",
-    note: "Dichter bij de huidige identiteit: zachter, rustiger, lichter. Afspraak maken blijft primair, shop subtieler.",
-    className: "bg-[oklch(97%_0.01_75)] text-[oklch(19%_0.018_52)]",
-    headlineClass: "text-[oklch(20%_0.02_52)]",
-    buttonClass: "bg-[oklch(66%_0.08_72)] text-[oklch(98%_0.006_75)]",
-    secondaryClass: "border border-[oklch(70%_0.05_72)] bg-[oklch(98%_0.006_75)] text-[oklch(24%_0.025_52)]",
-    imageClass: "brightness-[1.08] contrast-[0.9] saturate-[0.8]",
-  },
-  {
-    id: "mix",
-    label: "Versie 3 · Mix",
-    eyebrow: "Warm editorial atelier",
-    headline: "Mooi haar, zachte luxe, persoonlijk advies.",
-    note: "Allure-energie met Haar-zachtheid: grote typografie en beeld, maar minder hard dan de referentie.",
-    className: "bg-[oklch(96%_0.014_66)] text-[oklch(21%_0.025_45)]",
-    headlineClass: "text-[oklch(31%_0.07_32)]",
-    buttonClass: "bg-[oklch(60%_0.10_42)] text-[oklch(98%_0.007_66)]",
-    secondaryClass: "bg-[oklch(91%_0.025_66)] text-[oklch(28%_0.035_42)]",
-    imageClass: "brightness-[1.02] contrast-[0.92] saturate-[0.86]",
-  },
+const cards = [
+  { href: "/refresh-preview/allure", concept: concepts.allure },
+  { href: "/refresh-preview/haar", concept: concepts.haar },
+  { href: "/refresh-preview/mix", concept: concepts.mix },
 ];
 
-function ShellHeader() {
-  return (
-    <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-5 py-4 text-[oklch(98%_0.006_75)] mix-blend-difference md:px-10">
-      <div className="font-serif text-xl leading-none tracking-[0.18em] md:text-3xl">
-        HAAR ATELIER
-        <span className="block text-center text-[0.55em] tracking-[0.28em]">ALKMAAR</span>
-      </div>
-      <nav className="flex gap-5 text-xs uppercase tracking-[0.2em] md:gap-8">
-        <a href="#allure">V1</a>
-        <a href="#haar">V2</a>
-        <a href="#mix">V3</a>
-      </nav>
-    </header>
-  );
-}
-
-function HeroVersion({ version }: { version: (typeof versions)[number] }) {
-  return (
-    <section id={version.id} className={`min-h-screen ${version.className}`}>
-      <div className="grid min-h-screen md:grid-cols-[1.08fr_0.92fr]">
-        <div className="relative min-h-[58vh] overflow-hidden md:min-h-screen">
-          <Image
-            src="/Salon_large.jpg"
-            alt="Haar Atelier Alkmaar salon"
-            fill
-            priority={version.id === "allure"}
-            className={`object-cover ${version.imageClass}`}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[oklch(18%_0.025_45/.18)] via-transparent to-[oklch(18%_0.025_45/.28)]" />
-        </div>
-
-        <div className="flex min-h-[42vh] flex-col justify-between px-7 py-12 pt-16 md:min-h-screen md:px-12 md:py-16 lg:px-16">
-          <div className="hidden justify-end md:flex">
-            <span className="rounded-full border border-current px-4 py-2 text-xs uppercase tracking-[0.2em] opacity-70">
-              Preview · niet productie
-            </span>
-          </div>
-
-          <div className="max-w-3xl md:my-auto">
-            <p className="mb-5 text-xs uppercase tracking-[0.34em] opacity-70">{version.eyebrow}</p>
-            <h1 className={`font-serif text-[clamp(4rem,17vw,8.5rem)] leading-[0.86] tracking-[-0.065em] md:text-[clamp(5.5rem,8vw,10rem)] ${version.headlineClass}`}>
-              {version.headline}
-            </h1>
-            <p className="mt-7 max-w-xl text-base leading-7 opacity-80 md:text-lg md:leading-8">{version.note}</p>
-            <div className="mt-9 grid gap-4 sm:max-w-xl sm:grid-cols-2">
-              <a href="tel:+31651126003" className={`px-6 py-4 text-center text-sm font-semibold uppercase tracking-[0.2em] ${version.buttonClass}`}>
-                Afspraak maken
-              </a>
-              <Link href="/shop" className={`px-6 py-4 text-center text-sm font-semibold uppercase tracking-[0.2em] ${version.secondaryClass}`}>
-                Shop haarverzorging
-              </Link>
-            </div>
-          </div>
-
-          <div className="mt-10 flex items-end justify-between gap-8 text-xs uppercase tracking-[0.18em] opacity-65">
-            <span>{version.label}</span>
-            <span>Mobiel eerst</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-RefreshPreview.getLayout = function getLayout(page: React.ReactElement) {
-  return page;
-};
-
-export default function RefreshPreview() {
+export default function RefreshPreviewIndex() {
   return (
     <>
-      <MetaHead title="Refresh preview" description="Haar Atelier refresh hero concepts" />
-      {usePreviewShell && <ShellHeader />}
-      <main className={usePreviewShell ? "" : "pt-14 md:pt-20"}>
-        {versions.map((version) => (
-          <HeroVersion key={version.id} version={version} />
-        ))}
+      <MetaHead title="Refresh preview" description="Haar Atelier homepage concepts" />
+      <main className="min-h-screen bg-[oklch(96%_0.012_62)] px-6 py-16 text-[oklch(21%_0.025_45)] md:px-12">
+        <div className="mx-auto max-w-6xl">
+          <p className="text-xs uppercase tracking-[0.3em] opacity-60">Haar Atelier refresh</p>
+          <h1 className="mt-5 max-w-4xl font-serif text-6xl leading-[0.9] tracking-[-0.055em] text-[oklch(31%_0.07_32)] md:text-8xl">
+            Drie homepage richtingen om los te beoordelen.
+          </h1>
+          <p className="mt-7 max-w-2xl text-lg leading-8 opacity-75">
+            Elke route is een kleine homepage-prototype met dezelfde tijdelijke salonfoto, Nederlandse copy en afspraak maken als primaire actie.
+          </p>
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {cards.map(({ href, concept }) => (
+              <Link key={href} href={href} className="group flex min-h-80 flex-col justify-between bg-[oklch(98%_0.006_70)] p-6 transition hover:-translate-y-1">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.24em] opacity-60">{concept.label}</p>
+                  <h2 className={`mt-5 font-serif text-5xl leading-[0.92] tracking-[-0.045em] ${concept.headlineClass}`}>{concept.headline}</h2>
+                </div>
+                <span className="mt-10 text-xs font-semibold uppercase tracking-[0.2em] opacity-70 group-hover:opacity-100">Bekijk versie →</span>
+              </Link>
+            ))}
+          </div>
+        </div>
       </main>
     </>
   );
 }
+
+RefreshPreviewIndex.getLayout = getPreviewLayout;
